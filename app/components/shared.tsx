@@ -37,10 +37,10 @@ export const navLinks = [
       { label: "FAQs", href: "/faqs" },
     ],
   },
-  { label: "Gallery", href: "/#gallery", children: null },
-  { label: "Reviews", href: "/#reviews", children: null },
-  { label: "About Us", href: "/#about", children: null },
-  { label: "Contact Us", href: "/#contact", children: null },
+  { label: "Gallery", href: "/gallery", children: null },
+  { label: "Reviews", href: "/reviews", children: null },
+  { label: "About Us", href: "/about", children: null },
+  { label: "Contact Us", href: "/contact", children: null },
 ];
 
 /* ─── Reusable: Stars ─────────────────────────────────────── */
@@ -356,7 +356,7 @@ export function CTABanner() {
             EXPLORE TOUR PACKAGES
           </Link>
           <Link
-            href="/#contact"
+            href="/request-a-quote"
             style={{
               display: "inline-block",
               background: "#FF9900",
@@ -477,7 +477,7 @@ export function Navbar() {
 
           {/* RIGHT — CTA */}
           <Link
-            href="/#contact"
+            href="/request-a-quote"
             id="request-quote-btn"
             style={{
               background: "#FF9900",
@@ -578,34 +578,28 @@ export function Navbar() {
           <ul style={{ listStyle: "none", padding: 0, margin: "20px 0", flex: 1 }}>
             {navLinks.map((link) => (
               <li key={link.label}>
-                <button
-                  onClick={() => {
-                    if (link.children) {
-                      setOpenDropdown(openDropdown === link.label ? null : link.label);
-                    } else {
-                      setMenuOpen(false);
-                    }
-                  }}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "13px 0",
-                    background: "none",
-                    border: "none",
-                    borderBottom: "1px solid #BACCDF40",
-                    fontSize: 14,
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: 1,
-                    color: "#003366",
-                    cursor: "pointer",
-                    fontFamily: "var(--font-figtree), sans-serif",
-                  }}
-                >
-                  <span>{link.label}</span>
-                  {link.children && (
+                {link.children ? (
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === link.label ? null : link.label)}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "13px 0",
+                      background: "none",
+                      border: "none",
+                      borderBottom: "1px solid #BACCDF40",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: 1,
+                      color: "#003366",
+                      cursor: "pointer",
+                      fontFamily: "var(--font-figtree), sans-serif",
+                    }}
+                  >
+                    <span>{link.label}</span>
                     <svg
                       width="14"
                       height="14"
@@ -621,8 +615,33 @@ export function Navbar() {
                     >
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
-                  )}
-                </button>
+                  </button>
+                ) : (
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "13px 0",
+                      background: "none",
+                      border: "none",
+                      borderBottom: "1px solid #BACCDF40",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: 1,
+                      color: "#003366",
+                      cursor: "pointer",
+                      fontFamily: "var(--font-figtree), sans-serif",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <span>{link.label}</span>
+                  </Link>
+                )}
                 {link.children && openDropdown === link.label && (
                   <ul style={{ listStyle: "none", padding: "6px 0 6px 16px", margin: 0 }}>
                     {link.children.map((child) => (
@@ -716,9 +735,9 @@ export function Footer() {
             <h4 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, fontWeight: 700, textTransform: "uppercase", color: "#fff", margin: "0 0 16px" }}>Quick Links</h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
               {[
-                { label: "FAQs", href: "#" },
-                { label: "About Us", href: "/#about" },
-                { label: "Contact Us", href: "/#contact" },
+                { label: "FAQs", href: "/faqs" },
+                { label: "About Us", href: "/about" },
+                { label: "Contact Us", href: "/contact" },
                 { label: "Contracted Rates", href: "#" },
               ].map((l) => (
                 <li key={l.label}>
@@ -733,10 +752,10 @@ export function Footer() {
             <h4 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, fontWeight: 700, textTransform: "uppercase", color: "#fff", margin: "0 0 16px" }}>Services</h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
               {[
-                { label: "Hotel + Tour Package", href: "/packages" },
-                { label: "Homestay + Tour Package", href: "/packages" },
-                { label: "Eco-Tours (Private Tour)", href: "/packages" },
-                { label: "Daily Joiner Tours", href: "/packages" },
+                { label: "Hotel + Tour Package", href: "/packages/hotel" },
+                { label: "Homestay + Tour Package", href: "/packages/homestay" },
+                { label: "Eco-Tours (Private Tour)", href: "/packages/tour" },
+                { label: "Daily Joiner Tours", href: "/packages/tour" },
               ].map((l) => (
                 <li key={l.label}>
                   <Link href={l.href} style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#BACCDF", textDecoration: "none" }}>{l.label}</Link>

@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 
 /* ─── Types ────────────────────────────────────────────────── */
 interface Package {
@@ -133,16 +135,26 @@ const navLinks = [
   {
     label: "BND Packages",
     href: "#packages",
-    children: ["View Packages", "Tour Itineraries", "Tour Inclusions"],
+    children: [
+      { label: "View Packages", href: "/packages" },
+      { label: "Tour Itineraries", href: "/tour-itineraries" },
+      { label: "Tour Inclusions", href: "/tour-inclusions" },
+    ],
   },
   {
     label: "Travel Guides",
     href: "#",
-    children: ["Flights", "Reminders Before Arrival", "Calendar of Events", "Payment Option", "FAQs"],
+    children: [
+      { label: "Flights", href: "/flights" },
+      { label: "Reminders Before Arrival", href: "/reminders-before-arrival" },
+      { label: "Calendar of Events", href: "/calendar-of-events" },
+      { label: "Payment Option", href: "/payment-option" },
+      { label: "FAQs", href: "/faqs" },
+    ],
   },
-  { label: "Gallery", href: "#gallery", children: null },
+  { label: "Gallery", href: "/gallery", children: null },
   { label: "Reviews", href: "#reviews", children: null },
-  { label: "About Us", href: "#about", children: null },
+  { label: "About Us", href: "/about", children: null },
   { label: "Contact Us", href: "#contact", children: null },
 ];
 
@@ -519,34 +531,28 @@ function Navbar() {
           <ul style={{ listStyle: "none", padding: 0, margin: "20px 0", flex: 1 }}>
             {navLinks.map((link) => (
               <li key={link.label}>
-                <button
-                  onClick={() => {
-                    if (link.children) {
-                      setOpenDropdown(openDropdown === link.label ? null : link.label);
-                    } else {
-                      setMenuOpen(false);
-                    }
-                  }}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "13px 0",
-                    background: "none",
-                    border: "none",
-                    borderBottom: "1px solid #BACCDF40",
-                    fontSize: 14,
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: 1,
-                    color: "#003366",
-                    cursor: "pointer",
-                    fontFamily: "var(--font-figtree), sans-serif",
-                  }}
-                >
-                  <span>{link.label}</span>
-                  {link.children && (
+                {link.children ? (
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === link.label ? null : link.label)}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "13px 0",
+                      background: "none",
+                      border: "none",
+                      borderBottom: "1px solid #BACCDF40",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: 1,
+                      color: "#003366",
+                      cursor: "pointer",
+                      fontFamily: "var(--font-figtree), sans-serif",
+                    }}
+                  >
+                    <span>{link.label}</span>
                     <svg
                       width="14"
                       height="14"
@@ -562,14 +568,39 @@ function Navbar() {
                     >
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
-                  )}
-                </button>
+                  </button>
+                ) : (
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "13px 0",
+                      background: "none",
+                      border: "none",
+                      borderBottom: "1px solid #BACCDF40",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: 1,
+                      color: "#003366",
+                      cursor: "pointer",
+                      fontFamily: "var(--font-figtree), sans-serif",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <span>{link.label}</span>
+                  </Link>
+                )}
                 {link.children && openDropdown === link.label && (
                   <ul style={{ listStyle: "none", padding: "6px 0 6px 16px", margin: 0 }}>
                     {link.children.map((child) => (
-                      <li key={child}>
-                        <a
-                          href="#"
+                      <li key={child.label}>
+                        <Link
+                          href={child.href}
                           onClick={() => setMenuOpen(false)}
                           style={{
                             display: "block",
@@ -580,8 +611,8 @@ function Navbar() {
                             fontFamily: "var(--font-figtree), sans-serif",
                           }}
                         >
-                          {child}
-                        </a>
+                          {child.label}
+                        </Link>
                       </li>
                     ))}
                   </ul>

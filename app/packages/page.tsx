@@ -2,280 +2,295 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Navbar,
-  Footer,
-  WhatsApp,
-  Stars,
-  Wave,
-  SectionHeader,
-  PackageCard,
-  CTABanner,
-  PageHero,
-  type Package,
-} from "@/app/components/shared";
+import { Navbar, Footer, SectionHeader, WhatsApp } from "../components/shared";
 
-/* ─── Data ────────────────────────────────────────────────── */
-const honeymoonPackage: Package & {
-  pax?: string;
-  nights?: string;
-  days?: string;
-  inclusions?: string;
-} = {
-  id: 1,
-  image: "/pkg-honeymoon.jpg",
-  title: "Honeymoon Package",
-  stars: 5,
-  desc: "A romantic escape with breathtaking sunsets, island-hopping, and luxury accommodation — perfect for couples seeking an unforgettable Batanes getaway.",
-  tag: "MOST POPULAR",
-  pax: "2 Pax",
-  nights: "3 Nights",
-  days: "4 Days",
-  inclusions: "All Inclusive",
-};
-
-const featuredPackages: Package[] = [
-  {
-    id: 2,
-    image: "/pkg-hotel.jpg",
-    title: "Hotel + Tour Package",
-    stars: 5,
-    desc: "Enjoy comfortable hotel stays combined with guided tours covering all major scenic spots and landmarks across Batanes.",
-    tag: "BEST VALUE",
-  },
-  {
-    id: 3,
-    image: "/pkg-lighthouse.jpg",
-    title: "E-Chopper + Tour Package",
-    stars: 5,
-    desc: "Explore iconic Batanes landscapes aboard a classic e-chopper with a seasoned local guide leading the way through every scenic route.",
-  },
-  {
-    id: 4,
-    image: "/pkg-village.jpg",
-    title: "Backpacking Tour",
-    stars: 5,
-    desc: "Budget-friendly adventure through Batanes with a knowledgeable guide, perfect for solo and group backpackers exploring on a shoestring.",
-  },
-  {
-    id: 5,
-    image: "/pkg-beach.jpg",
-    title: "Daily Joiner Tours",
-    stars: 5,
-    desc: "Join a small group of fellow travelers for a fun, budget-friendly daily sightseeing adventure covering Batan North and South Tours.",
-  },
-];
-
-const morePackages: Package[] = [
-  {
-    id: 6,
-    image: "/pkg-beach.jpg",
-    title: "Para Dito Daw Si Yayas",
-    stars: 5,
-    desc: "A famous filming location package that takes you to iconic spots featured in popular Filipino media — a must for TV lovers.",
-    tag: "NEW",
-  },
-  {
-    id: 7,
-    image: "/pkg-lighthouse.jpg",
-    title: "Private Tour Package",
-    stars: 5,
-    desc: "Enjoy a fully customized private tour of Batanes at your own pace, with a dedicated vehicle and personal guide throughout.",
-  },
-  {
-    id: 8,
-    image: "/pkg-hotel.jpg",
-    title: "OTOP Masaya",
-    stars: 5,
-    desc: "Experience Batanes' One Town One Product highlights — local crafts, cuisine, and unique cultural traditions you can only find here.",
-  },
-];
-
-/* ─── Honeymoon Feature Card ──────────────────────────────── */
-function HoneymoonFeature() {
+/* ─── Hero Section ────────────────────────────────────────── */
+function Hero() {
   return (
-    <section style={{ background: "#EEF3F8", padding: "60px 24px" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: 20,
-            overflow: "hidden",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            boxShadow: "0 8px 40px rgba(0,51,102,0.12)",
-            gap: 0,
-          }}
-          className="honeymoon-grid"
-        >
-          {/* Left — Image */}
-          <div style={{ position: "relative", minHeight: 340 }}>
-            <Image
-              src={honeymoonPackage.image}
-              alt={honeymoonPackage.title}
-              fill
-              style={{ objectFit: "cover" }}
-              sizes="(max-width:768px) 100vw, 50vw"
-            />
-            {honeymoonPackage.tag && (
-              <span
-                style={{
-                  position: "absolute",
-                  top: 16,
-                  left: 16,
-                  background: "#FF9900",
-                  color: "#fff",
-                  fontSize: 11,
-                  fontWeight: 700,
-                  padding: "4px 14px",
-                  borderRadius: 20,
-                  letterSpacing: 0.5,
-                  zIndex: 2,
-                }}
-              >
-                {honeymoonPackage.tag}
-              </span>
-            )}
-          </div>
-
-          {/* Right — Content */}
-          <div style={{ padding: "40px 36px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <p
-              style={{
-                fontFamily: "var(--font-figtree), sans-serif",
-                fontSize: 12,
-                fontWeight: 400,
-                textTransform: "uppercase",
-                letterSpacing: 3,
-                color: "#003366",
-                margin: "0 0 6px",
-              }}
-            >
-              FEATURED PACKAGE
-            </p>
-            <Wave color="#003366" opacity={0.4} />
-            <h2
-              style={{
-                fontFamily: "var(--font-figtree), sans-serif",
-                fontSize: "clamp(22px, 3vw, 32px)",
-                fontWeight: 900,
-                textTransform: "uppercase",
-                color: "#003366",
-                margin: "12px 0 8px",
-              }}
-            >
-              {honeymoonPackage.title}
-            </h2>
-            <Stars count={honeymoonPackage.stars} />
-
-            {/* Stats row */}
-            <div style={{ display: "flex", gap: 24, margin: "16px 0", flexWrap: "wrap" }}>
-              {[
-                { label: "Pax", val: honeymoonPackage.pax! },
-                { label: "Nights", val: honeymoonPackage.nights! },
-                { label: "Days", val: honeymoonPackage.days! },
-                { label: "Package", val: honeymoonPackage.inclusions! },
-              ].map((s) => (
-                <div key={s.label} style={{ textAlign: "center" }}>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-figtree), sans-serif",
-                      fontSize: 18,
-                      fontWeight: 900,
-                      color: "#FF9900",
-                    }}
-                  >
-                    {s.val}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-figtree), sans-serif",
-                      fontSize: 11,
-                      color: "#003366",
-                      textTransform: "uppercase",
-                      letterSpacing: 1,
-                    }}
-                  >
-                    {s.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <p
-              style={{
-                fontFamily: "var(--font-figtree), sans-serif",
-                fontSize: 14,
-                lineHeight: 1.7,
-                color: "#001219",
-                margin: "0 0 24px",
-              }}
-            >
-              {honeymoonPackage.desc}
-            </p>
-            <div>
-              <Link
-                href="/#contact"
-                style={{
-                  display: "inline-block",
-                  background: "#FF9900",
-                  color: "#fff",
-                  padding: "12px 28px",
-                  borderRadius: 4,
-                  fontSize: 13,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: 1,
-                  textDecoration: "none",
-                  fontFamily: "var(--font-figtree), sans-serif",
-                }}
-              >
-                BOOK NOW
-              </Link>
-            </div>
-          </div>
-        </div>
+    <section
+      style={{
+        position: "relative",
+        height: "30vh",
+        minHeight: 200,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
+        <Image
+          src="/pkg-hotel.jpg"
+          alt="Batanes stone house"
+          fill
+          style={{ objectFit: "cover", objectPosition: "center 30%" }}
+          priority
+        />
+        <div style={{ position: "absolute", inset: 0, background: "rgba(0,18,25,0.6)" }} />
       </div>
 
-      <style>{`
-        @media (max-width: 700px) {
-          .honeymoon-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
+      <div style={{ position: "relative", zIndex: 1, textAlign: "center", padding: "0 24px" }}>
+        <h1
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: "clamp(24px, 4vw, 36px)",
+            fontWeight: 800,
+            textTransform: "uppercase",
+            color: "#fff",
+            letterSpacing: 2,
+            margin: 0,
+            padding: "16px 32px",
+            background: "rgba(0,18,25,0.8)",
+          }}
+        >
+          BATANES PACKAGES
+        </h1>
+      </div>
     </section>
   );
 }
 
-/* ─── Breadcrumb ──────────────────────────────────────────── */
-function Breadcrumb() {
+/* ─── Intro & Premium Feature ─────────────────────────────── */
+function PremiumFeature() {
   return (
-    <div style={{ background: "#FFFDF0", padding: "14px 24px", borderBottom: "1px solid #BACCDF40" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <nav aria-label="Breadcrumb">
-          <span style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#0054A8" }}>
-            <Link href="/" style={{ color: "#0054A8", textDecoration: "none" }}>Home</Link>
-            {" "}&rsaquo;{" "}
-            <span style={{ color: "#003366", fontWeight: 600 }}>BND Packages</span>
-          </span>
-        </nav>
-        <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#001219", margin: "10px 0 0", lineHeight: 1.7, maxWidth: 700 }}>
-          Discover the magic of Batanes with thoughtfully crafted tour packages for every
-          type of traveler. Whether you&apos;re a couple seeking romance, a family looking for
-          adventure, or a solo backpacker exploring the Philippines — Batanes has something
-          perfect for you.{" "}
-          <Link href="/tour-itineraries" style={{ color: "#0054A8" }}>
-            View our itineraries
-          </Link>{" "}
-          and{" "}
-          <Link href="/tour-inclusions" style={{ color: "#0054A8" }}>
-            tour inclusions
-          </Link>{" "}
-          for full details.
+    <section style={{ padding: "60px 24px", maxWidth: 1200, margin: "0 auto" }}>
+      <div style={{ marginBottom: 60 }}>
+        <p
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: 12,
+            fontWeight: 400,
+            textTransform: "uppercase",
+            letterSpacing: 3,
+            color: "#003366",
+            margin: "0 0 8px",
+          }}
+        >
+          HELPING YOU ENJOY A BEAUTIFUL ISLAND
+        </p>
+        <div style={{ width: 150, marginBottom: 20 }}>
+            <svg viewBox="0 0 600 20" style={{ width: "100%", height: 20 }} preserveAspectRatio="none">
+              {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
+              <path
+                  key={i}
+                  d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`}
+                  stroke="#003366"
+                  strokeWidth="1.5"
+                  fill="none"
+                  opacity={0.4}
+              />
+              ))}
+            </svg>
+        </div>
+        <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, color: "#001219", lineHeight: 1.6, maxWidth: 900, fontWeight: 600 }}>
+          Discover the magic of Batanes with our thoughtfully crafted tour packages designed for every traveler and budget. 
+          From all-inclusive luxury options featuring ocean-view accommodations to thrilling eco-tours in an authentic tricycle, 
+          we offer authentic experiences that immerse you in breathtaking landscapes. 
+          Choose your adventure and let us handle the rest.
         </p>
       </div>
-    </div>
+
+      <div style={{ background: "#BACCDF", borderRadius: 16, display: "flex", flexWrap: "wrap", overflow: "hidden" }}>
+        {/* Left Content */}
+        <div style={{ flex: "1 1 500px", padding: 48, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <h2 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 24, fontWeight: 800, color: "#003366", margin: "0 0 16px" }}>
+            PREMIUM PACKAGES
+          </h2>
+          <div style={{ display: "flex", gap: 16, marginBottom: 24, fontSize: 14, color: "#001219", fontFamily: "var(--font-figtree), sans-serif" }}>
+             <span style={{ display: "flex", alignItems: "center", gap: 6 }}>🛏️ 3 Days & 2 Nights</span>
+             <span style={{ display: "flex", alignItems: "center", gap: 6 }}>📍 Batan North, South & Sabtang</span>
+          </div>
+          <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 12, fontWeight: 800, color: "#003366", margin: "0 0 8px", textTransform: "uppercase" }}>
+            TOUR INCLUSIONS
+          </p>
+          <div style={{ width: 100, marginBottom: 16 }}>
+             <svg viewBox="0 0 600 20" style={{ width: "100%", height: 20 }} preserveAspectRatio="none">
+               {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
+               <path
+                   key={i}
+                   d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`}
+                   stroke="#003366"
+                   strokeWidth="1.5"
+                   fill="none"
+                   opacity={0.4}
+               />
+               ))}
+             </svg>
+          </div>
+          <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#001219", lineHeight: 1.6, marginBottom: 32 }}>
+            Indulge in our finest Batanes escape! Our all-inclusive premium package features luxury accommodations, 
+            exclusive private tours covering all major spots, and gourmet dining experiences. 
+            Enjoy a romantic dinner with a view, complimentary eco-tours in an authentic tricycle, 
+            and a dedicated guide. Relax and let us take care of every detail.
+          </p>
+          
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 24 }}>
+             <div style={{ background: "#fff", padding: "12px 24px", borderRadius: 4, textAlign: "center", minWidth: 100 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#003366" }}>1 PAX</div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: "#001219" }}>₱9,500/pax</div>
+             </div>
+             <div style={{ background: "#fff", padding: "12px 24px", borderRadius: 4, textAlign: "center", minWidth: 100 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#003366" }}>2 PAX</div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: "#001219" }}>₱7,500/pax</div>
+             </div>
+             <div style={{ background: "#fff", padding: "12px 24px", borderRadius: 4, textAlign: "center", minWidth: 100 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#003366" }}>3 PAX & ABOVE</div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: "#001219" }}>₱6,500/pax</div>
+             </div>
+          </div>
+
+          <div>
+             <Link href="/request-a-quote">
+                <button style={{ background: "#fff", color: "#003366", border: "1px solid #003366", padding: "12px 32px", fontSize: 13, fontWeight: 700, textTransform: "uppercase", cursor: "pointer", letterSpacing: 1, borderRadius: 4 }}>
+                   FULL INCLUSIONS
+                </button>
+             </Link>
+          </div>
+        </div>
+
+        {/* Right Image */}
+        <div style={{ flex: "1 1 400px", minHeight: 400, position: "relative", padding: 32 }}>
+           <div style={{ position: "relative", width: "100%", height: "100%", minHeight: 300, borderRadius: 12, overflow: "hidden" }}>
+              <Image src="/pkg-honeymoon.jpg" alt="Premium Package" fill style={{ objectFit: "cover" }} />
+           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Services Grid ───────────────────────────────────────── */
+function ServicesGrid() {
+  const services = [
+    {
+       title: "HOTEL + TOUR PACKAGE",
+       image: "/team.jpg",
+       href: "/packages/hotel",
+       desc: "Experience comfort and adventure combined. Our Hotel + Tour package includes premium accommodations and guided tours to iconic spots, ensuring a seamless and memorable Batanes getaway. Enjoy hassle-free travel with daily breakfasts and expert local guides."
+    },
+    {
+       title: "HOMESTAY + TOUR PACKAGE",
+       image: "/pkg-village.jpg",
+       href: "/packages/homestay",
+       desc: "Immerse yourself in authentic Ivatan culture. Stay with welcoming local families and experience the warmth of Batanes hospitality. This package combines cozy homestay lodging with engaging guided tours to historical landmarks and natural wonders."
+    },
+    {
+       title: "ECO-TOURS (PRIVATE) — CAR/VAN",
+       image: "/pkg-beach.jpg",
+       href: "/packages/tour",
+       desc: "Explore Batanes in comfort and style with our private car/van eco-tours. Ideal for families and groups, this package offers flexible itineraries, air-conditioned transport, and personalized attention from our experienced local guides."
+    },
+    {
+       title: "ECO-TOURS (PRIVATE) — TRICYCLE",
+       image: "/pkg-lighthouse.jpg",
+       href: "/packages/tour",
+       desc: "For a more adventurous and intimate experience, hop on our private tricycle eco-tours. Perfect for couples or solo travelers, feel the fresh island breeze as you navigate through scenic coastal roads and rolling hills with a dedicated driver-guide."
+    }
+  ];
+
+  return (
+    <section style={{ padding: "0 24px 80px", maxWidth: 1200, margin: "0 auto" }}>
+       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(450px, 1fr))", gap: 32 }}>
+          {services.map((svc, i) => (
+             <div key={i} style={{ border: "2px solid #BACCDF", borderRadius: 12, overflow: "hidden", display: "flex", flexDirection: "column", background: "#fff" }}>
+                <div style={{ position: "relative", width: "100%", height: 250 }}>
+                   <Image src={svc.image} alt={svc.title} fill style={{ objectFit: "cover" }} />
+                </div>
+                <div style={{ padding: 32, flex: 1, display: "flex", flexDirection: "column" }}>
+                   <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, fontWeight: 800, color: "#003366", margin: "0 0 8px" }}>
+                      {svc.title}
+                   </h3>
+                   <div style={{ width: 100, marginBottom: 16 }}>
+                      <svg viewBox="0 0 600 20" style={{ width: "100%", height: 20 }} preserveAspectRatio="none">
+                        {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
+                        <path
+                            key={i}
+                            d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`}
+                            stroke="#003366"
+                            strokeWidth="1.5"
+                            fill="none"
+                            opacity={0.4}
+                        />
+                        ))}
+                      </svg>
+                   </div>
+                   <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#001219", lineHeight: 1.6, flex: 1, marginBottom: 24 }}>
+                      {svc.desc}
+                   </p>
+                   <div>
+                      <Link href={svc.href}>
+                         <button style={{ background: "transparent", color: "#003366", border: "1px solid #003366", padding: "10px 24px", fontSize: 12, fontWeight: 700, textTransform: "uppercase", cursor: "pointer", letterSpacing: 1, borderRadius: 4 }}>
+                            LEARN MORE
+                         </button>
+                      </Link>
+                   </div>
+                </div>
+             </div>
+          ))}
+       </div>
+    </section>
+  );
+}
+
+/* ─── Bottom Banner ───────────────────────────────────────── */
+function BottomBanner() {
+  return (
+    <section
+      style={{
+        position: "relative",
+        padding: "80px 24px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
+        <Image
+          src="/pkg-village.jpg"
+          alt="Batanes Adventure"
+          fill
+          style={{ objectFit: "cover", objectPosition: "center 60%" }}
+        />
+        <div style={{ position: "absolute", inset: 0, background: "rgba(0,18,25,0.7)" }} />
+      </div>
+
+      <div style={{ position: "relative", zIndex: 1, textAlign: "center", maxWidth: 800 }}>
+        <h2
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: "clamp(24px, 4vw, 36px)",
+            fontWeight: 800,
+            color: "#fff",
+            textTransform: "uppercase",
+            letterSpacing: 1,
+            margin: "0 0 16px",
+          }}
+        >
+          DISCOVER YOUR BATANES ADVENTURE
+        </h2>
+        <div style={{ margin: "0 auto 24px", width: 100 }}>
+           <svg viewBox="0 0 600 20" style={{ width: "100%", height: 20 }} preserveAspectRatio="none">
+             {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
+               <path
+                 key={i}
+                 d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`}
+                 stroke="#fff"
+                 strokeWidth="1.5"
+                 fill="none"
+                 opacity="0.5"
+               />
+             ))}
+           </svg>
+        </div>
+        <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, color: "#fff", margin: "0 0 32px" }}>
+          Explore stunning landscapes and vibrant cultures. Our travel packages to Batanes offer unforgettable experiences just waiting for you.
+        </p>
+        <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+          <Link href="/request-a-quote">
+            <button className="btn-primary">Request A Quote</button>
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -285,48 +300,10 @@ export default function PackagesPage() {
     <>
       <Navbar />
       <main>
-        <PageHero title="Batanes Packages" />
-        <Breadcrumb />
-        <HoneymoonFeature />
-
-        {/* Featured packages */}
-        <section style={{ background: "#FFFDF0", padding: "80px 24px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-            <SectionHeader label="OUR BEST DEALS" title="FEATURED TOUR PACKAGES" />
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                gap: 24,
-              }}
-            >
-              {featuredPackages.map((pkg) => (
-                <PackageCard key={pkg.id} pkg={pkg} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* More packages */}
-        <section style={{ background: "#F5F8FB", padding: "0 24px 80px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-            <div style={{ height: 80 }} />
-            <SectionHeader label="EXPLORE MORE" title="MORE BATANES PACKAGES" />
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                gap: 24,
-              }}
-            >
-              {morePackages.map((pkg) => (
-                <PackageCard key={pkg.id} pkg={pkg} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <CTABanner />
+        <Hero />
+        <PremiumFeature />
+        <ServicesGrid />
+        <BottomBanner />
       </main>
       <Footer />
       <WhatsApp />
