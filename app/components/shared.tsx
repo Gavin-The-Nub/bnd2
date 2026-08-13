@@ -21,9 +21,8 @@ export const navLinks = [
     label: "BND Packages",
     href: "/packages",
     children: [
-      { label: "View Packages", href: "/packages" },
-      { label: "Tour Itineraries", href: "/tour-itineraries" },
-      { label: "Tour Inclusions", href: "/tour-inclusions" },
+      { label: "Local Land Tour", href: "/packages/local" },
+      { label: "Asia Tour", href: "/packages/asia" },
     ],
   },
   {
@@ -384,6 +383,7 @@ export function CTABanner() {
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -394,15 +394,16 @@ export function Navbar() {
 
   return (
     <>
-      {/* ── Top Bar ── */}
+      {/* ── Top Header Bar ── */}
       <header
         style={{
           position: "sticky",
           top: 0,
           zIndex: 100,
-          background: "#FFFDF0",
-          boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.12)" : "none",
-          transition: "box-shadow 0.3s",
+          background: "#FFFFFF",
+          borderBottom: "1px solid rgba(0, 51, 102, 0.08)",
+          boxShadow: scrolled ? "0 4px 20px rgba(0,0,0,0.06)" : "none",
+          transition: "box-shadow 0.3s, background 0.3s",
         }}
       >
         <div
@@ -410,63 +411,39 @@ export function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "12px 24px",
-            maxWidth: 1280,
+            padding: "16px 32px",
+            maxWidth: 1360,
             margin: "0 auto",
           }}
         >
-          {/* LEFT — Hamburger */}
-          <button
-            id="hamburger-btn"
-            aria-label="Open menu"
-            onClick={() => setMenuOpen(true)}
-            style={{
-              width: 42,
-              height: 42,
-              background: "#FF9900",
-              border: "none",
-              borderRadius: 6,
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 5,
-              flexShrink: 0,
-            }}
-          >
-            {[0, 1, 2].map((i) => (
-              <span
-                key={i}
-                style={{ display: "block", width: 22, height: 2.5, background: "#fff", borderRadius: 2 }}
-              />
-            ))}
-          </button>
-
-          {/* CENTER — Logo */}
+          {/* LEFT — Logo */}
           <Link
             href="/"
-            style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", flexShrink: 0 }}
+            style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}
           >
             <span
               style={{
                 fontFamily: "var(--font-figtree), sans-serif",
                 fontSize: 28,
                 fontWeight: 900,
-                color: "#FF9900",
-                letterSpacing: -1,
+                color: "#003366",
+                letterSpacing: -0.5,
                 lineHeight: 1,
               }}
             >
-              BND
+              BND<span style={{ color: "#FF9900" }}>.</span>
             </span>
             <span
               style={{
                 fontFamily: "var(--font-figtree), sans-serif",
                 fontSize: 11,
-                fontWeight: 600,
+                fontWeight: 700,
                 color: "#003366",
-                lineHeight: 1.3,
+                lineHeight: 1.2,
+                textTransform: "uppercase",
+                letterSpacing: 0.5,
+                borderLeft: "1.5px solid #BACCDF",
+                paddingLeft: 10,
               }}
             >
               Travel
@@ -475,38 +452,165 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* RIGHT — CTA */}
-          <Link
-            href="/request-a-quote"
-            id="request-quote-btn"
+          {/* CENTER — Navigation Links (Desktop) */}
+          <nav
+            aria-label="Main Navigation"
             style={{
-              background: "#FF9900",
-              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              gap: 28,
+            }}
+            className="desktop-nav"
+          >
+            {navLinks.map((link) => (
+              <div
+                key={link.label}
+                style={{ position: "relative" }}
+                onMouseEnter={() => link.children && setHoveredDropdown(link.label)}
+                onMouseLeave={() => link.children && setHoveredDropdown(null)}
+              >
+                <Link
+                  href={link.href}
+                  style={{
+                    fontFamily: "var(--font-figtree), sans-serif",
+                    fontSize: 12,
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: 1.5,
+                    color: "#003366",
+                    textDecoration: "none",
+                    padding: "8px 0",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 5,
+                    transition: "color 0.2s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#FF9900")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "#003366")}
+                >
+                  {link.label}
+                  {link.children && (
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      style={{
+                        transform: hoveredDropdown === link.label ? "rotate(180deg)" : "rotate(0deg)",
+                        transition: "transform 0.2s",
+                      }}
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  )}
+                </Link>
+
+                {/* Dropdown Menu */}
+                {link.children && hoveredDropdown === link.label && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      left: 0,
+                      minWidth: 210,
+                      background: "#FFFFFF",
+                      borderRadius: 12,
+                      boxShadow: "0 12px 32px rgba(0, 51, 102, 0.12)",
+                      border: "1px solid rgba(0, 51, 102, 0.08)",
+                      padding: "8px 0",
+                      zIndex: 110,
+                    }}
+                  >
+                    {link.children.map((child) => (
+                      <Link
+                        key={child.label}
+                        href={child.href}
+                        style={{
+                          display: "block",
+                          padding: "10px 18px",
+                          fontFamily: "var(--font-figtree), sans-serif",
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: "#003366",
+                          textDecoration: "none",
+                          transition: "background 0.2s, color 0.2s",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = "#FFFDF0";
+                          e.currentTarget.style.color = "#FF9900";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = "transparent";
+                          e.currentTarget.style.color = "#003366";
+                        }}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* RIGHT — Minimalist Hamburger Menu (No cart icon) */}
+          <button
+            id="hamburger-btn"
+            aria-label="Open menu"
+            onClick={() => setMenuOpen(true)}
+            style={{
+              background: "none",
               border: "none",
-              borderRadius: 4,
-              padding: "10px 18px",
-              fontSize: 13,
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: 0.8,
               cursor: "pointer",
-              textDecoration: "none",
-              fontFamily: "var(--font-figtree), sans-serif",
-              whiteSpace: "nowrap",
-              flexShrink: 0,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              justifyContent: "center",
+              gap: 6,
+              padding: 8,
             }}
           >
-            REQUEST A QUOTE
-          </Link>
+            <span
+              style={{
+                display: "block",
+                width: 26,
+                height: 2,
+                background: "#003366",
+                borderRadius: 1,
+                transition: "transform 0.2s",
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: 18,
+                height: 2,
+                background: "#003366",
+                borderRadius: 1,
+                transition: "transform 0.2s",
+              }}
+            />
+          </button>
         </div>
       </header>
 
-      {/* ── Mobile Slide-in Nav ── */}
+      {/* Responsive Inline CSS to handle desktop vs mobile navigation visibility */}
+      <style jsx global>{`
+        @media (max-width: 991px) {
+          .desktop-nav {
+            display: none !important;
+          }
+        }
+      `}</style>
+
+      {/* ── Off-Canvas Right Side Drawer Menu ── */}
       <div
         style={{
           position: "fixed",
           inset: 0,
-          zIndex: 200,
+          zIndex: 300,
           pointerEvents: menuOpen ? "all" : "none",
         }}
       >
@@ -516,180 +620,317 @@ export function Navbar() {
           style={{
             position: "absolute",
             inset: 0,
-            background: "rgba(0,0,0,0.4)",
+            background: "rgba(0,18,25,0.45)",
+            backdropFilter: "blur(4px)",
             opacity: menuOpen ? 1 : 0,
-            transition: "opacity 0.3s",
+            transition: "opacity 0.35s ease",
           }}
         />
 
-        {/* Panel */}
+        {/* Right Side Overlay Panel */}
         <nav
-          id="mobile-nav"
-          aria-label="Mobile navigation"
+          id="side-drawer"
+          aria-label="Off-canvas menu"
           style={{
             position: "absolute",
             top: 0,
-            left: 0,
-            width: 320,
+            right: 0,
+            width: 400,
             maxWidth: "90vw",
             height: "100%",
-            background: "#FFFDF0",
-            transform: menuOpen ? "translateX(0)" : "translateX(-100%)",
-            transition: "transform 0.35s cubic-bezier(.4,0,.2,1)",
+            background: "#FFFFFF",
+            transform: menuOpen ? "translateX(0)" : "translateX(100%)",
+            transition: "transform 0.4s cubic-bezier(.16,1,.3,1)",
             display: "flex",
             flexDirection: "column",
-            padding: "28px 28px 40px",
+            padding: "36px 36px 40px",
             overflowY: "auto",
+            boxShadow: "-8px 0 32px rgba(0,0,0,0.15)",
           }}
         >
-          {/* Close */}
-          <button
-            id="close-nav-btn"
-            aria-label="Close menu"
-            onClick={() => setMenuOpen(false)}
+          {/* Header Row: Logo & Close Icon */}
+          <div
             style={{
-              alignSelf: "flex-end",
-              background: "none",
-              border: "none",
-              fontSize: 22,
-              color: "#003366",
-              cursor: "pointer",
-              marginBottom: 20,
-              fontWeight: 700,
-              lineHeight: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 32,
             }}
           >
-            ✕
-          </button>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-figtree), sans-serif",
+                  fontSize: 34,
+                  fontWeight: 900,
+                  color: "#003366",
+                  lineHeight: 1,
+                }}
+              >
+                BND<span style={{ color: "#FF9900" }}>.</span>
+              </span>
+            </div>
 
-          {/* Logo */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
-            <span style={{ fontSize: 36, fontWeight: 900, color: "#FF9900", lineHeight: 1, fontFamily: "var(--font-figtree), sans-serif" }}>
-              BND
-            </span>
-            <span style={{ fontSize: 13, fontWeight: 600, color: "#003366", lineHeight: 1.3, fontFamily: "var(--font-figtree), sans-serif" }}>
-              Travel<br /><span style={{ color: "#FF9900" }}>&amp;</span> Tours
-            </span>
-          </div>
-
-          <Wave />
-
-          {/* Nav links */}
-          <ul style={{ listStyle: "none", padding: 0, margin: "20px 0", flex: 1 }}>
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                {link.children ? (
-                  <button
-                    onClick={() => setOpenDropdown(openDropdown === link.label ? null : link.label)}
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: "13px 0",
-                      background: "none",
-                      border: "none",
-                      borderBottom: "1px solid #BACCDF40",
-                      fontSize: 14,
-                      fontWeight: 700,
-                      textTransform: "uppercase",
-                      letterSpacing: 1,
-                      color: "#003366",
-                      cursor: "pointer",
-                      fontFamily: "var(--font-figtree), sans-serif",
-                    }}
-                  >
-                    <span>{link.label}</span>
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#003366"
-                      strokeWidth="2.5"
-                      style={{
-                        transform: openDropdown === link.label ? "rotate(180deg)" : "rotate(0deg)",
-                        transition: "transform 0.2s",
-                        flexShrink: 0,
-                      }}
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </button>
-                ) : (
-                  <Link
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: "13px 0",
-                      background: "none",
-                      border: "none",
-                      borderBottom: "1px solid #BACCDF40",
-                      fontSize: 14,
-                      fontWeight: 700,
-                      textTransform: "uppercase",
-                      letterSpacing: 1,
-                      color: "#003366",
-                      cursor: "pointer",
-                      fontFamily: "var(--font-figtree), sans-serif",
-                      textDecoration: "none",
-                    }}
-                  >
-                    <span>{link.label}</span>
-                  </Link>
-                )}
-                {link.children && openDropdown === link.label && (
-                  <ul style={{ listStyle: "none", padding: "6px 0 6px 16px", margin: 0 }}>
-                    {link.children.map((child) => (
-                      <li key={child.label}>
-                        <Link
-                          href={child.href}
-                          onClick={() => setMenuOpen(false)}
-                          style={{
-                            display: "block",
-                            padding: "8px 0",
-                            fontSize: 13,
-                            color: "#0054A8",
-                            textDecoration: "none",
-                            fontFamily: "var(--font-figtree), sans-serif",
-                          }}
-                        >
-                          {child.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
-          </ul>
-
-          <Wave />
-
-          <div style={{ marginTop: 28, textAlign: "center" }}>
-            <Link
-              href="/packages"
+            <button
+              id="close-nav-btn"
+              aria-label="Close menu"
               onClick={() => setMenuOpen(false)}
               style={{
-                display: "inline-block",
-                background: "#FF9900",
-                color: "#fff",
-                padding: "14px 40px",
-                borderRadius: 6,
-                fontSize: 15,
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: 1,
-                textDecoration: "none",
-                fontFamily: "var(--font-figtree), sans-serif",
+                background: "none",
+                border: "none",
+                fontSize: 24,
+                color: "#003366",
+                cursor: "pointer",
+                padding: 4,
+                lineHeight: 1,
+                fontWeight: 300,
               }}
             >
-              BOOK NOW
-            </Link>
+              ✕
+            </button>
+          </div>
+
+          {/* Headline & Subtitle */}
+          <div style={{ marginBottom: 24 }}>
+            <h2
+              style={{
+                fontFamily: "var(--font-figtree), sans-serif",
+                fontSize: 32,
+                fontWeight: 900,
+                color: "#003366",
+                margin: "0 0 10px",
+                lineHeight: 1.15,
+                letterSpacing: -0.5,
+              }}
+            >
+              Hello There!
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-figtree), sans-serif",
+                fontSize: 14,
+                color: "#4A5568",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              Discover the breathtaking beauty of Batanes with BND Travel &amp; Tours. We create unforgettable adventures and personalized local experiences.
+            </p>
+          </div>
+
+          {/* 4 Thumbnail Image Grid */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: 8,
+              marginBottom: 32,
+            }}
+          >
+            {[
+              { src: "/pkg-beach.jpg", alt: "Batanes Beach" },
+              { src: "/pkg-lighthouse.jpg", alt: "Batanes Lighthouse" },
+              { src: "/pkg-hotel.jpg", alt: "Batanes Hotel" },
+              { src: "/pkg-village.jpg", alt: "Batanes Village" },
+            ].map((img, idx) => (
+              <div
+                key={idx}
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: 72,
+                  borderRadius: 10,
+                  overflow: "hidden",
+                }}
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes="100px"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation Links Accordion for Drawer */}
+          <div style={{ marginBottom: 32, borderTop: "1px solid #E2E8F0", paddingTop: 16 }}>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  {link.children ? (
+                    <div>
+                      <button
+                        onClick={() => setOpenDropdown(openDropdown === link.label ? null : link.label)}
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          padding: "12px 0",
+                          background: "none",
+                          border: "none",
+                          borderBottom: "1px solid #F1F5F9",
+                          fontSize: 13,
+                          fontWeight: 800,
+                          textTransform: "uppercase",
+                          letterSpacing: 1.2,
+                          color: "#003366",
+                          cursor: "pointer",
+                          fontFamily: "var(--font-figtree), sans-serif",
+                        }}
+                      >
+                        <span>{link.label}</span>
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#003366"
+                          strokeWidth="2.5"
+                          style={{
+                            transform: openDropdown === link.label ? "rotate(180deg)" : "rotate(0deg)",
+                            transition: "transform 0.2s",
+                          }}
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                      {openDropdown === link.label && (
+                        <ul style={{ listStyle: "none", padding: "6px 0 6px 14px", margin: 0 }}>
+                          {link.children.map((child) => (
+                            <li key={child.label}>
+                              <Link
+                                href={child.href}
+                                onClick={() => setMenuOpen(false)}
+                                style={{
+                                  display: "block",
+                                  padding: "8px 0",
+                                  fontSize: 13,
+                                  fontWeight: 600,
+                                  color: "#FF9900",
+                                  textDecoration: "none",
+                                  fontFamily: "var(--font-figtree), sans-serif",
+                                }}
+                              >
+                                {child.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "12px 0",
+                        background: "none",
+                        border: "none",
+                        borderBottom: "1px solid #F1F5F9",
+                        fontSize: 13,
+                        fontWeight: 800,
+                        textTransform: "uppercase",
+                        letterSpacing: 1.2,
+                        color: "#003366",
+                        cursor: "pointer",
+                        fontFamily: "var(--font-figtree), sans-serif",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <span>{link.label}</span>
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* INFORMATION Section */}
+          <div style={{ marginBottom: 28 }}>
+            <h3
+              style={{
+                fontFamily: "var(--font-figtree), sans-serif",
+                fontSize: 12,
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: 2.5,
+                color: "#003366",
+                margin: "0 0 12px",
+              }}
+            >
+              INFORMATION
+            </h3>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+                fontSize: 13,
+                color: "#4A5568",
+                fontFamily: "var(--font-figtree), sans-serif",
+                lineHeight: 1.5,
+              }}
+            >
+              <div>(+632) 8633 0859</div>
+              <div>info@bndtravelandtours.com</div>
+              <div>Amboy Street, Kayhuvokan Basco, Batanes, 3900</div>
+            </div>
+          </div>
+
+          {/* FOLLOW US Section */}
+          <div>
+            <h3
+              style={{
+                fontFamily: "var(--font-figtree), sans-serif",
+                fontSize: 12,
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: 2.5,
+                color: "#003366",
+                margin: "0 0 14px",
+              }}
+            >
+              FOLLOW US
+            </h3>
+            <div style={{ display: "flex", gap: 12 }}>
+              {[
+                { label: "Facebook", href: "#", bg: "#1877F2" },
+                { label: "Instagram", href: "#", bg: "#E1306C" },
+                { label: "YouTube", href: "#", bg: "#FF0000" },
+              ].map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: "50%",
+                    background: social.bg,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textDecoration: "none",
+                    color: "#FFFFFF",
+                    fontSize: 12,
+                    fontWeight: 800,
+                    fontFamily: "var(--font-figtree), sans-serif",
+                    transition: "transform 0.2s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                >
+                  {social.label[0]}
+                </a>
+              ))}
+            </div>
           </div>
         </nav>
       </div>
