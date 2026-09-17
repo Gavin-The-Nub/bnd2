@@ -1,7 +1,42 @@
 "use client";
 
+import { useState, useMemo, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
+import {
+  MessageCircle,
+  Clock,
+  Sparkles,
+  MapPin,
+  Calendar,
+  Users,
+  Send,
+  ExternalLink,
+  Check,
+} from "lucide-react";
 import { Navbar, Footer, WhatsApp } from "../components/shared";
+import {
+  getMessengerQuoteUrl,
+  buildQuoteMessage,
+  SKWITCHI_FACEBOOK_URL,
+} from "../lib/messenger";
+
+const POPULAR_DESTINATIONS = [
+  { id: "bataan", name: "Bataan", duration: "2D / 1N", region: "Local" },
+  { id: "batanes", name: "Batanes", duration: "3D / 2N", region: "Local" },
+  { id: "sagada", name: "Sagada", duration: "3D / 2N", region: "Local" },
+  { id: "siargao", name: "Siargao", duration: "4D / 3N", region: "Local" },
+  { id: "cebu", name: "Cebu", duration: "3D / 2N", region: "Local" },
+  { id: "buscalan", name: "Buscalan", duration: "2D / 1N", region: "Local" },
+  { id: "siquijor", name: "Siquijor", duration: "3D / 2N", region: "Local" },
+  { id: "bacolod", name: "Bacolod", duration: "3D / 2N", region: "Local" },
+  { id: "vietnam", name: "Vietnam", duration: "5D / 4N", region: "Asia" },
+  { id: "japan", name: "Japan", duration: "5D / 4N", region: "Asia" },
+  { id: "thailand", name: "Thailand", duration: "4D / 3N", region: "Asia" },
+  { id: "taiwan", name: "Taiwan", duration: "4D / 3N", region: "Asia" },
+  { id: "custom", name: "Custom Destination", duration: "Custom", region: "Custom" },
+];
 
 /* ─── Hero Section ────────────────────────────────────────── */
 function Hero() {
@@ -10,7 +45,7 @@ function Hero() {
       style={{
         position: "relative",
         height: "30vh",
-        minHeight: 200,
+        minHeight: 220,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -24,15 +59,28 @@ function Hero() {
           style={{ objectFit: "cover", objectPosition: "center 40%" }}
           priority
         />
-        <div style={{ position: "absolute", inset: 0, background: "rgba(0,18,25,0.6)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "rgba(0,18,25,0.65)" }} />
       </div>
 
       <div style={{ position: "relative", zIndex: 1, textAlign: "center", padding: "0 24px" }}>
+        <p
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: 12,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: 3,
+            color: "#FF9900",
+            margin: "0 0 8px",
+          }}
+        >
+          Fast Quotes via Messenger
+        </p>
         <h1
           style={{
             fontFamily: "var(--font-figtree), sans-serif",
-            fontSize: "clamp(32px, 5vw, 48px)",
-            fontWeight: 800,
+            fontSize: "clamp(30px, 5vw, 46px)",
+            fontWeight: 900,
             textTransform: "uppercase",
             color: "#fff",
             letterSpacing: 2,
@@ -46,140 +94,440 @@ function Hero() {
   );
 }
 
-/* ─── Quote Section ───────────────────────────────────────── */
-function QuoteForm() {
-  return (
-    <section style={{ padding: "80px 24px", maxWidth: 1200, margin: "0 auto" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 64 }}>
-        
-        {/* Left: Info & Image */}
-        <div>
-          <p
-             style={{
-                fontFamily: "var(--font-figtree), sans-serif",
-                fontSize: 12,
-                fontWeight: 400,
-                textTransform: "uppercase",
-                letterSpacing: 3,
-                color: "#003366",
-                margin: "0 0 8px",
-             }}
-          >
-             PLAN YOUR PERFECT TRIP
-          </p>
-          <div style={{ width: 100, marginBottom: 20 }}>
-             <svg viewBox="0 0 600 20" style={{ width: "100%", height: 20 }} preserveAspectRatio="none">
-               {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
-               <path
-                   key={i}
-                   d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`}
-                   stroke="#003366"
-                   strokeWidth="1.5"
-                   fill="none"
-                   opacity={0.4}
-               />
-               ))}
-             </svg>
-          </div>
-          <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, color: "#001219", lineHeight: 1.6, marginBottom: 32, fontWeight: 600 }}>
-             Tell us about your dream Batanes adventure! Fill out the form below with your travel dates, group size, and preferences, and we'll craft a customized itinerary and quote that matches your needs and budget perfectly.
-          </p>
+/* ─── Messenger Quote Hub Content ─────────────────────────── */
+function MessengerHubContent() {
+  const searchParams = useSearchParams();
+  const initialTourParam = searchParams.get("tour");
 
-          <div style={{ position: "relative", width: "100%", height: 400, borderRadius: 12, overflow: "hidden" }}>
-             <Image src="/pkg-beach.jpg" alt="Batanes view" fill style={{ objectFit: "cover" }} />
+  const matchingDest = POPULAR_DESTINATIONS.find(
+    (d) =>
+      initialTourParam &&
+      (d.name.toLowerCase() === initialTourParam.toLowerCase() ||
+        d.id.toLowerCase() === initialTourParam.toLowerCase())
+  );
+
+  const [selectedTour, setSelectedTour] = useState<string>(
+    matchingDest ? matchingDest.name : "Bataan"
+  );
+  const [dates, setDates] = useState<string>("");
+  const [guests, setGuests] = useState<string>("2");
+  const [notes, setNotes] = useState<string>("");
+
+  const activeDestination = POPULAR_DESTINATIONS.find((d) => d.name === selectedTour);
+
+  const previewMessage = useMemo(() => {
+    return buildQuoteMessage({
+      tourName: selectedTour === "Custom Destination" ? undefined : selectedTour,
+      duration: activeDestination?.duration !== "Custom" ? activeDestination?.duration : undefined,
+      dates: dates || undefined,
+      guests: guests || undefined,
+      customNotes: notes || undefined,
+    });
+  }, [selectedTour, activeDestination, dates, guests, notes]);
+
+  const messengerUrl = useMemo(() => {
+    return getMessengerQuoteUrl({
+      tourName: selectedTour === "Custom Destination" ? undefined : selectedTour,
+      duration: activeDestination?.duration !== "Custom" ? activeDestination?.duration : undefined,
+      dates: dates || undefined,
+      guests: guests || undefined,
+      customNotes: notes || undefined,
+    });
+  }, [selectedTour, activeDestination, dates, guests, notes]);
+
+  return (
+    <section style={{ padding: "64px 24px", maxWidth: 1200, margin: "0 auto" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 48, alignItems: "start" }}>
+        
+        {/* Left Column: Interactive Selector */}
+        <div>
+          <div style={{ marginBottom: 28 }}>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                background: "rgba(0,51,102,0.08)",
+                color: "#003366",
+                padding: "6px 14px",
+                borderRadius: 20,
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: 1,
+                textTransform: "uppercase",
+                fontFamily: "var(--font-figtree), sans-serif",
+                marginBottom: 12,
+              }}
+            >
+              <Sparkles size={14} color="#FF9900" />
+              Direct Coordination
+            </span>
+            <h2
+              style={{
+                fontFamily: "var(--font-figtree), sans-serif",
+                fontSize: "clamp(24px, 3.5vw, 34px)",
+                fontWeight: 800,
+                color: "#003366",
+                textTransform: "uppercase",
+                margin: "0 0 12px",
+                lineHeight: 1.2,
+              }}
+            >
+              Skip The Contact Form
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-figtree), sans-serif",
+                fontSize: 15,
+                color: "#444",
+                lineHeight: 1.7,
+                margin: 0,
+              }}
+            >
+              We coordinate quotes and customized itineraries directly with our travel specialists on{" "}
+              <strong>Facebook Messenger</strong>. Select your preferred tour below to pre-populate your inquiry!
+            </p>
+          </div>
+
+          {/* 1. Destination Selection */}
+          <div style={{ marginBottom: 24 }}>
+            <label
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                fontSize: 12,
+                fontWeight: 800,
+                color: "#003366",
+                textTransform: "uppercase",
+                letterSpacing: 1,
+                fontFamily: "var(--font-figtree), sans-serif",
+                marginBottom: 10,
+              }}
+            >
+              <MapPin size={15} color="#FF9900" /> 1. Select Tour Package
+            </label>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {POPULAR_DESTINATIONS.map((dest) => {
+                const isSelected = selectedTour === dest.name;
+                return (
+                  <button
+                    key={dest.id}
+                    type="button"
+                    onClick={() => setSelectedTour(dest.name)}
+                    style={{
+                      padding: "8px 14px",
+                      borderRadius: 20,
+                      border: isSelected ? "2px solid #003366" : "1px solid #BACCDF",
+                      background: isSelected ? "#003366" : "#fff",
+                      color: isSelected ? "#fff" : "#003366",
+                      fontSize: 13,
+                      fontWeight: isSelected ? 700 : 500,
+                      cursor: "pointer",
+                      fontFamily: "var(--font-figtree), sans-serif",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      transition: "all 0.15s ease",
+                    }}
+                  >
+                    {dest.name}
+                    {dest.duration !== "Custom" && (
+                      <span
+                        style={{
+                          fontSize: 11,
+                          opacity: isSelected ? 0.9 : 0.6,
+                          background: isSelected ? "rgba(255,255,255,0.2)" : "rgba(0,51,102,0.06)",
+                          padding: "2px 6px",
+                          borderRadius: 10,
+                        }}
+                      >
+                        {dest.duration}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 2. Optional Quick Details */}
+          <div
+            style={{
+              background: "#F8FAFC",
+              border: "1px solid #E2E8F0",
+              borderRadius: 12,
+              padding: 20,
+              marginBottom: 24,
+            }}
+          >
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+              <div>
+                <label
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: "#003366",
+                    textTransform: "uppercase",
+                    letterSpacing: 0.5,
+                    marginBottom: 6,
+                    fontFamily: "var(--font-figtree), sans-serif",
+                  }}
+                >
+                  <Calendar size={13} color="#FF9900" /> Target Dates
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Nov 2026 or Dec 15-18"
+                  value={dates}
+                  onChange={(e) => setDates(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "9px 12px",
+                    border: "1px solid #CBD5E1",
+                    borderRadius: 6,
+                    fontFamily: "var(--font-figtree), sans-serif",
+                    fontSize: 13,
+                    background: "#fff",
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: "#003366",
+                    textTransform: "uppercase",
+                    letterSpacing: 0.5,
+                    marginBottom: 6,
+                    fontFamily: "var(--font-figtree), sans-serif",
+                  }}
+                >
+                  <Users size={13} color="#FF9900" /> Guests / Pax
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. 2 adults, 1 child"
+                  value={guests}
+                  onChange={(e) => setGuests(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "9px 12px",
+                    border: "1px solid #CBD5E1",
+                    borderRadius: 6,
+                    fontFamily: "var(--font-figtree), sans-serif",
+                    fontSize: 13,
+                    background: "#fff",
+                  }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: "#003366",
+                  textTransform: "uppercase",
+                  letterSpacing: 0.5,
+                  marginBottom: 6,
+                  fontFamily: "var(--font-figtree), sans-serif",
+                }}
+              >
+                Special Requests or Notes (Optional)
+              </label>
+              <textarea
+                rows={2}
+                placeholder="e.g. Need airport transfer, traveling with seniors, etc."
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "9px 12px",
+                  border: "1px solid #CBD5E1",
+                  borderRadius: 6,
+                  fontFamily: "var(--font-figtree), sans-serif",
+                  fontSize: 13,
+                  background: "#fff",
+                  resize: "vertical",
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Value Props / Why Messenger */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+            {[
+              { icon: Clock, title: "Fast Replies", desc: "Our team typically answers in minutes" },
+              { icon: Check, title: "Custom Itineraries", desc: "Tailored to your budget & group size" },
+            ].map((item, i) => (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  gap: 12,
+                  alignItems: "flex-start",
+                  padding: 12,
+                  background: "#fff",
+                  borderRadius: 8,
+                  border: "1px solid #BACCDF",
+                }}
+              >
+                <item.icon size={18} color="#FF9900" style={{ flexShrink: 0, marginTop: 2 }} />
+                <div>
+                  <div style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, fontWeight: 700, color: "#003366" }}>
+                    {item.title}
+                  </div>
+                  <div style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 11, color: "#666" }}>
+                    {item.desc}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Right: Form */}
-        <div style={{ background: "#fff", border: "2px solid #BACCDF", borderRadius: 12, padding: 32 }}>
-          <form onSubmit={(e) => e.preventDefault()} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            
-            <div>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Full Name <span style={{ color: "red" }}>*</span></label>
-              <input type="text" style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14 }} required />
+        {/* Right Column: Live Message Preview & Direct Action */}
+        <div
+          style={{
+            background: "#fff",
+            border: "2px solid #BACCDF",
+            borderRadius: 16,
+            padding: 32,
+            boxShadow: "0 10px 30px rgba(0,51,102,0.06)",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div
+                style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: "50%",
+                  background: "#0084FF",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#fff",
+                }}
+              >
+                <MessageCircle size={20} />
+              </div>
+              <div>
+                <div style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, fontWeight: 800, color: "#003366" }}>
+                  Skwitchi Travels Messenger
+                </div>
+                <div style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 11, color: "#16a34a", display: "flex", alignItems: "center", gap: 4 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#16a34a", display: "inline-block" }} />
+                  Online & Active
+                </div>
+              </div>
             </div>
-            
-            <div>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Email <span style={{ color: "red" }}>*</span></label>
-              <input type="email" style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14 }} required />
-            </div>
+            <span style={{ fontSize: 11, color: "#94A3B8", fontFamily: "var(--font-figtree), sans-serif" }}>
+              Message Preview
+            </span>
+          </div>
 
-            <div>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Phone <span style={{ color: "red" }}>*</span></label>
-              <input type="tel" style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14 }} required />
-            </div>
+          {/* Chat Bubble Preview */}
+          <div
+            style={{
+              background: "#F0F4F9",
+              border: "1px solid #CBD5E1",
+              borderRadius: "14px 14px 4px 14px",
+              padding: "16px 18px",
+              marginBottom: 24,
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "monospace, var(--font-figtree), sans-serif",
+                fontSize: 13,
+                color: "#1E293B",
+                lineHeight: 1.6,
+                whiteSpace: "pre-wrap",
+                margin: 0,
+              }}
+            >
+              {previewMessage}
+            </p>
+          </div>
 
-            <div style={{ display: "flex", gap: 16 }}>
-               <div style={{ flex: 1 }}>
-                 <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Arrival Date</label>
-                 <input type="date" style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#555" }} />
-               </div>
-               <div style={{ flex: 1 }}>
-                 <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Departure Date</label>
-                 <input type="date" style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#555" }} />
-               </div>
-            </div>
+          {/* Primary Messenger Button */}
+          <a
+            href={messengerUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
+              background: "linear-gradient(135deg, #0084FF 0%, #0066CC 100%)",
+              color: "#fff",
+              padding: "16px 24px",
+              borderRadius: 8,
+              fontFamily: "var(--font-figtree), sans-serif",
+              fontSize: 15,
+              fontWeight: 800,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+              textDecoration: "none",
+              boxShadow: "0 4px 14px rgba(0, 132, 255, 0.35)",
+              transition: "transform 0.15s ease, box-shadow 0.15s ease",
+            }}
+          >
+            <Send size={18} />
+            Chat on Messenger
+          </a>
 
-            <div>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Total Number of Guests <span style={{ color: "red" }}>*</span></label>
-              <input type="number" min="1" defaultValue="1" style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14 }} required />
-            </div>
+          <p
+            style={{
+              fontFamily: "var(--font-figtree), sans-serif",
+              fontSize: 12,
+              color: "#64748B",
+              textAlign: "center",
+              marginTop: 14,
+              marginBottom: 0,
+            }}
+          >
+            Clicking opens <strong>m.me/SkwitchiTravels</strong> with your pre-filled inquiry.
+          </p>
 
-            <div>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Seniors (60yo and above)</label>
-              <input type="number" min="0" defaultValue="0" style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14 }} />
-              <div style={{ fontSize: 10, color: "#666", marginTop: 4 }}>How many seniors included in the total number of guests</div>
-            </div>
+          <hr style={{ margin: "24px 0", border: 0, borderTop: "1px solid #E2E8F0" }} />
 
-            <div>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Children (12yo and below)</label>
-              <input type="number" min="0" defaultValue="0" style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14 }} />
-              <div style={{ fontSize: 10, color: "#666", marginTop: 4 }}>How many children included in the total number of guests</div>
-            </div>
-
-            <div style={{ display: "flex", gap: 16 }}>
-               <div style={{ flex: 1 }}>
-                 <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Airline Ticket <span style={{ color: "red" }}>*</span></label>
-                 <select style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#555" }}>
-                    <option>Please select one</option>
-                    <option>Yes</option>
-                    <option>No</option>
-                 </select>
-               </div>
-               <div style={{ flex: 1 }}>
-                 <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Hotel Accommodation</label>
-                 <select style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#555" }}>
-                    <option>Please select one</option>
-                    <option>Yes</option>
-                    <option>No</option>
-                 </select>
-               </div>
-            </div>
-
-            <div>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#003366", textTransform: "uppercase", marginBottom: 6 }}>Message</label>
-              <textarea rows={4} style={{ width: "100%", padding: "10px 12px", border: "1px solid #BACCDF", borderRadius: 4, fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, resize: "vertical" }}></textarea>
-            </div>
-
-            {/* Cloudflare turnstile mock */}
-            <div style={{ background: "#f9f9f9", border: "1px solid #e0e0e0", padding: "12px", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: 300, marginTop: 8 }}>
-               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <div style={{ width: 24, height: 24, borderRadius: "50%", background: "#2ecc71", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                     </svg>
-                  </div>
-                  <span style={{ fontSize: 13, color: "#333", fontFamily: "var(--font-figtree), sans-serif" }}>Success!</span>
-               </div>
-               <div style={{ fontSize: 9, color: "#999", textAlign: "right", fontFamily: "var(--font-figtree), sans-serif" }}>
-                 CLOUDFLARE<br/>Privacy - Terms
-               </div>
-            </div>
-
-            <button type="submit" className="btn-primary" style={{ alignSelf: "flex-start", marginTop: 16 }}>
-              Submit
-            </button>
-          </form>
+          {/* Alternative direct Facebook Page Link */}
+          <div style={{ textAlign: "center" }}>
+            <span style={{ fontSize: 12, color: "#64748B", fontFamily: "var(--font-figtree), sans-serif" }}>
+              Prefer to visit our official Facebook page first?{" "}
+            </span>
+            <a
+              href={SKWITCHI_FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: "#003366",
+                textDecoration: "underline",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 4,
+                fontFamily: "var(--font-figtree), sans-serif",
+              }}
+            >
+              facebook.com/SkwitchiTravels <ExternalLink size={12} />
+            </a>
+          </div>
         </div>
 
       </div>
@@ -194,7 +542,9 @@ export default function RequestQuotePage() {
       <Navbar />
       <main>
         <Hero />
-        <QuoteForm />
+        <Suspense fallback={<div style={{ minHeight: 400, padding: "80px 24px", textAlign: "center" }}>Loading Quote Hub...</div>}>
+          <MessengerHubContent />
+        </Suspense>
       </main>
       <Footer />
       <WhatsApp />
