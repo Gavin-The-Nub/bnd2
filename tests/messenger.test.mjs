@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildQuoteMessage, getMessengerQuoteUrl } from "../app/lib/messenger.ts";
+import { buildQuoteMessage, getMessengerQuoteUrl, copyToClipboard } from "../app/lib/messenger.ts";
 
 test("buildQuoteMessage formats message for a specific tour", () => {
   const message = buildQuoteMessage({
@@ -35,14 +35,20 @@ test("buildQuoteMessage falls back cleanly for general inquiry", () => {
   assert.match(message, /quote/i);
 });
 
-test("getMessengerQuoteUrl generates valid m.me deep link with encoded text", () => {
+test("getMessengerQuoteUrl generates valid m.me deep link with ref and encoded text", () => {
   const url = getMessengerQuoteUrl({
     tourName: "Bataan",
     duration: "2D / 1N",
   });
 
-  assert.ok(url.startsWith("https://m.me/SkwitchiTravels?text="));
-  const textParam = new URL(url).searchParams.get("text");
+  assert.ok(url.startsWith("https://m.me/SkwitchiTravels?ref="));
+  const parsed = new URL(url);
+  assert.equal(parsed.searchParams.get("ref"), "bataan_quote");
+  const textParam = parsed.searchParams.get("text");
   assert.ok(textParam);
   assert.match(textParam, /Bataan/);
+});
+
+test("copyToClipboard function is exported", () => {
+  assert.equal(typeof copyToClipboard, "function");
 });

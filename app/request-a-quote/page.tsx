@@ -3,7 +3,6 @@
 import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import {
   MessageCircle,
   Clock,
@@ -14,11 +13,13 @@ import {
   Send,
   ExternalLink,
   Check,
+  Copy,
 } from "lucide-react";
-import { Navbar, Footer, WhatsApp } from "../components/shared";
+import { Navbar, Footer } from "../components/shared";
 import {
   getMessengerQuoteUrl,
   buildQuoteMessage,
+  copyToClipboard,
   SKWITCHI_FACEBOOK_URL,
 } from "../lib/messenger";
 
@@ -112,6 +113,8 @@ function MessengerHubContent() {
   const [dates, setDates] = useState<string>("");
   const [guests, setGuests] = useState<string>("2");
   const [notes, setNotes] = useState<string>("");
+  const [copied, setCopied] = useState<boolean>(false);
+  const [toastOpen, setToastOpen] = useState<boolean>(false);
 
   const activeDestination = POPULAR_DESTINATIONS.find((d) => d.name === selectedTour);
 
@@ -134,6 +137,20 @@ function MessengerHubContent() {
       customNotes: notes || undefined,
     });
   }, [selectedTour, activeDestination, dates, guests, notes]);
+
+  const handleCopy = () => {
+    copyToClipboard(previewMessage);
+    setCopied(true);
+    setToastOpen(true);
+    setTimeout(() => setCopied(false), 3000);
+    setTimeout(() => setToastOpen(false), 5000);
+  };
+
+  const handleChatClick = () => {
+    copyToClipboard(previewMessage);
+    setToastOpen(true);
+    setTimeout(() => setToastOpen(false), 6000);
+  };
 
   return (
     <section style={{ padding: "64px 24px", maxWidth: 1200, margin: "0 auto" }}>
@@ -185,7 +202,7 @@ function MessengerHubContent() {
               }}
             >
               We coordinate quotes and customized itineraries directly with our travel specialists on{" "}
-              <strong>Facebook Messenger</strong>. Select your preferred tour below to pre-populate your inquiry!
+              <strong>Facebook Messenger</strong>. Select your preferred tour below to prepare your inquiry!
             </p>
           </div>
 
@@ -433,9 +450,31 @@ function MessengerHubContent() {
                 </div>
               </div>
             </div>
-            <span style={{ fontSize: 11, color: "#94A3B8", fontFamily: "var(--font-figtree), sans-serif" }}>
-              Message Preview
-            </span>
+
+            {/* Dedicated Copy Button in Header */}
+            <button
+              type="button"
+              onClick={handleCopy}
+              title="Copy message to clipboard"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 5,
+                padding: "6px 12px",
+                background: copied ? "#dcfce7" : "#F1F5F9",
+                color: copied ? "#15803d" : "#003366",
+                border: copied ? "1px solid #86efac" : "1px solid #CBD5E1",
+                borderRadius: 6,
+                fontSize: 12,
+                fontWeight: 700,
+                cursor: "pointer",
+                fontFamily: "var(--font-figtree), sans-serif",
+                transition: "all 0.15s ease",
+              }}
+            >
+              {copied ? <Check size={13} /> : <Copy size={13} />}
+              <span>{copied ? "Copied!" : "Copy Message"}</span>
+            </button>
           </div>
 
           {/* Chat Bubble Preview */}
@@ -445,7 +484,7 @@ function MessengerHubContent() {
               border: "1px solid #CBD5E1",
               borderRadius: "14px 14px 4px 14px",
               padding: "16px 18px",
-              marginBottom: 24,
+              marginBottom: 20,
             }}
           >
             <p
@@ -467,6 +506,7 @@ function MessengerHubContent() {
             href={messengerUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleChatClick}
             style={{
               display: "flex",
               alignItems: "center",
@@ -496,11 +536,11 @@ function MessengerHubContent() {
               fontSize: 12,
               color: "#64748B",
               textAlign: "center",
-              marginTop: 14,
+              marginTop: 12,
               marginBottom: 0,
             }}
           >
-            Clicking opens <strong>m.me/SkwitchiTravels</strong> with your pre-filled inquiry.
+            Clicking copies your message to clipboard and opens Messenger to paste & send.
           </p>
 
           <hr style={{ margin: "24px 0", border: 0, borderTop: "1px solid #E2E8F0" }} />
@@ -508,7 +548,7 @@ function MessengerHubContent() {
           {/* Alternative direct Facebook Page Link */}
           <div style={{ textAlign: "center" }}>
             <span style={{ fontSize: 12, color: "#64748B", fontFamily: "var(--font-figtree), sans-serif" }}>
-              Prefer to visit our official Facebook page first?{" "}
+              Prefer to visit our Facebook page directly?{" "}
             </span>
             <a
               href={SKWITCHI_FACEBOOK_URL}
@@ -531,6 +571,69 @@ function MessengerHubContent() {
         </div>
 
       </div>
+
+      {/* Floating Toast Notification */}
+      {toastOpen && (
+        <div
+          role="status"
+          style={{
+            position: "fixed",
+            bottom: 30,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 9999,
+            background: "#003366",
+            color: "#fff",
+            padding: "14px 22px",
+            borderRadius: 8,
+            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.35)",
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: 14,
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            border: "1px solid #FF9900",
+            maxWidth: "90vw",
+            animation: "fadeIn 0.2s ease-in-out",
+          }}
+        >
+          <div
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              background: "#FF9900",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <Check size={16} color="#fff" />
+          </div>
+          <div>
+            <div style={{ fontWeight: 700, marginBottom: 2 }}>Inquiry Copied to Clipboard!</div>
+            <div style={{ fontSize: 12, opacity: 0.9 }}>
+              Opening Messenger... Press <strong>Paste</strong> (Cmd+V / Ctrl+V) to send your inquiry.
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setToastOpen(false)}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "#BACCDF",
+              fontSize: 18,
+              cursor: "pointer",
+              marginLeft: 8,
+              padding: 4,
+            }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </section>
   );
 }
@@ -547,7 +650,6 @@ export default function RequestQuotePage() {
         </Suspense>
       </main>
       <Footer />
-      <WhatsApp />
     </>
   );
 }

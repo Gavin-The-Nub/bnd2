@@ -58,9 +58,46 @@ export function buildQuoteMessage(params?: QuoteRequestParams): string {
 }
 
 /**
- * Returns a direct m.me URL with the pre-populated quote message encoded.
+ * Returns a direct m.me URL with the pre-populated quote message and ref tag encoded.
  */
 export function getMessengerQuoteUrl(params?: QuoteRequestParams): string {
   const text = buildQuoteMessage(params);
-  return `${SKWITCHI_MESSENGER_URL}?text=${encodeURIComponent(text)}`;
+  const ref = params?.tourName
+    ? `${params.tourName.toLowerCase().replace(/[^a-z0-9]/g, "_")}_quote`
+    : "general_quote";
+  return `${SKWITCHI_MESSENGER_URL}?ref=${encodeURIComponent(ref)}&text=${encodeURIComponent(text)}`;
+}
+
+/**
+ * Helper to safely copy text to the clipboard across all browser environments.
+ */
+export async function copyToClipboard(text: string): Promise<boolean> {
+  if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      // Fallback to execCommand below
+    }
+  }
+
+  if (typeof document !== "undefined") {
+    try {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      textarea.style.top = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      const successful = document.execCommand("copy");
+      document.body.removeChild(textarea);
+      return successful;
+    } catch {
+      return false;
+    }
+  }
+
+  return false;
 }
