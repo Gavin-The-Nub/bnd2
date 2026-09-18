@@ -19,12 +19,12 @@ const asiaTours = [
   {
     slug: "thailand",
     name: "Thailand",
-    tagline: "Land of Smiles, Golden Temples & Street Food",
-    desc: "Explore vibrant Bangkok street markets, majestic royal palaces, tranquil Chiang Mai temples, and idyllic tropical islands with crystal-clear waters.",
+    tagline: "Golden Temples, Floating Markets & VIP Day Tours",
+    desc: "Explore vibrant Bangkok, royal palaces, Pattaya beaches, and historic cities. 5 exclusive private VIP van day tours available starting at ₱14,499 (12-15 hrs, 3-10 pax).",
     image: "/pkg-beach.jpg",
-    tag: "TROPICAL ESCAPE",
-    duration: "4D / 3N",
-    location: "Bangkok & Pattaya",
+    tag: "5 VIP TOURS AVAILABLE",
+    duration: "Day Tours & 4D/3N",
+    location: "Bangkok, Pattaya, Khao Yai & more",
   },
   {
     slug: "taiwan",
