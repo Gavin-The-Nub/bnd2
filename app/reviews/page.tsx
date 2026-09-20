@@ -1,281 +1,411 @@
 "use client";
 
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Navbar, Footer, SectionHeader, WhatsApp } from "../components/shared";
+import { 
+  Play, 
+  Star, 
+  Sparkles, 
+  CheckCircle, 
+  MessageCircle, 
+  FileText, 
+  Compass, 
+  ShieldCheck, 
+  Heart,
+  Video
+} from "lucide-react";
+import { Navbar, Footer, WhatsApp } from "../components/shared";
+import { videoReviews, VideoReviewItem } from "./data";
+import VideoReelModal from "./VideoReelModal";
 
 /* ─── Hero Section ────────────────────────────────────────── */
 function Hero() {
   return (
-    <section
-      style={{
-        position: "relative",
-        height: "40vh",
-        minHeight: 300,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
+    <section className="relative min-h-[380px] sm:min-h-[440px] flex items-center justify-center py-20 px-6 overflow-hidden">
+      {/* Background Image with Deep Navy Gradient */}
+      <div className="absolute inset-0 z-0">
         <Image
           src="/pkg-beach.jpg"
-          alt="Batanes landscape"
+          alt="BND Travel and Tours Reviews Background"
           fill
-          style={{ objectFit: "cover", objectPosition: "center 40%" }}
+          className="object-cover object-center"
           priority
         />
-        <div style={{ position: "absolute", inset: 0, background: "rgba(0,18,25,0.5)" }} />
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(180deg, rgba(0, 24, 48, 0.82) 0%, rgba(0, 18, 25, 0.92) 100%)"
+          }}
+        />
       </div>
 
-      <div style={{ position: "relative", zIndex: 1, textAlign: "center", padding: "0 24px" }}>
-        <h1
-          style={{
-            fontFamily: "var(--font-figtree), sans-serif",
-            fontSize: "clamp(32px, 5vw, 48px)",
-            fontWeight: 800,
-            textTransform: "uppercase",
-            color: "#fff",
-            letterSpacing: 2,
-            margin: 0,
-          }}
+      <div className="relative z-10 text-center max-w-3xl mx-auto flex flex-col items-center">
+        {/* Floating pill badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[#FFD166] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-5 shadow-lg">
+          <Sparkles size={15} /> Authentic Guest Stories
+        </div>
+
+        <h1 
+          className="font-extrabold uppercase text-white tracking-wide text-3xl sm:text-5xl lg:text-6xl mb-4 leading-tight drop-shadow-md"
+          style={{ fontFamily: "var(--font-figtree), sans-serif" }}
         >
-          Reviews
+          Traveler Video Reviews
         </h1>
+
+        <p 
+          className="text-white/85 text-base sm:text-lg max-w-2xl leading-relaxed mb-6 font-normal"
+          style={{ fontFamily: "var(--font-figtree), sans-serif" }}
+        >
+          Don&apos;t just take our word for it—watch real, unfiltered stories and unforgettable moments captured directly by our happy guests across their dream getaways.
+        </p>
+
+        {/* Trust Badges */}
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pt-2 border-t border-white/15 text-white/90 text-xs sm:text-sm font-medium">
+          <div className="flex items-center gap-1.5">
+            <div className="flex text-[#FFD166]">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={15} fill="#FFD166" />
+              ))}
+            </div>
+            <span className="font-bold text-white">5.0 Star Rating</span>
+          </div>
+          <span className="hidden sm:inline text-white/30">•</span>
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck size={16} className="text-[#06D6A0]" />
+            <span>100% Authentic Guests</span>
+          </div>
+          <span className="hidden sm:inline text-white/30">•</span>
+          <div className="flex items-center gap-1.5">
+            <Heart size={15} className="text-[#FF6B6B]" />
+            <span>1,200+ Cherished Travelers</span>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ─── Reviews Grid ────────────────────────────────────────── */
-const reviewsData = [
-  {
-    id: 1,
-    quote: "We commend BND as our tour coordinator for being very knowledgeable, friendly, and accommodating to us. Very good travel guide.",
-    author: "Teresa Santos",
-    date: "March 9-11, 2023",
-  },
-  {
-    id: 2,
-    quote: "Mel and Kuya Richard were accommodating, courteous, friendly, and fun to be with. They respond promptly to our requests. They were great in doing their job. Thumbs up for a job well done. The hotel is clean and comfortable. The staff were courteous and attentive to our requests. The itinerary was great and worth it for the cost including the van service. No more hassle on our part as guests. Will surely want to come back and also refer to our colleagues who plan to visit Batanes. Dream come true for this trip.",
-    author: "Juana Lyn Valenzuela",
-    date: "February 7-10, 2023",
-  },
-  {
-    id: 3,
-    quote: "We're happy with the quality of service Batanes Travel and Tours has offered and showed. We're eager to come back for more jam-packed adventures and we will surely choose your service again. Will let our friends know about BTT. Thank you so much for being part of our unforgettable experience. We will miss Batanes soooo much! Dios mamajes!",
-    author: "Abigail Corpuz and John Carell Fanerir",
-    date: "February 12-15, 2023",
-  },
-  {
-    id: 4,
-    quote: "We highly recommend your guide who guided us very well, he is very resourceful, respectful, kind, and considerate. Our tour guide is Jeff Vizcay. Thank you very much!",
-    author: "Mr. and Mrs. Reynaldo R. Baguisa and Mr. and Mrs. Rolando Sima",
-    date: "February 23-25, 2023",
-  },
-  {
-    id: 5,
-    quote: "Batanes is love. I would surely come back here in Batanes. Spectacular view — New Zealand of the Philippines!",
-    author: "Jane Yu",
-    date: "February 25-28, 2023",
-  },
-  {
-    id: 6,
-    quote: "Brian was a great guide — appreciate his help very much! Kudos to the team who organized the trip.",
-    author: "Marcello Papuli",
-    date: "March 6-9, 2023",
-  },
-  {
-    id: 7,
-    quote: "We commend Mr. Dick and Jeff for being a very good driver and tour guide. We felt very comfortable in all their services and I thank Mr. Nelson for all the assistance he extended to me and my group in arranging our hotel accommodations and tour itineraries. Thank you and God bless you all. Rest assured we will highly recommend BTT to our friends in Manila.",
-    author: "Peggy H. Velando",
-    date: "March 8-11, 2023",
-  },
-];
+/* ─── Individual Video Card with Hover Preview ─────────────── */
+function VideoCard({
+  review,
+  index,
+  onOpenModal,
+}: {
+  review: VideoReviewItem;
+  index: number;
+  onOpenModal: (index: number) => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
-function ReviewCard({ review }: { review: any }) {
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    const video = videoRef.current;
+    if (video) {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    const video = videoRef.current;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  };
+
   return (
-    <div style={{
-      background: "#fff",
-      border: "1px solid #BACCDF",
-      borderRadius: 16,
-      padding: 32,
-      boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-      display: "flex",
-      flexDirection: "column",
-      width: "100%"
-    }}>
-      <div style={{ color: "#BACCDF", marginBottom: 20 }}>
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-        </svg>
+    <div
+      onClick={() => onOpenModal(index)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="group relative w-full aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200/80 bg-slate-900"
+    >
+      {/* Background Video (Muted for smooth preview on hover) */}
+      <video
+        ref={videoRef}
+        src={review.videoSrc}
+        preload="metadata"
+        muted
+        playsInline
+        loop
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+
+      {/* Subtle Dark Gradient Overlay for text contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/85 transition-opacity group-hover:opacity-90 pointer-events-none" />
+
+      {/* Top Bar: Badges */}
+      <div className="relative z-10 p-4 sm:p-5 flex items-center justify-between pointer-events-none">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-semibold text-white">
+          <CheckCircle size={13} className="text-[#06D6A0]" />
+          <span>{review.traveler}</span>
+        </div>
+
+        <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-xs font-mono text-white/90">
+          <Video size={12} className="text-[#FFD166]" />
+          <span>{review.duration}</span>
+        </div>
       </div>
-      <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#001219", lineHeight: 1.6, flexGrow: 1, marginBottom: 24 }}>
-        {review.quote}
-      </p>
-      <div style={{ borderLeft: "3px solid #FF9900", paddingLeft: 16 }}>
-        <h4 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, fontWeight: 700, color: "#003366", margin: "0 0 4px", textTransform: "uppercase" }}>
-          {review.author}
-        </h4>
-        <span style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 11, color: "#555", fontWeight: 700, textTransform: "uppercase" }}>
-          ({review.date})
+
+      {/* Center Play Button Overlay */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
+        <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-white/25 group-hover:bg-[#FF9900] border-2 border-white/50 backdrop-blur-md flex items-center justify-center text-white shadow-2xl transition-all duration-300 transform group-hover:scale-115">
+          <Play size={28} className="translate-x-0.5" fill="currentColor" />
+        </div>
+        <span className="mt-3 text-xs uppercase tracking-wider font-bold text-white/90 group-hover:text-[#FFD166] transition-colors drop-shadow-md">
+          Watch Video
         </span>
+      </div>
+
+      {/* Bottom Content: Rating, Title & Highlight */}
+      <div className="absolute bottom-0 inset-x-0 z-10 p-5 sm:p-6 flex flex-col gap-2 pointer-events-none">
+        {/* Star Rating */}
+        <div className="flex items-center gap-1 text-[#FFD166]">
+          {[...Array(review.rating)].map((_, i) => (
+            <Star key={i} size={14} fill="#FFD166" />
+          ))}
+          <span className="text-xs font-bold text-white ml-1">5.0</span>
+        </div>
+
+        {/* Title & Tour Name */}
+        <div>
+          <h3 
+            className="text-white font-bold text-lg sm:text-xl leading-snug drop-shadow-md group-hover:text-[#FFD166] transition-colors"
+            style={{ fontFamily: "var(--font-figtree), sans-serif" }}
+          >
+            {review.title}
+          </h3>
+          <p className="text-white/80 text-xs sm:text-sm font-medium drop-shadow-sm mt-0.5">
+            {review.tourName}
+          </p>
+        </div>
+
+        {/* Quote Snippet */}
+        <p className="text-white/90 text-xs sm:text-sm italic line-clamp-2 bg-white/10 p-2.5 rounded-xl border border-white/15 backdrop-blur-sm">
+          &ldquo;{review.highlight}&rdquo;
+        </p>
       </div>
     </div>
   );
 }
 
-function ReviewsGrid() {
+/* ─── Video Wall Grid ─────────────────────────────────────── */
+function VideoWall({
+  reviews,
+  onOpenModal,
+}: {
+  reviews: VideoReviewItem[];
+  onOpenModal: (index: number) => void;
+}) {
   return (
-    <section style={{ padding: "80px 24px", maxWidth: 1200, margin: "0 auto" }}>
-      <SectionHeader label="HEAR IT FROM OUR HAPPY TRAVELERS" title="" />
-      
-      <p style={{ 
-        fontFamily: "var(--font-figtree), sans-serif", 
-        fontSize: 15, 
-        color: "#001219", 
-        textAlign: "center",
-        maxWidth: 700,
-        margin: "0 auto 40px",
-        lineHeight: 1.6
-      }}>
-        Don't just take our word for it—discover what makes Batanes Travel and Tours special through the voices of our cherished guests. From unforgettable sunsets to warm local hospitality, heartfelt family moments to romantic adventures, these authentic stories from fellow travelers showcase the magic we help create in beautiful Batanes.
-      </p>
-
-      {/* Top Row: Image + Highlight Review */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 32, marginBottom: 32, alignItems: "stretch" }}>
-        {/* Main image */}
-        <div style={{ flex: "1 1 400px", minWidth: 300 }}>
-          <div style={{ position: "relative", width: "100%", height: "100%", minHeight: 400, borderRadius: 16, overflow: "hidden" }}>
-             <Image
-              src="/pkg-hotel.jpg"
-              alt="Happy travelers dining"
-              fill
-              style={{ objectFit: "cover" }}
-              sizes="(max-width:768px) 100vw, 50vw"
-            />
+    <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      {/* Header bar */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-6 border-b border-slate-200">
+        <div>
+          <div className="inline-flex items-center gap-2 text-[#003366] font-bold text-xs tracking-wider uppercase mb-1">
+            <Compass size={14} className="text-[#FF9900]" /> Real Guest Moments
           </div>
+          <h2 
+            className="text-2xl sm:text-3xl font-extrabold text-[#001219] uppercase tracking-wide"
+            style={{ fontFamily: "var(--font-figtree), sans-serif" }}
+          >
+            Explore Video Stories
+          </h2>
         </div>
-        {/* Highlight Review */}
-        <div style={{ flex: "1 1 400px", display: "flex" }}>
-          {reviewsData.length > 0 && (
-             <ReviewCard review={reviewsData[0]} />
-          )}
+
+        <div className="text-sm font-medium text-slate-500">
+          Showing <span className="font-bold text-[#003366]">{reviews.length}</span> Verified Video Testimonials
         </div>
       </div>
 
-      {/* Bottom Rows: Masonry */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 32, marginBottom: 40, alignItems: "flex-start" }}>
-        {/* Left Column */}
-        <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: 32 }}>
-          {reviewsData.slice(1).filter((_, i) => i % 2 === 0).map(review => (
-            <ReviewCard key={review.id} review={review} />
-          ))}
-        </div>
-
-        {/* Right Column */}
-        <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: 32 }}>
-          {reviewsData.slice(1).filter((_, i) => i % 2 !== 0).map(review => (
-            <ReviewCard key={review.id} review={review} />
-          ))}
-        </div>
-      </div>
-
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 24, marginTop: 60, fontFamily: "var(--font-figtree), sans-serif", fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1 }}>
-        <span style={{ cursor: "pointer", color: "#001219" }}>Previous</span>
-        <span style={{ cursor: "pointer", color: "#001219" }}>1</span>
-        <span style={{ cursor: "pointer", color: "#888" }}>2</span>
-        <span style={{ cursor: "pointer", color: "#001219" }}>Next</span>
+      {/* 3-Column Responsive Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {reviews.map((review, index) => (
+          <VideoCard
+            key={review.id}
+            review={review}
+            index={index}
+            onOpenModal={onOpenModal}
+          />
+        ))}
       </div>
     </section>
   );
 }
 
-/* ─── Bottom Banner ───────────────────────────────────────── */
-function BottomBanner() {
+/* ─── Trust Highlights Section ────────────────────────────── */
+function TrustHighlights() {
+  const highlights = [
+    {
+      icon: <ShieldCheck size={28} className="text-[#003366]" />,
+      title: "Hassle-Free Organization",
+      desc: "From smooth airport transfers to premium hotel accommodations, we arrange every single detail for you.",
+    },
+    {
+      icon: <Heart size={28} className="text-[#FF9900]" />,
+      title: "Caring Local Guides",
+      desc: "Our passionate local guides ensure you learn authentic culture, discover hidden gems, and feel right at home.",
+    },
+    {
+      icon: <Sparkles size={28} className="text-[#06D6A0]" />,
+      title: "Unforgettable Itineraries",
+      desc: "Carefully designed schedules crafted to balance exciting landmarks with peaceful, leisurely sightseeing.",
+    },
+  ];
+
   return (
-    <section
-      style={{
-        position: "relative",
-        padding: "80px 24px",
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
+    <section className="bg-slate-50 py-16 px-4 sm:px-6 lg:px-8 border-y border-slate-200">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <h2 
+            className="text-2xl sm:text-3xl font-extrabold text-[#003366] uppercase tracking-wide mb-3"
+            style={{ fontFamily: "var(--font-figtree), sans-serif" }}
+          >
+            Why Travelers Choose BND
+          </h2>
+          <p className="text-slate-600 text-sm sm:text-base">
+            We are dedicated to crafting stress-free, meaningful travel experiences that turn your vacation dreams into lifelong cherished memories.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {highlights.map((item, idx) => (
+            <div
+              key={idx}
+              className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200/80 flex flex-col items-center text-center hover:shadow-md transition-shadow"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center mb-5">
+                {item.icon}
+              </div>
+              <h3 
+                className="text-lg font-bold text-[#001219] mb-2 uppercase tracking-wide"
+                style={{ fontFamily: "var(--font-figtree), sans-serif" }}
+              >
+                {item.title}
+              </h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Bottom Conversion CTA ───────────────────────────────── */
+function BottomCTA() {
+  return (
+    <section className="relative py-20 px-6 overflow-hidden">
+      {/* Background with Dark Navy Gradient */}
+      <div className="absolute inset-0 z-0">
         <Image
-          src="/pkg-beach.jpg"
-          alt="Share your experience"
+          src="/gallery/IMG_1294.webp"
+          alt="Book Your Dream Tour"
           fill
-          style={{ objectFit: "cover", objectPosition: "center 80%" }}
+          className="object-cover object-center"
+        />
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(135deg, rgba(0, 32, 64, 0.9) 0%, rgba(0, 18, 25, 0.94) 100%)"
+          }}
         />
       </div>
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 1200, margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 32, width: "100%" }}>
-        <div style={{ 
-          maxWidth: 600, 
-          background: "rgba(255, 255, 255, 0.7)", 
-          backdropFilter: "blur(4px)",
-          padding: "40px",
-          borderRadius: 8
-        }}>
-          <h2
-            style={{
-              fontFamily: "var(--font-figtree), sans-serif",
-              fontSize: "clamp(24px, 4vw, 32px)",
-              fontWeight: 800,
-              color: "#003366",
-              textTransform: "uppercase",
-              letterSpacing: 1,
-              margin: "0 0 16px",
-            }}
+      <div className="relative z-10 max-w-5xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
+        <div className="max-w-xl text-center lg:text-left">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FF9900]/20 border border-[#FF9900]/40 text-[#FFD166] text-xs font-bold uppercase tracking-wider mb-4">
+            <Sparkles size={14} /> Start Your Journey Today
+          </div>
+          <h2 
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white uppercase tracking-tight mb-4 leading-tight"
+            style={{ fontFamily: "var(--font-figtree), sans-serif" }}
           >
-            SHARE YOUR TRAVEL EXPERIENCE
+            Ready to Create Your Own Travel Story?
           </h2>
-          <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, color: "#001219", margin: "0 0 0", lineHeight: 1.6 }}>
-            We'd love to hear about your adventures in Batanes! Share your thoughts with us so we can keep improving and provide the best experiences for fellow travelers.
+          <p className="text-white/80 text-base sm:text-lg leading-relaxed">
+            Let our travel specialists help you design the perfect getaway for your family, friends, or company group.
           </p>
         </div>
-        
-        <div style={{ textAlign: "center" }}>
-           <Link href="/contact">
-            <button style={{ 
-              background: "#fff", 
-              color: "#003366", 
-              fontWeight: 700, 
-              padding: "16px 32px", 
-              borderRadius: 4, 
-              border: "none",
-              textTransform: "uppercase",
-              letterSpacing: 1,
-              cursor: "pointer",
-              fontSize: 14,
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
-            }}>
-              Send A Testimonial
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row lg:flex-col gap-4 w-full sm:w-auto">
+          <Link href="/request-a-quote" className="w-full sm:w-auto">
+            <button 
+              type="button"
+              className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#FF9900] to-[#FF8000] hover:from-[#FF8000] hover:to-[#e67300] text-white font-bold text-sm uppercase tracking-wider shadow-xl hover:shadow-2xl hover:scale-105 transition-all cursor-pointer"
+            >
+              <FileText size={18} />
+              <span>Request A Free Quote</span>
             </button>
           </Link>
-          <div style={{ marginTop: 16, fontSize: 11, color: "#fff", textAlign: "center", fontFamily: "var(--font-figtree), sans-serif", textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>
-             By submitting a testimonial, you agree to our <a href="#" style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a>.
-          </div>
+
+          <a 
+            href="https://m.me/bndtravelandtours" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto"
+          >
+            <button 
+              type="button"
+              className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white hover:bg-slate-100 text-[#003366] font-bold text-sm uppercase tracking-wider shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer border border-white"
+            >
+              <MessageCircle size={18} />
+              <span>Chat on Messenger</span>
+            </button>
+          </a>
         </div>
       </div>
     </section>
   );
 }
 
-/* ─── Page ────────────────────────────────────────────────── */
+/* ─── Main Reviews Page ───────────────────────────────────── */
 export default function ReviewsPage() {
+  const [activeModalIndex, setActiveModalIndex] = useState<number | null>(null);
+
+  const handleOpenModal = (index: number) => {
+    setActiveModalIndex(index);
+  };
+
+  const handleCloseModal = () => {
+    setActiveModalIndex(null);
+  };
+
+  const handleSelectIndex = (index: number) => {
+    setActiveModalIndex(index);
+  };
+
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-white text-slate-900">
       <Navbar />
-      <main>
+
+      <main className="flex-grow">
         <Hero />
-        <ReviewsGrid />
-        <BottomBanner />
+        <VideoWall 
+          reviews={videoReviews} 
+          onOpenModal={handleOpenModal} 
+        />
+        <TrustHighlights />
+        <BottomCTA />
       </main>
+
       <Footer />
       <WhatsApp />
-    </>
+
+      {/* Reel Modal Player */}
+      <VideoReelModal
+        reviews={videoReviews}
+        currentIndex={activeModalIndex}
+        onClose={handleCloseModal}
+        onSelectIndex={handleSelectIndex}
+      />
+    </div>
   );
 }
