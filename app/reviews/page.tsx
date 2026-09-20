@@ -10,27 +10,46 @@ import VideoReelModal from "./VideoReelModal";
 /* ─── Hero Section ────────────────────────────────────────── */
 function Hero() {
   return (
-    <section className="relative min-h-[260px] sm:min-h-[320px] flex items-center justify-center py-16 px-6 overflow-hidden">
-      <div className="absolute inset-0 z-0">
+    <section
+      style={{
+        position: "relative",
+        height: "38vh",
+        minHeight: 280,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        width: "100%",
+      }}
+    >
+      <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
         <Image
           src="/pkg-beach.jpg"
           alt="Reviews Background"
           fill
-          className="object-cover object-center"
+          style={{ objectFit: "cover", objectPosition: "center 40%" }}
           priority
         />
         <div 
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(180deg, rgba(0, 24, 48, 0.75) 0%, rgba(0, 18, 25, 0.88) 100%)"
-          }}
+          style={{ 
+            position: "absolute", 
+            inset: 0, 
+            background: "linear-gradient(180deg, rgba(0, 24, 48, 0.72) 0%, rgba(0, 18, 25, 0.88) 100%)" 
+          }} 
         />
       </div>
 
-      <div className="relative z-10 text-center max-w-3xl mx-auto flex flex-col items-center">
-        <h1 
-          className="font-extrabold uppercase text-white tracking-wider text-3xl sm:text-5xl drop-shadow-md m-0"
-          style={{ fontFamily: "var(--font-figtree), sans-serif" }}
+      <div style={{ position: "relative", zIndex: 1, textAlign: "center", padding: "0 24px" }}>
+        <h1
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: "clamp(32px, 5vw, 48px)",
+            fontWeight: 800,
+            textTransform: "uppercase",
+            color: "#fff",
+            letterSpacing: 2,
+            margin: 0,
+          }}
         >
           Reviews
         </h1>
@@ -50,8 +69,10 @@ function VideoCard({
   onOpenModal: (index: number) => void;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
+    setIsHovered(true);
     const video = videoRef.current;
     if (video) {
       video.currentTime = 0;
@@ -60,6 +81,7 @@ function VideoCard({
   };
 
   const handleMouseLeave = () => {
+    setIsHovered(false);
     const video = videoRef.current;
     if (video) {
       video.pause();
@@ -72,7 +94,23 @@ function VideoCard({
       onClick={() => onOpenModal(index)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group relative w-full aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1.5 bg-black border border-slate-200"
+      style={{
+        position: "relative",
+        width: "100%",
+        maxWidth: 340,
+        aspectRatio: "9 / 16",
+        borderRadius: 24,
+        overflow: "hidden",
+        cursor: "pointer",
+        backgroundColor: "#000",
+        boxShadow: isHovered 
+          ? "0 20px 35px -5px rgba(0, 0, 0, 0.3), 0 10px 15px -5px rgba(0, 0, 0, 0.2)"
+          : "0 10px 20px -3px rgba(0, 0, 0, 0.15)",
+        transform: isHovered ? "translateY(-6px)" : "translateY(0)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        margin: "0 auto",
+        border: "1px solid rgba(0, 0, 0, 0.08)",
+      }}
     >
       {/* Background Video Preview */}
       <video
@@ -82,16 +120,58 @@ function VideoCard({
         muted
         playsInline
         loop
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          transform: isHovered ? "scale(1.04)" : "scale(1)",
+          transition: "transform 0.4s ease",
+        }}
       />
 
-      {/* Subtle vignette overlay on hover */}
-      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors pointer-events-none" />
+      {/* Subtle overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundColor: isHovered ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.15)",
+          transition: "background-color 0.3s ease",
+          pointerEvents: "none",
+        }}
+      />
 
       {/* Center Play Button Overlay */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-        <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-black/50 group-hover:bg-[#FF9900] border-2 border-white/70 backdrop-blur-md flex items-center justify-center text-white shadow-2xl transition-all duration-300 transform group-hover:scale-110">
-          <Play size={28} className="translate-x-0.5 text-white" fill="white" />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          pointerEvents: "none",
+        }}
+      >
+        <div
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: "50%",
+            backgroundColor: isHovered ? "#FF9900" : "rgba(0, 0, 0, 0.55)",
+            border: "2px solid rgba(255, 255, 255, 0.8)",
+            backdropFilter: "blur(6px)",
+            WebkitBackdropFilter: "blur(6px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#fff",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
+            transform: isHovered ? "scale(1.12)" : "scale(1)",
+            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
+          <Play size={28} style={{ transform: "translateX(2px)" }} fill="#fff" />
         </div>
       </div>
     </div>
@@ -107,9 +187,31 @@ function VideoWall({
   onOpenModal: (index: number) => void;
 }) {
   return (
-    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* 3-Column Responsive Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+    <section
+      style={{
+        padding: "60px 24px 100px",
+        maxWidth: 1200,
+        margin: "0 auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100%",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 340px))",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 32,
+          width: "100%",
+          maxWidth: 1140,
+          margin: "0 auto",
+        }}
+      >
         {reviews.map((review, index) => (
           <VideoCard
             key={review.id}
@@ -140,10 +242,18 @@ export default function ReviewsPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-900">
+    <div 
+      style={{ 
+        minHeight: "100vh", 
+        display: "flex", 
+        flexDirection: "column", 
+        backgroundColor: "#fff", 
+        width: "100%" 
+      }}
+    >
       <Navbar />
 
-      <main className="flex-grow">
+      <main style={{ flexGrow: 1, width: "100%" }}>
         <Hero />
         <VideoWall 
           reviews={videoReviews} 
