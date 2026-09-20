@@ -9,7 +9,6 @@ import { QuoteButton } from "../../../components/QuoteButton";
 const tour = {
   name: "Taiwan",
   tagline: "Night Markets, Lantern Villages & Mountain Tea",
-  tag: "FOOD & HERITAGE",
   duration: "4D / 3N",
   location: "Taipei, Jiufen & Sun Moon Lake",
   image: "/pkg-village.jpg",
@@ -63,8 +62,7 @@ function Hero() {
           {tour.name}
         </h1>
         <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: "clamp(13px, 2vw, 17px)", color: "#BACCDF", margin: "0 0 20px", fontStyle: "italic" }}>{tour.tagline}</p>
-        <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
-          <span style={{ background: "#FF9900", color: "#fff", fontSize: 11, fontWeight: 700, padding: "5px 16px", borderRadius: 20, fontFamily: "var(--font-figtree), sans-serif", letterSpacing: 0.5 }}>{tour.tag}</span>
+        <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
           <span style={{ color: "#BACCDF", fontSize: 13, fontFamily: "var(--font-figtree), sans-serif" }}><Calendar size={14} style={{ marginRight: 4, display: "inline-block", verticalAlign: "middle" }} />{tour.duration}</span>
           <span style={{ color: "#BACCDF", fontSize: 13, fontFamily: "var(--font-figtree), sans-serif" }}><MapPin size={14} style={{ marginRight: 4, display: "inline-block", verticalAlign: "middle" }} />{tour.location}</span>
         </div>
@@ -88,8 +86,7 @@ function Overview() {
           {[
             { label: "Duration", value: tour.duration },
             { label: "Location", value: tour.location },
-            { label: "Tour Type", value: tour.tag },
-            { label: "Pricing Note", value: tour.priceNote },
+            { label: "Pricing", value: tour.priceNote },
           ].map((item) => (
             <div key={item.label} style={{ marginBottom: 16, borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: 16 }}>
               <div style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: "#BACCDF", marginBottom: 4 }}>{item.label}</div>

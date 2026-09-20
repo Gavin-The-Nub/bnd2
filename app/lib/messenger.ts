@@ -65,7 +65,7 @@ export function getMessengerQuoteUrl(params?: QuoteRequestParams): string {
   const ref = params?.tourName
     ? `${params.tourName.toLowerCase().replace(/[^a-z0-9]/g, "_")}_quote`
     : "general_quote";
-  return `${SKWITCHI_MESSENGER_URL}?ref=${encodeURIComponent(ref)}&text=${encodeURIComponent(text)}`;
+  return `${SKWITCHI_MESSENGER_URL}?text=${encodeURIComponent(text)}&ref=${encodeURIComponent(ref)}`;
 }
 
 /**

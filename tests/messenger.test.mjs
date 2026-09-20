@@ -4,14 +4,14 @@ import { buildQuoteMessage, getMessengerQuoteUrl, copyToClipboard } from "../app
 
 test("buildQuoteMessage formats message for a specific tour", () => {
   const message = buildQuoteMessage({
-    tourName: "Bataan",
-    duration: "2D / 1N",
-    pageUrl: "http://localhost:3000/packages/local/bataan",
+    tourName: "Baguio",
+    duration: "3D / 2N",
+    pageUrl: "http://localhost:3000/packages/local/baguio",
   });
 
-  assert.match(message, /Bataan/);
-  assert.match(message, /2D \/ 1N/);
-  assert.match(message, /http:\/\/localhost:3000\/packages\/local\/bataan/);
+  assert.match(message, /Baguio/);
+  assert.match(message, /3D \/ 2N/);
+  assert.match(message, /http:\/\/localhost:3000\/packages\/local\/baguio/);
   assert.match(message, /Skwitchi Travels/);
 });
 
@@ -37,16 +37,16 @@ test("buildQuoteMessage falls back cleanly for general inquiry", () => {
 
 test("getMessengerQuoteUrl generates valid m.me deep link with ref and encoded text", () => {
   const url = getMessengerQuoteUrl({
-    tourName: "Bataan",
-    duration: "2D / 1N",
+    tourName: "Baguio",
+    duration: "3D / 2N",
   });
 
-  assert.ok(url.startsWith("https://m.me/SkwitchiTravels?ref="));
+  assert.ok(url.startsWith("https://m.me/SkwitchiTravels?text="));
   const parsed = new URL(url);
-  assert.equal(parsed.searchParams.get("ref"), "bataan_quote");
+  assert.equal(parsed.searchParams.get("ref"), "baguio_quote");
   const textParam = parsed.searchParams.get("text");
   assert.ok(textParam);
-  assert.match(textParam, /Bataan/);
+  assert.match(textParam, /Baguio/);
 });
 
 test("copyToClipboard function is exported", () => {

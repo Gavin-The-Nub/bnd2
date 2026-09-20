@@ -136,9 +136,8 @@ const navLinks = [
     label: "BND Packages",
     href: "#packages",
     children: [
-      { label: "View Packages", href: "/packages" },
-      { label: "Tour Itineraries", href: "/tour-itineraries" },
-      { label: "Tour Inclusions", href: "/tour-inclusions" },
+      { label: "Local Land Tour", href: "/packages/local" },
+      { label: "Asia Tour", href: "/packages/asia" },
     ],
   },
   {

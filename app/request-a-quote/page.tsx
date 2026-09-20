@@ -13,25 +13,26 @@ import {
   Send,
   ExternalLink,
   Check,
-  Copy,
 } from "lucide-react";
 import { Navbar, Footer } from "../components/shared";
 import {
   getMessengerQuoteUrl,
   buildQuoteMessage,
-  copyToClipboard,
   SKWITCHI_FACEBOOK_URL,
 } from "../lib/messenger";
 
 const POPULAR_DESTINATIONS = [
-  { id: "bataan", name: "Bataan", duration: "2D / 1N", region: "Local" },
   { id: "batanes", name: "Batanes", duration: "3D / 2N", region: "Local" },
+  { id: "baguio", name: "Baguio", duration: "3D / 2N", region: "Local" },
   { id: "sagada", name: "Sagada", duration: "3D / 2N", region: "Local" },
-  { id: "siargao", name: "Siargao", duration: "4D / 3N", region: "Local" },
+  { id: "buscalan", name: "Buscalan", duration: "3D / 2N", region: "Local" },
+  { id: "ilocos", name: "Ilocos", duration: "3D / 2N", region: "Local" },
+  { id: "bicol", name: "Bicol", duration: "3D / 2N", region: "Local" },
   { id: "cebu", name: "Cebu", duration: "3D / 2N", region: "Local" },
-  { id: "buscalan", name: "Buscalan", duration: "2D / 1N", region: "Local" },
-  { id: "siquijor", name: "Siquijor", duration: "3D / 2N", region: "Local" },
+  { id: "siargao", name: "Siargao", duration: "4D / 3N", region: "Local" },
   { id: "bacolod", name: "Bacolod", duration: "3D / 2N", region: "Local" },
+  { id: "palawan", name: "Palawan", duration: "4D / 3N", region: "Local" },
+  { id: "mt-pinatubo", name: "Mt. Pinatubo", duration: "1D", region: "Local" },
   { id: "vietnam", name: "Vietnam", duration: "5D / 4N", region: "Asia" },
   { id: "japan", name: "Japan", duration: "5D / 4N", region: "Asia" },
   { id: "thailand", name: "Thailand", duration: "4D / 3N", region: "Asia" },
@@ -108,13 +109,11 @@ function MessengerHubContent() {
   );
 
   const [selectedTour, setSelectedTour] = useState<string>(
-    matchingDest ? matchingDest.name : "Bataan"
+    matchingDest ? matchingDest.name : "Batanes"
   );
   const [dates, setDates] = useState<string>("");
   const [guests, setGuests] = useState<string>("2");
   const [notes, setNotes] = useState<string>("");
-  const [copied, setCopied] = useState<boolean>(false);
-  const [toastOpen, setToastOpen] = useState<boolean>(false);
 
   const activeDestination = POPULAR_DESTINATIONS.find((d) => d.name === selectedTour);
 
@@ -138,19 +137,6 @@ function MessengerHubContent() {
     });
   }, [selectedTour, activeDestination, dates, guests, notes]);
 
-  const handleCopy = () => {
-    copyToClipboard(previewMessage);
-    setCopied(true);
-    setToastOpen(true);
-    setTimeout(() => setCopied(false), 3000);
-    setTimeout(() => setToastOpen(false), 5000);
-  };
-
-  const handleChatClick = () => {
-    copyToClipboard(previewMessage);
-    setToastOpen(true);
-    setTimeout(() => setToastOpen(false), 6000);
-  };
 
   return (
     <section style={{ padding: "64px 24px", maxWidth: 1200, margin: "0 auto" }}>
@@ -451,30 +437,20 @@ function MessengerHubContent() {
               </div>
             </div>
 
-            {/* Dedicated Copy Button in Header */}
-            <button
-              type="button"
-              onClick={handleCopy}
-              title="Copy message to clipboard"
+            {/* Live Preview Indicator */}
+            <span
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 5,
-                padding: "6px 12px",
-                background: copied ? "#dcfce7" : "#F1F5F9",
-                color: copied ? "#15803d" : "#003366",
-                border: copied ? "1px solid #86efac" : "1px solid #CBD5E1",
-                borderRadius: 6,
-                fontSize: 12,
-                fontWeight: 700,
-                cursor: "pointer",
                 fontFamily: "var(--font-figtree), sans-serif",
-                transition: "all 0.15s ease",
+                fontSize: 11,
+                fontWeight: 700,
+                color: "#003366",
+                background: "#EBF3FA",
+                padding: "4px 10px",
+                borderRadius: 20,
               }}
             >
-              {copied ? <Check size={13} /> : <Copy size={13} />}
-              <span>{copied ? "Copied!" : "Copy Message"}</span>
-            </button>
+              Live Preview
+            </span>
           </div>
 
           {/* Chat Bubble Preview */}
@@ -506,7 +482,6 @@ function MessengerHubContent() {
             href={messengerUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={handleChatClick}
             style={{
               display: "flex",
               alignItems: "center",
@@ -540,7 +515,7 @@ function MessengerHubContent() {
               marginBottom: 0,
             }}
           >
-            Clicking copies your message to clipboard and opens Messenger to paste & send.
+            Clicking opens Facebook Messenger directly with your inquiry pre-populated.
           </p>
 
           <hr style={{ margin: "24px 0", border: 0, borderTop: "1px solid #E2E8F0" }} />
@@ -571,69 +546,6 @@ function MessengerHubContent() {
         </div>
 
       </div>
-
-      {/* Floating Toast Notification */}
-      {toastOpen && (
-        <div
-          role="status"
-          style={{
-            position: "fixed",
-            bottom: 30,
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: 9999,
-            background: "#003366",
-            color: "#fff",
-            padding: "14px 22px",
-            borderRadius: 8,
-            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.35)",
-            fontFamily: "var(--font-figtree), sans-serif",
-            fontSize: 14,
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            border: "1px solid #FF9900",
-            maxWidth: "90vw",
-            animation: "fadeIn 0.2s ease-in-out",
-          }}
-        >
-          <div
-            style={{
-              width: 28,
-              height: 28,
-              borderRadius: "50%",
-              background: "#FF9900",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}
-          >
-            <Check size={16} color="#fff" />
-          </div>
-          <div>
-            <div style={{ fontWeight: 700, marginBottom: 2 }}>Inquiry Copied to Clipboard!</div>
-            <div style={{ fontSize: 12, opacity: 0.9 }}>
-              Opening Messenger... Press <strong>Paste</strong> (Cmd+V / Ctrl+V) to send your inquiry.
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={() => setToastOpen(false)}
-            style={{
-              background: "transparent",
-              border: "none",
-              color: "#BACCDF",
-              fontSize: 18,
-              cursor: "pointer",
-              marginLeft: 8,
-              padding: 4,
-            }}
-          >
-            ✕
-          </button>
-        </div>
-      )}
     </section>
   );
 }

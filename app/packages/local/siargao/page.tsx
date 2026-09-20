@@ -1,6 +1,5 @@
 "use client";
-import { Droplet, Sun, Sparkles, Waves, Palmtree, Compass, Calendar, MapPin, Check, X } from "lucide-react";
-
+import { Palmtree, MapPin, Check, X, Calendar, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Navbar, Footer, WhatsApp } from "../../../components/shared";
@@ -8,37 +7,36 @@ import { QuoteButton } from "../../../components/QuoteButton";
 
 const tour = {
   name: "Siargao",
-  tagline: "Surf, Lagoons & Island Bliss",
-  tag: "SURF & SUN",
+  tagline: "Island Escapes, Coastal Sights & Guided Tour",
   duration: "4D / 3N",
   location: "Surigao del Norte, Mindanao",
   image: "/pkg-honeymoon.jpg",
-  intro: "Siargao — the tear-drop island of the Philippines — has captured the world's imagination as the surf capital of Asia. But beyond the legendary Cloud 9 wave, Siargao hides a universe of beauty: emerald lagoons, mangrove forests, deserted islands, and a relaxed, soulful community that welcomes every visitor like family. Our package covers your accommodation, van transfers, and guided tours — just book your own flights and let us handle the rest!",
+  intro:
+    "Experience the stunning island of Siargao with BND Travel and Tours. Based directly on our official local tour package, this getaway includes comfortable accommodation, van transfer, and guided visits to top tourist spots. Enjoy pristine beaches, tropical landscapes, and hassle-free local ground arrangements.",
   highlights: [
-      {icon: "Waves", title: "Cloud 9 Surfing", desc: "Ride the barrel that put Siargao on the world surf map. Cloud 9 is a world-class right-hand reef break perfect for experienced surfers and thrilling to watch."},
-      {icon: "Palmtree", title: "Naked, Daku & Guyam Island Hopping", desc: "Hop between three iconic islands — the wide sandbar of Naked Island, the laidback paradise of Daku, and the tiny gem of Guyam."},
-      {icon: "Droplet", title: "Sugba Lagoon", desc: "Kayak or paddleboard through the crystal-clear emerald waters of this stunning lagoon inside the Del Carmen National Mangrove Park."},
-      {icon: "Sparkles", title: "Magpupungko Rock Pools", desc: "At low tide, discover spectacular natural rock pools carved by the ocean, perfect for swimming and photography."},
-      {icon: "Compass", title: "Sohoton Cove & Jellyfish Sanctuary", desc: "Journey through limestone cliffs to a hidden cove where you can swim among thousands of stingless jellyfish."},
-      {icon: "Sun", title: "General Luna Sunsets", desc: "Watch the golden hour from beachside cafes, hammocks, and the palm-fringed shores of General Luna town."},
+    { title: "Accommodation Included", desc: "Cozy island lodging arranged for your group's stay." },
+    { title: "Van Transfer", desc: "Safe and comfortable van service for all scheduled tours and transfers." },
+    { title: "Guided Tourist Spots", desc: "Guided sightseeing across Siargao's most famous natural attractions and viewpoints." },
   ],
-  itinerary: [
-      {day: "Day 1", title: "Arrival in Siargao", activities: ["Arrive at Sayak Airport, General Luna (own airfare)", "Check-in at resort", "Afternoon: Cloud 9 boardwalk — watch surfers (or try a beginner lesson)", "Sunset at the famous Cloud 9 tower", "Welcome dinner at a local beachside restaurant (own expense)"]},
-      {day: "Day 2", title: "Island Hopping & Rock Pools", activities: ["Morning: Magpupungko Rock Pools (low tide tour)", "Lunch in Pilar (own expense)", "Afternoon: Island hopping — Naked Island, Daku Island, Guyam Island", "Snorkeling and swimming", "Return to General Luna for dinner"]},
-      {day: "Day 3", title: "Sugba Lagoon & Sohoton Cove", activities: ["Early boat to Sugba Lagoon (Del Carmen)", "Kayaking, paddleboarding & cliff jumping", "Picnic lunch on the lagoon (own expense)", "Afternoon: Sohoton Cove & Jellyfish Sanctuary (optional, weather permitting)", "Return to General Luna", "Free evening"]},
-      {day: "Day 4", title: "Departure", activities: ["Leisure morning & final surf session or beach time", "Souvenir shopping", "Van transfer to airport", "Departure (own airfare)"]},
+  inclusions: [
+    "Accommodation",
+    "Van Transfer",
+    "Guided Tourist Spots",
   ],
-  inclusions: ["Accommodation", "Van Transfer", "Guided Tourist Spots"],
-  exclusions: ["Meals", "Air Fare", "Shuttle"],
-  priceNote: "Rates vary based on group size and season. Contact us for a personalized quote.",
+  exclusions: [
+    "Meals",
+    "Air Fare",
+    "Shuttle",
+  ],
+  priceNote: "Rates vary based on group size and travel dates. Contact us for a personalized quote.",
 };
 
 function Wave() {
   return (
     <div style={{ width: 120, margin: "0 0 16px" }}>
       <svg viewBox="0 0 600 20" style={{ width: "100%", height: 16 }} preserveAspectRatio="none">
-        {[0,60,120,180,240,300,360,420,480,540].map((x, i) => (
-          <path key={i} d={`M${x},10 C${x+15},2 ${x+30},18 ${x+45},10 S${x+60},2 ${x+60},10`} stroke="#003366" strokeWidth="1.5" fill="none" opacity={0.4} />
+        {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
+          <path key={i} d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`} stroke="#003366" strokeWidth="1.5" fill="none" opacity={0.4} />
         ))}
       </svg>
     </div>
@@ -61,9 +59,8 @@ function Hero() {
         </h1>
         <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: "clamp(13px, 2vw, 17px)", color: "#BACCDF", margin: "0 0 20px", fontStyle: "italic" }}>{tour.tagline}</p>
         <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
-          <span style={{ background: "#FF9900", color: "#fff", fontSize: 11, fontWeight: 700, padding: "5px 16px", borderRadius: 20, fontFamily: "var(--font-figtree), sans-serif", letterSpacing: 0.5 }}>{tour.tag}</span>
-          <span style={{ color: "#BACCDF", fontSize: 13, fontFamily: "var(--font-figtree), sans-serif" }}><Calendar size={14} style={{marginRight: 4, display: "inline-block", verticalAlign: "middle"}} />{tour.duration}</span>
-          <span style={{ color: "#BACCDF", fontSize: 13, fontFamily: "var(--font-figtree), sans-serif" }}><MapPin size={14} style={{marginRight: 4, display: "inline-block", verticalAlign: "middle"}} />{tour.location}</span>
+          <span style={{ color: "#BACCDF", fontSize: 13, fontFamily: "var(--font-figtree), sans-serif" }}><Calendar size={14} style={{ marginRight: 4, display: "inline-block", verticalAlign: "middle" }} />{tour.duration}</span>
+          <span style={{ color: "#BACCDF", fontSize: 13, fontFamily: "var(--font-figtree), sans-serif" }}><MapPin size={14} style={{ marginRight: 4, display: "inline-block", verticalAlign: "middle" }} />{tour.location}</span>
         </div>
       </div>
     </section>
@@ -85,7 +82,6 @@ function Overview() {
           {[
             { label: "Duration", value: tour.duration },
             { label: "Location", value: tour.location },
-            { label: "Tour Type", value: tour.tag },
             { label: "Pricing", value: tour.priceNote },
           ].map((item) => (
             <div key={item.label} style={{ marginBottom: 16, borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: 16 }}>
@@ -105,62 +101,20 @@ function Overview() {
   );
 }
 
-const IconComponents: Record<string, any> = {
-  "Droplet": Droplet,
-  "Sun": Sun,
-  "Sparkles": Sparkles,
-  "Waves": Waves,
-  "Palmtree": Palmtree,
-  "Compass": Compass,
-};
-
-function Highlights() {
+function HighlightsSection() {
   return (
-    <section style={{ padding: "72px 24px", maxWidth: 1100, margin: "0 auto" }}>
-      <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: "#003366", margin: "0 0 6px" }}>WHAT YOU&apos;LL EXPERIENCE</p>
+    <section style={{ padding: "72px 24px 40px", maxWidth: 1100, margin: "0 auto" }}>
+      <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: "#003366", margin: "0 0 6px" }}>KEY FEATURES</p>
       <Wave />
-      <h2 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: "clamp(20px, 3vw, 30px)", fontWeight: 800, textTransform: "uppercase", color: "#003366", margin: "0 0 40px" }}>TOUR HIGHLIGHTS</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 28 }}>
-        {tour.highlights.map((h, i) => {
-          const IconComponent = IconComponents[h.icon] || MapPin;
-          return (
-            <div key={i} style={{ background: "#fff", border: "2px solid #BACCDF", borderRadius: 14, padding: "28px 24px" }}>
-              <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(0,51,102,0.08)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
-                <IconComponent size={22} color="#003366" />
-              </div>
-              <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 15, fontWeight: 800, color: "#003366", margin: "0 0 10px", textTransform: "uppercase" }}>{h.title}</h3>
-              <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#444", lineHeight: 1.65, margin: 0 }}>{h.desc}</p>
+      <h2 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: "clamp(20px, 3vw, 30px)", fontWeight: 800, textTransform: "uppercase", color: "#003366", margin: "0 0 32px" }}>PACKAGE HIGHLIGHTS</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 24 }}>
+        {tour.highlights.map((h, i) => (
+          <div key={i} style={{ background: "#fff", border: "2px solid #BACCDF", borderRadius: 14, padding: "24px 20px" }}>
+            <div style={{ width: 40, height: 40, borderRadius: 10, background: "rgba(0,51,102,0.08)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
+              <Sparkles size={20} color="#003366" />
             </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-function Itinerary() {
-  return (
-    <section style={{ padding: "0 24px 72px", maxWidth: 1100, margin: "0 auto" }}>
-      <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: "#003366", margin: "0 0 6px" }}>YOUR JOURNEY</p>
-      <Wave />
-      <h2 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: "clamp(20px, 3vw, 30px)", fontWeight: 800, textTransform: "uppercase", color: "#003366", margin: "0 0 40px" }}>SAMPLE ITINERARY</h2>
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        {tour.itinerary.map((day, i) => (
-          <div key={i} style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-            <div style={{ flexShrink: 0, width: 90, textAlign: "center" }}>
-              <div style={{ background: "#003366", color: "#fff", borderRadius: 10, padding: "14px 8px", fontFamily: "var(--font-figtree), sans-serif", fontSize: 12, fontWeight: 800, textTransform: "uppercase", letterSpacing: 1 }}>{day.day}</div>
-            </div>
-            <div style={{ flex: 1, background: "#fff", border: "2px solid #BACCDF", borderRadius: 14, padding: "24px 28px", minWidth: 280 }}>
-              <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, fontWeight: 800, color: "#003366", margin: "0 0 16px", textTransform: "uppercase" }}>{day.title}</h3>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
-                {day.activities.map((act, j) => (
-                  <li key={j} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#444", lineHeight: 1.5 }}>
-                    <span style={{ color: "#FF9900", fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span>
-                    {act}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 15, fontWeight: 800, color: "#003366", margin: "0 0 8px", textTransform: "uppercase" }}>{h.title}</h3>
+            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#555", lineHeight: 1.6, margin: 0 }}>{h.desc}</p>
           </div>
         ))}
       </div>
@@ -177,7 +131,7 @@ function InclusionsExclusions() {
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
             {tour.inclusions.map((item, i) => (
               <li key={i} style={{ display: "flex", gap: 10, fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#BACCDF", lineHeight: 1.5 }}>
-                <Check size={16} color="#4ade80" style={{flexShrink: 0, marginTop: 2}} />{item}
+                <Check size={16} color="#4ade80" style={{ flexShrink: 0, marginTop: 2 }} />{item}
               </li>
             ))}
           </ul>
@@ -187,7 +141,7 @@ function InclusionsExclusions() {
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
             {tour.exclusions.map((item, i) => (
               <li key={i} style={{ display: "flex", gap: 10, fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#555", lineHeight: 1.5 }}>
-                <X size={16} color="#ef4444" style={{flexShrink: 0, marginTop: 2}} />{item}
+                <X size={16} color="#ef4444" style={{ flexShrink: 0, marginTop: 2 }} />{item}
               </li>
             ))}
           </ul>
@@ -226,7 +180,7 @@ export default function TourPage() {
       <main>
         <Hero />
         <Overview />
-        <Highlights />
+        <HighlightsSection />
         <InclusionsExclusions />
         <BookingCTA />
       </main>

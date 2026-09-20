@@ -278,21 +278,7 @@ function Hero() {
         >
           {tour.tagline}
         </p>
-        <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
-          <span
-            style={{
-              background: "#FF9900",
-              color: "#fff",
-              fontSize: 11,
-              fontWeight: 700,
-              padding: "5px 16px",
-              borderRadius: 20,
-              fontFamily: "var(--font-figtree), sans-serif",
-              letterSpacing: 0.5,
-            }}
-          >
-            {tour.tag}
-          </span>
+        <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
           <span
             style={{
               color: "#BACCDF",
@@ -517,6 +503,7 @@ function DayToursSection() {
         {thailandDayTours.map((dayTour, index) => (
           <div
             key={dayTour.id}
+            id={dayTour.id}
             style={{
               background: "#fff",
               border: "2px solid #BACCDF",

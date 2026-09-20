@@ -1,6 +1,5 @@
 "use client";
-import { Scissors, Mountain, Sun, Coffee, Trees, Compass, Calendar, MapPin, Check, X } from "lucide-react";
-
+import { Mountain, MapPin, Check, X, Calendar, Compass, UtensilsCrossed } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Navbar, Footer, WhatsApp } from "../../../components/shared";
@@ -8,36 +7,41 @@ import { QuoteButton } from "../../../components/QuoteButton";
 
 const tour = {
   name: "Sagada",
-  tagline: "Caves, Coffins & Cool Mountain Air",
-  tag: "HIGHLAND ESCAPE",
+  tagline: "Highland Caves, Pine Trails & Cultural Heritage",
   duration: "3D / 2N",
-  location: "Mountain Province, Luzon",
+  location: "Mountain Province, Cordillera",
   image: "/pkg-lighthouse.jpg",
-  intro: "Nestled at 1,500 meters above sea level in the Cordillera mountains, Sagada is a mystical highland town renowned for its hanging coffins, limestone caves, and mist-draped forests. A world apart from the bustling lowlands, it offers a serene escape into indigenous Kankana-ey culture, cool mountain air, and breathtaking natural landscapes. Our package includes 2 nights accommodation with free use of utensils and kitchen — perfect for a cozy highland stay.",
-  highlights: [
-      {icon: "Mountain", title: "Hanging Coffins of Echo Valley", desc: "Witness the ancient Kankana-ey tradition of placing coffins on cliff faces overlooking the lush Echo Valley."},
-      {icon: "Compass", title: "Lumiang & Sumaguing Caves", desc: "Spelunk through cathedral-like limestone chambers with stalactites, stalagmites, and underground rivers."},
-      {icon: "Sun", title: "Kiltepan Sunrise Viewpoint", desc: "Rise early and be rewarded with a stunning sea-of-clouds sunrise view that stretches to the horizon."},
-      {icon: "Coffee", title: "Yoghurt House & Local Food", desc: "Enjoy the famous Sagada yogurt, lemon pie, and hearty mountain cuisine at cozy local cafes."},
-      {icon: "Scissors", title: "Weaving Cooperatives", desc: "Visit traditional Kankana-ey weaving workshops and bring home authentic hand-woven souvenirs."},
-      {icon: "Trees", title: "Bokong Falls & Nature Walks", desc: "Trek through pine forests to discover hidden waterfalls and scenic mountain trails."},
+  intro:
+    "Experience the peaceful Cordillera highlands with BND Travel and Tours. Based directly on our official Sagada tour package, this getaway includes 2 nights accommodation with free use of utensils and kitchen, plus roundtrip van transfer. Perfect for families, barkadas, and adventurers seeking cool mountain breezes and legendary highland landscapes.",
+  placesToVisit: [
+    "Sumaguing Cave",
+    "Echo Valley & Hanging Coffins",
+    "Marlboro Hills",
+    "Sagada Weaving Center",
+    "Sagada Pottery",
+    "Sagada Town Church & Hub",
+    "Scenic Mountain Viewpoints",
   ],
-  itinerary: [
-      {day: "Day 1", title: "Arrival & Town Orientation", activities: ["Arrive in Sagada via van transfer", "Check-in at accommodation", "Afternoon walking tour of the town", "Visit St. Mary the Virgin Anglican Church", "Sunset at Echo Valley overlook", "Cook your own dinner using the free kitchen!"]},
-      {day: "Day 2", title: "Caves & Hanging Coffins", activities: ["Early morning trek to Hanging Coffins of Echo Valley", "Cave connection tour: Lumiang Cave to Sumaguing Cave (hire local tour guide on-site)", "Lunch at a local restaurant (own expense)", "Afternoon visit to Kiltepan viewpoint", "Visit Sagada Weaving Cooperative", "Free time to explore the market"]},
-      {day: "Day 3", title: "Sunrise & Departure", activities: ["Pre-dawn drive to Kiltepan for sunrise sea of clouds", "Visit Bokong Falls for a quick dip", "Pick up souvenirs at the local market", "Van transfer back to Manila"]},
+  inclusions: [
+    "2 Night Accommodation",
+    "Free use of utensils and kitchen",
+    "Van Transfer",
   ],
-  inclusions: ["2 Night Accommodation", "Free use of utensils and kitchen", "Van Transfer"],
-  exclusions: ["Meals", "Eco Fee", "Tour Guide", "Shuttle"],
-  priceNote: "Rates vary based on group size. Contact us for a personalized quote.",
+  exclusions: [
+    "Meals",
+    "Eco Fee",
+    "Tour Guide",
+    "Shuttle",
+  ],
+  priceNote: "Rates vary based on group size. Contact us for custom quotes and schedules.",
 };
 
 function Wave() {
   return (
     <div style={{ width: 120, margin: "0 0 16px" }}>
       <svg viewBox="0 0 600 20" style={{ width: "100%", height: 16 }} preserveAspectRatio="none">
-        {[0,60,120,180,240,300,360,420,480,540].map((x, i) => (
-          <path key={i} d={`M${x},10 C${x+15},2 ${x+30},18 ${x+45},10 S${x+60},2 ${x+60},10`} stroke="#003366" strokeWidth="1.5" fill="none" opacity={0.4} />
+        {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
+          <path key={i} d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`} stroke="#003366" strokeWidth="1.5" fill="none" opacity={0.4} />
         ))}
       </svg>
     </div>
@@ -60,9 +64,8 @@ function Hero() {
         </h1>
         <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: "clamp(13px, 2vw, 17px)", color: "#BACCDF", margin: "0 0 20px", fontStyle: "italic" }}>{tour.tagline}</p>
         <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
-          <span style={{ background: "#FF9900", color: "#fff", fontSize: 11, fontWeight: 700, padding: "5px 16px", borderRadius: 20, fontFamily: "var(--font-figtree), sans-serif", letterSpacing: 0.5 }}>{tour.tag}</span>
-          <span style={{ color: "#BACCDF", fontSize: 13, fontFamily: "var(--font-figtree), sans-serif" }}><Calendar size={14} style={{marginRight: 4, display: "inline-block", verticalAlign: "middle"}} />{tour.duration}</span>
-          <span style={{ color: "#BACCDF", fontSize: 13, fontFamily: "var(--font-figtree), sans-serif" }}><MapPin size={14} style={{marginRight: 4, display: "inline-block", verticalAlign: "middle"}} />{tour.location}</span>
+          <span style={{ color: "#BACCDF", fontSize: 13, fontFamily: "var(--font-figtree), sans-serif" }}><Calendar size={14} style={{ marginRight: 4, display: "inline-block", verticalAlign: "middle" }} />{tour.duration}</span>
+          <span style={{ color: "#BACCDF", fontSize: 13, fontFamily: "var(--font-figtree), sans-serif" }}><MapPin size={14} style={{ marginRight: 4, display: "inline-block", verticalAlign: "middle" }} />{tour.location}</span>
         </div>
       </div>
     </section>
@@ -84,7 +87,7 @@ function Overview() {
           {[
             { label: "Duration", value: tour.duration },
             { label: "Location", value: tour.location },
-            { label: "Tour Type", value: tour.tag },
+            { label: "Kitchen & Utensils", value: "Free use included" },
             { label: "Pricing", value: tour.priceNote },
           ].map((item) => (
             <div key={item.label} style={{ marginBottom: 16, borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: 16 }}>
@@ -104,62 +107,19 @@ function Overview() {
   );
 }
 
-const IconComponents: Record<string, any> = {
-  "Scissors": Scissors,
-  "Mountain": Mountain,
-  "Sun": Sun,
-  "Coffee": Coffee,
-  "Trees": Trees,
-  "Compass": Compass,
-};
-
-function Highlights() {
+function PlacesToVisitSection() {
   return (
-    <section style={{ padding: "72px 24px", maxWidth: 1100, margin: "0 auto" }}>
-      <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: "#003366", margin: "0 0 6px" }}>WHAT YOU&apos;LL EXPERIENCE</p>
+    <section style={{ padding: "72px 24px 40px", maxWidth: 1100, margin: "0 auto" }}>
+      <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: "#003366", margin: "0 0 6px" }}>KEY ATTRACTIONS</p>
       <Wave />
-      <h2 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: "clamp(20px, 3vw, 30px)", fontWeight: 800, textTransform: "uppercase", color: "#003366", margin: "0 0 40px" }}>TOUR HIGHLIGHTS</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 28 }}>
-        {tour.highlights.map((h, i) => {
-          const IconComponent = IconComponents[h.icon] || MapPin;
-          return (
-            <div key={i} style={{ background: "#fff", border: "2px solid #BACCDF", borderRadius: 14, padding: "28px 24px" }}>
-              <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(0,51,102,0.08)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
-                <IconComponent size={22} color="#003366" />
-              </div>
-              <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 15, fontWeight: 800, color: "#003366", margin: "0 0 10px", textTransform: "uppercase" }}>{h.title}</h3>
-              <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#444", lineHeight: 1.65, margin: 0 }}>{h.desc}</p>
+      <h2 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: "clamp(20px, 3vw, 30px)", fontWeight: 800, textTransform: "uppercase", color: "#003366", margin: "0 0 32px" }}>PLACES TO EXPLORE</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
+        {tour.placesToVisit.map((place, i) => (
+          <div key={i} style={{ background: "#fff", border: "1.5px solid #BACCDF", borderRadius: 12, padding: "18px 20px", display: "flex", alignItems: "center", gap: 14 }}>
+            <div style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(0,51,102,0.08)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <MapPin size={18} color="#003366" />
             </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-function Itinerary() {
-  return (
-    <section style={{ padding: "0 24px 72px", maxWidth: 1100, margin: "0 auto" }}>
-      <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: "#003366", margin: "0 0 6px" }}>YOUR JOURNEY</p>
-      <Wave />
-      <h2 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: "clamp(20px, 3vw, 30px)", fontWeight: 800, textTransform: "uppercase", color: "#003366", margin: "0 0 40px" }}>SAMPLE ITINERARY</h2>
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        {tour.itinerary.map((day, i) => (
-          <div key={i} style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-            <div style={{ flexShrink: 0, width: 90, textAlign: "center" }}>
-              <div style={{ background: "#003366", color: "#fff", borderRadius: 10, padding: "14px 8px", fontFamily: "var(--font-figtree), sans-serif", fontSize: 12, fontWeight: 800, textTransform: "uppercase", letterSpacing: 1 }}>{day.day}</div>
-            </div>
-            <div style={{ flex: 1, background: "#fff", border: "2px solid #BACCDF", borderRadius: 14, padding: "24px 28px", minWidth: 280 }}>
-              <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, fontWeight: 800, color: "#003366", margin: "0 0 16px", textTransform: "uppercase" }}>{day.title}</h3>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
-                {day.activities.map((act, j) => (
-                  <li key={j} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#444", lineHeight: 1.5 }}>
-                    <span style={{ color: "#FF9900", fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span>
-                    {act}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <span style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, fontWeight: 700, color: "#003366" }}>{place}</span>
           </div>
         ))}
       </div>
@@ -176,7 +136,7 @@ function InclusionsExclusions() {
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
             {tour.inclusions.map((item, i) => (
               <li key={i} style={{ display: "flex", gap: 10, fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#BACCDF", lineHeight: 1.5 }}>
-                <Check size={16} color="#4ade80" style={{flexShrink: 0, marginTop: 2}} />{item}
+                <Check size={16} color="#4ade80" style={{ flexShrink: 0, marginTop: 2 }} />{item}
               </li>
             ))}
           </ul>
@@ -186,7 +146,7 @@ function InclusionsExclusions() {
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
             {tour.exclusions.map((item, i) => (
               <li key={i} style={{ display: "flex", gap: 10, fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#555", lineHeight: 1.5 }}>
-                <X size={16} color="#ef4444" style={{flexShrink: 0, marginTop: 2}} />{item}
+                <X size={16} color="#ef4444" style={{ flexShrink: 0, marginTop: 2 }} />{item}
               </li>
             ))}
           </ul>
@@ -225,7 +185,7 @@ export default function TourPage() {
       <main>
         <Hero />
         <Overview />
-        <Highlights />
+        <PlacesToVisitSection />
         <InclusionsExclusions />
         <BookingCTA />
       </main>

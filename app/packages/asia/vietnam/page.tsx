@@ -9,7 +9,6 @@ import { QuoteButton } from "../../../components/QuoteButton";
 const tour = {
   name: "Vietnam",
   tagline: "Emerald Bays, Lantern Towns & Rich Flavors",
-  tag: "SCENIC ADVENTURE",
   duration: "5D / 4N",
   location: "Hanoi, Ha Long Bay & Hoi An",
   image: "/pkg-honeymoon.jpg",
@@ -88,8 +87,7 @@ function Overview() {
           {[
             { label: "Duration", value: tour.duration },
             { label: "Location", value: tour.location },
-            { label: "Tour Type", value: tour.tag },
-            { label: "Pricing Note", value: tour.priceNote },
+            { label: "Pricing", value: tour.priceNote },
           ].map((item) => (
             <div key={item.label} style={{ marginBottom: 16, borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: 16 }}>
               <div style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: "#BACCDF", marginBottom: 4 }}>{item.label}</div>
