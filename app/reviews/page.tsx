@@ -13,16 +13,18 @@ function Hero() {
     <section
       style={{
         position: "relative",
-        height: "38vh",
-        minHeight: 280,
+        height: 200,
+        minHeight: 170,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
         width: "100%",
+        overflow: "hidden",
+        isolation: "isolate",
       }}
     >
-      <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
+      <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
         <Image
           src="/pkg-beach.jpg"
           alt="Reviews Background"
@@ -34,7 +36,7 @@ function Hero() {
           style={{ 
             position: "absolute", 
             inset: 0, 
-            background: "linear-gradient(180deg, rgba(0, 24, 48, 0.72) 0%, rgba(0, 18, 25, 0.88) 100%)" 
+            background: "linear-gradient(180deg, rgba(0, 24, 48, 0.78) 0%, rgba(0, 18, 25, 0.90) 100%)" 
           }} 
         />
       </div>
@@ -43,7 +45,7 @@ function Hero() {
         <h1
           style={{
             fontFamily: "var(--font-figtree), sans-serif",
-            fontSize: "clamp(32px, 5vw, 48px)",
+            fontSize: "clamp(28px, 4vw, 40px)",
             fontWeight: 800,
             textTransform: "uppercase",
             color: "#fff",
@@ -53,6 +55,17 @@ function Hero() {
         >
           Reviews
         </h1>
+        <p
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: 14,
+            color: "rgba(255, 255, 255, 0.85)",
+            margin: "6px 0 0",
+            letterSpacing: 0.5,
+          }}
+        >
+          Authentic Video Stories From Our Happy Guests
+        </p>
       </div>
     </section>
   );
@@ -97,25 +110,40 @@ function VideoCard({
       style={{
         position: "relative",
         width: "100%",
-        maxWidth: 340,
+        maxWidth: 380,
         aspectRatio: "9 / 16",
         borderRadius: 24,
         overflow: "hidden",
         cursor: "pointer",
-        backgroundColor: "#000",
+        backgroundColor: "#001219",
         boxShadow: isHovered 
-          ? "0 20px 35px -5px rgba(0, 0, 0, 0.3), 0 10px 15px -5px rgba(0, 0, 0, 0.2)"
-          : "0 10px 20px -3px rgba(0, 0, 0, 0.15)",
+          ? "0 22px 40px -5px rgba(0, 0, 0, 0.35), 0 12px 18px -5px rgba(0, 0, 0, 0.22)"
+          : "0 10px 24px -3px rgba(0, 0, 0, 0.16)",
         transform: isHovered ? "translateY(-6px)" : "translateY(0)",
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
         margin: "0 auto",
         border: "1px solid rgba(0, 0, 0, 0.08)",
       }}
     >
+      {/* Background Poster Image Placeholder */}
+      <Image
+        src={review.poster}
+        alt="Traveler video review placeholder"
+        fill
+        sizes="(max-width: 768px) 100vw, 380px"
+        style={{
+          objectFit: "cover",
+          transform: isHovered ? "scale(1.04)" : "scale(1)",
+          transition: "transform 0.4s ease",
+        }}
+        priority={index < 3}
+      />
+
       {/* Background Video Preview */}
       <video
         ref={videoRef}
         src={review.videoSrc}
+        poster={review.poster}
         preload="metadata"
         muted
         playsInline
@@ -128,6 +156,7 @@ function VideoCard({
           objectFit: "cover",
           transform: isHovered ? "scale(1.04)" : "scale(1)",
           transition: "transform 0.4s ease",
+          opacity: isHovered ? 1 : 0.99,
         }}
       />
 
@@ -136,7 +165,7 @@ function VideoCard({
         style={{
           position: "absolute",
           inset: 0,
-          backgroundColor: isHovered ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.15)",
+          backgroundColor: isHovered ? "rgba(0,0,0,0.25)" : "rgba(0,0,0,0.12)",
           transition: "background-color 0.3s ease",
           pointerEvents: "none",
         }}
@@ -155,11 +184,11 @@ function VideoCard({
       >
         <div
           style={{
-            width: 64,
-            height: 64,
+            width: 68,
+            height: 68,
             borderRadius: "50%",
-            backgroundColor: isHovered ? "#FF9900" : "rgba(0, 0, 0, 0.55)",
-            border: "2px solid rgba(255, 255, 255, 0.8)",
+            backgroundColor: isHovered ? "#FF9900" : "rgba(0, 0, 0, 0.6)",
+            border: "2px solid rgba(255, 255, 255, 0.85)",
             backdropFilter: "blur(6px)",
             WebkitBackdropFilter: "blur(6px)",
             display: "flex",
@@ -171,7 +200,7 @@ function VideoCard({
             transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
-          <Play size={28} style={{ transform: "translateX(2px)" }} fill="#fff" />
+          <Play size={30} style={{ transform: "translateX(2px)" }} fill="#fff" />
         </div>
       </div>
     </div>
@@ -189,8 +218,8 @@ function VideoWall({
   return (
     <section
       style={{
-        padding: "60px 24px 100px",
-        maxWidth: 1200,
+        padding: "36px 20px 80px",
+        maxWidth: 1320,
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
@@ -203,12 +232,12 @@ function VideoWall({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 340px))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 380px))",
           justifyContent: "center",
           alignItems: "center",
           gap: 32,
           width: "100%",
-          maxWidth: 1140,
+          maxWidth: 1260,
           margin: "0 auto",
         }}
       >

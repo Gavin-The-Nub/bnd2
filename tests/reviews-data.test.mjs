@@ -8,11 +8,13 @@ test('videoReviews contains exactly 6 unique videos', () => {
   assert.equal(srcSet.size, 6);
 });
 
-test('videoReviews have valid id and videoSrc', () => {
+test('videoReviews have valid id, videoSrc, and poster', () => {
   for (const review of videoReviews) {
     assert.ok(review.id, 'Review must have an id');
     assert.ok(review.videoSrc.startsWith('/reviews/'));
     assert.ok(review.videoSrc.endsWith('.mp4'));
     assert.ok(!review.videoSrc.includes(' (1).mp4'), 'Must not include duplicate (1) file');
+    assert.ok(review.poster.startsWith('/reviews/thumbnails/'));
+    assert.ok(review.poster.endsWith('.jpg'));
   }
 });

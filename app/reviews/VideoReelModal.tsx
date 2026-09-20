@@ -212,7 +212,7 @@ export default function VideoReelModal({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-0 sm:p-4 select-none animate-in fade-in duration-200"
+      className="fixed inset-0 z-[999] flex items-center justify-center bg-black/90 backdrop-blur-md p-0 sm:p-4 select-none animate-in fade-in duration-200"
       onClick={onClose}
     >
       {/* Floating Left Arrow (Desktop) */}
@@ -249,13 +249,14 @@ export default function VideoReelModal({
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        className="relative w-full h-full sm:h-[88vh] sm:max-h-[820px] sm:max-w-[420px] sm:rounded-3xl overflow-hidden bg-black shadow-2xl flex flex-col justify-between border-0 sm:border sm:border-white/20"
+        className="relative w-full h-full sm:h-[90vh] sm:max-h-[880px] sm:max-w-[480px] sm:rounded-3xl overflow-hidden bg-black shadow-2xl flex flex-col justify-between border-0 sm:border sm:border-white/20"
       >
         {/* HTML5 Video Element */}
         <video
           ref={videoRef}
           key={currentReview.videoSrc}
           src={currentReview.videoSrc}
+          poster={currentReview.poster}
           className="absolute inset-0 w-full h-full object-cover cursor-pointer"
           playsInline
           autoPlay
