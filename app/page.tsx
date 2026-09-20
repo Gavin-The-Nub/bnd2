@@ -153,6 +153,7 @@ const navLinks = [
   },
   { label: "Gallery", href: "/gallery", children: null },
   { label: "Reviews", href: "#reviews", children: null },
+  { label: "Services", href: "/services", children: null },
   { label: "About Us", href: "/about", children: null },
   { label: "Contact Us", href: "#contact", children: null },
 ];

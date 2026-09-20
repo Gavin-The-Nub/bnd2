@@ -11,6 +11,7 @@ const tour = {
   tagline: "Emerald Bays, Lantern Towns & Rich Flavors",
   duration: "5D / 4N",
   location: "Hanoi, Ha Long Bay & Hoi An",
+  tag: "ASIA ESCAPE",
   image: "/pkg-honeymoon.jpg",
   intro: "Vietnam captivates travelers with its dramatic emerald landscapes, rich historic heritage, and fragrant culinary delights. Sail past thousands of towering limestone islands in UNESCO-listed Ha Long Bay, stroll beneath colorful silk lanterns in Hoi An Ancient Town, and sip egg coffee in Hanoi's atmospheric Old Quarter.",
   highlights: [
