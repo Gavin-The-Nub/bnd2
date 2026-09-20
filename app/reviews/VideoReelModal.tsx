@@ -9,10 +9,7 @@ import {
   VolumeX, 
   ChevronLeft, 
   ChevronRight, 
-  Maximize2, 
-  Star, 
-  CheckCircle, 
-  Sparkles 
+  Maximize2 
 } from "lucide-react";
 import { VideoReviewItem } from "./data";
 
@@ -74,9 +71,7 @@ export default function VideoReelModal({
         setIsPlaying(true);
         setShowCenterIcon("play");
         setTimeout(() => setShowCenterIcon(null), 600);
-      }).catch(() => {
-        // Autoplay policy or error
-      });
+      }).catch(() => {});
     } else {
       video.pause();
       setIsPlaying(false);
@@ -162,7 +157,7 @@ export default function VideoReelModal({
       if (isPlaying) {
         setControlsVisible(false);
       }
-    }, 3500);
+    }, 3000);
   };
 
   // Video time updates
@@ -175,7 +170,7 @@ export default function VideoReelModal({
   const handleLoadedMetadata = () => {
     const video = videoRef.current;
     if (!video) return;
-    setDuration(video.duration || currentReview?.durationSeconds || 0);
+    setDuration(video.duration || 0);
   };
 
   // Seeking via progress bar
@@ -274,7 +269,7 @@ export default function VideoReelModal({
         {/* Dynamic Vignette / Gradient overlays */}
         <div 
           onClick={togglePlay} 
-          className="absolute inset-0 pointer-events-auto cursor-pointer bg-gradient-to-b from-black/70 via-transparent to-black/90" 
+          className="absolute inset-0 pointer-events-auto cursor-pointer bg-gradient-to-b from-black/60 via-transparent to-black/80" 
         />
 
         {/* Center Play / Pause Animated Feedback Icon */}
@@ -282,7 +277,7 @@ export default function VideoReelModal({
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30 animate-out zoom-out-50 duration-500">
             <div className="w-20 h-20 rounded-full bg-black/60 border border-white/30 backdrop-blur-md flex items-center justify-center text-white shadow-2xl">
               {showCenterIcon === "play" ? (
-                <Play size={36} className="translate-x-0.5 text-[#FFD166]" fill="#FFD166" />
+                <Play size={36} className="translate-x-0.5 text-white" fill="white" />
               ) : (
                 <Pause size={36} className="text-white" fill="white" />
               )}
@@ -296,11 +291,8 @@ export default function VideoReelModal({
             controlsVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs font-semibold text-white">
-              <Sparkles size={13} className="text-[#FFD166]" />
-              <span>Review {currentIndex + 1} of {reviews.length}</span>
-            </div>
+          <div className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-semibold text-white">
+            <span>Video {currentIndex + 1} of {reviews.length}</span>
           </div>
 
           <button
@@ -313,47 +305,17 @@ export default function VideoReelModal({
           </button>
         </div>
 
-        {/* Bottom Traveler Details & Interactive Controls */}
+        {/* Bottom Interactive Video Controls */}
         <div 
           className={`relative z-20 p-4 sm:p-5 flex flex-col gap-3 transition-opacity duration-300 ${
             controlsVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          {/* Guest badge & Rating */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FF9900]/25 border border-[#FF9900]/50 text-xs font-medium text-[#FFD166]">
-              <CheckCircle size={12} className="text-[#FF9900]" />
-              <span>{currentReview.traveler}</span>
-            </div>
-
-            <div className="flex items-center gap-1 text-[#FFD166]">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={14} fill="#FFD166" />
-              ))}
-              <span className="text-xs font-bold ml-1 text-white">5.0</span>
-            </div>
-          </div>
-
-          {/* Title and Tour Name */}
-          <div>
-            <h3 className="text-white font-bold text-lg sm:text-xl leading-snug drop-shadow-md">
-              {currentReview.title}
-            </h3>
-            <p className="text-white/80 text-xs sm:text-sm font-medium mt-0.5 drop-shadow-sm">
-              {currentReview.tourName} • {currentReview.tagline}
-            </p>
-          </div>
-
-          {/* Highlight Quote */}
-          <p className="text-white/95 text-xs sm:text-sm italic line-clamp-2 bg-white/10 p-2.5 rounded-xl border border-white/15 backdrop-blur-sm">
-            &ldquo;{currentReview.highlight}&rdquo;
-          </p>
-
           {/* Scrubber Progress Bar */}
-          <div className="flex flex-col gap-1 mt-1">
+          <div className="flex flex-col gap-1">
             <div className="relative w-full h-1.5 bg-white/25 rounded-full cursor-pointer overflow-hidden group">
               <div 
-                className="h-full bg-gradient-to-r from-[#FF9900] to-[#FFD166] transition-all duration-100"
+                className="h-full bg-white transition-all duration-100"
                 style={{ width: `${progressPercent}%` }}
               />
               <input
