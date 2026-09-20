@@ -88,7 +88,10 @@ function VideoCard({
     setIsHovered(true);
     const video = videoRef.current;
     if (video) {
-      video.currentTime = 0;
+      // Skip the 0.0s black fade-in frame so preview begins on the vibrant guest footage
+      if (video.currentTime < 1.0) {
+        video.currentTime = 1.0;
+      }
       video.play().catch(() => {});
     }
   };
@@ -98,7 +101,6 @@ function VideoCard({
     const video = videoRef.current;
     if (video) {
       video.pause();
-      video.currentTime = 0;
     }
   };
 
@@ -117,29 +119,15 @@ function VideoCard({
         cursor: "pointer",
         backgroundColor: "#001219",
         boxShadow: isHovered 
-          ? "0 22px 40px -5px rgba(0, 0, 0, 0.35), 0 12px 18px -5px rgba(0, 0, 0, 0.22)"
-          : "0 10px 24px -3px rgba(0, 0, 0, 0.16)",
+          ? "0 22px 40px -5px rgba(0, 0, 0, 0.3), 0 12px 18px -5px rgba(0, 0, 0, 0.18)"
+          : "0 10px 24px -3px rgba(0, 0, 0, 0.12)",
         transform: isHovered ? "translateY(-6px)" : "translateY(0)",
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
         margin: "0 auto",
         border: "1px solid rgba(0, 0, 0, 0.08)",
       }}
     >
-      {/* Background Poster Image Placeholder */}
-      <Image
-        src={review.poster}
-        alt="Traveler video review placeholder"
-        fill
-        sizes="(max-width: 768px) 100vw, 380px"
-        style={{
-          objectFit: "cover",
-          transform: isHovered ? "scale(1.04)" : "scale(1)",
-          transition: "transform 0.4s ease",
-        }}
-        priority={index < 3}
-      />
-
-      {/* Background Video Preview */}
+      {/* Background Video Preview (plays underneath on hover) */}
       <video
         ref={videoRef}
         src={review.videoSrc}
@@ -156,16 +144,31 @@ function VideoCard({
           objectFit: "cover",
           transform: isHovered ? "scale(1.04)" : "scale(1)",
           transition: "transform 0.4s ease",
-          opacity: isHovered ? 1 : 0.99,
         }}
       />
 
-      {/* Subtle overlay */}
+      {/* Background Poster Image (stays bright; smoothly fades on hover and returns on leave) */}
+      <Image
+        src={review.poster}
+        alt="Traveler video review placeholder"
+        fill
+        sizes="(max-width: 768px) 100vw, 380px"
+        style={{
+          objectFit: "cover",
+          transform: isHovered ? "scale(1.04)" : "scale(1)",
+          transition: "transform 0.4s ease, opacity 0.3s ease",
+          opacity: isHovered ? 0 : 1,
+          pointerEvents: "none",
+        }}
+        priority={index < 3}
+      />
+
+      {/* Subtle overlay (no darkening on hover) */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          backgroundColor: isHovered ? "rgba(0,0,0,0.25)" : "rgba(0,0,0,0.12)",
+          backgroundColor: isHovered ? "rgba(0, 0, 0, 0.05)" : "transparent",
           transition: "background-color 0.3s ease",
           pointerEvents: "none",
         }}
