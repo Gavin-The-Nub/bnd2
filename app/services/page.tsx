@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Hotel,
   Compass,
@@ -12,12 +11,11 @@ import {
   Users,
   ShieldCheck,
   FileCheck,
-  Phone,
-  Mail,
   ArrowRight,
+  MessageCircle,
 } from "lucide-react";
 import { Navbar, Footer, SectionHeader, WhatsApp } from "../components/shared";
-import { servicesData, servicesContactInfo, ServiceItem } from "./data";
+import { servicesData, ServiceItem } from "./data";
 import { SKWITCHI_MESSENGER_URL } from "../lib/messenger";
 
 /* ─── Icon Mapping ─────────────────────────────────────────── */
@@ -109,38 +107,42 @@ function ServiceCard({ service }: { service: ServiceItem }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         background: "#FFFFFF",
-        borderRadius: 12,
-        border: hovered ? "1px solid #BACCDF" : "1px solid #E2E8F0",
-        padding: "28px 24px",
+        borderRadius: 16,
+        border: hovered ? "1.5px solid #BACCDF" : "1.5px solid #E2E8F0",
+        padding: "38px 34px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        boxShadow: hovered ? "0 8px 24px rgba(0, 51, 102, 0.08)" : "none",
-        transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+        boxShadow: hovered
+          ? "0 12px 30px rgba(0, 51, 102, 0.09)"
+          : "0 2px 8px rgba(0, 0, 0, 0.02)",
+        transition: "border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease",
+        transform: hovered ? "translateY(-3px)" : "translateY(0)",
       }}
     >
       <div>
         {/* Icon & Title */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 18 }}>
           <div
             style={{
-              width: 38,
-              height: 38,
-              borderRadius: 8,
-              background: "#F1F5F9",
-              color: "#003366",
+              width: 52,
+              height: 52,
+              borderRadius: 12,
+              background: hovered ? "#003366" : "#F1F5F9",
+              color: hovered ? "#FFFFFF" : "#003366",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
+              transition: "background 0.2s ease, color 0.2s ease",
             }}
           >
-            <IconComponent size={20} strokeWidth={2} />
+            <IconComponent size={26} strokeWidth={2} />
           </div>
           <h2
             style={{
               fontFamily: "var(--font-figtree), sans-serif",
-              fontSize: 18,
+              fontSize: 22,
               fontWeight: 800,
               color: "#003366",
               margin: 0,
@@ -155,10 +157,10 @@ function ServiceCard({ service }: { service: ServiceItem }) {
         <p
           style={{
             fontFamily: "var(--font-figtree), sans-serif",
-            fontSize: 14,
+            fontSize: 16,
             color: "#334155",
-            lineHeight: 1.6,
-            margin: "0 0 10px",
+            lineHeight: 1.7,
+            margin: "0 0 14px",
           }}
         >
           {service.description}
@@ -168,11 +170,11 @@ function ServiceCard({ service }: { service: ServiceItem }) {
         <p
           style={{
             fontFamily: "var(--font-figtree), sans-serif",
-            fontSize: 13,
+            fontSize: 15,
             fontStyle: "italic",
             color: "#64748B",
-            lineHeight: 1.5,
-            margin: "0 0 16px",
+            lineHeight: 1.6,
+            margin: "0 0 18px",
           }}
         >
           &ldquo;{service.quote}&rdquo;
@@ -180,7 +182,7 @@ function ServiceCard({ service }: { service: ServiceItem }) {
       </div>
 
       {/* Single Clean Action Link */}
-      <div style={{ borderTop: "1px solid #F1F5F9", paddingTop: 14, marginTop: 8 }}>
+      <div style={{ borderTop: "1px solid #F1F5F9", paddingTop: 18, marginTop: 10 }}>
         <a
           href={messengerUrl}
           target="_blank"
@@ -188,9 +190,9 @@ function ServiceCard({ service }: { service: ServiceItem }) {
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: 6,
+            gap: 8,
             fontFamily: "var(--font-figtree), sans-serif",
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 700,
             color: hovered ? "#FF9900" : "#003366",
             textDecoration: "none",
@@ -198,7 +200,7 @@ function ServiceCard({ service }: { service: ServiceItem }) {
           }}
         >
           <span>Inquire on Messenger</span>
-          <ArrowRight size={14} />
+          <ArrowRight size={16} />
         </a>
       </div>
     </div>
@@ -214,17 +216,17 @@ export default function ServicesPage() {
         <Hero />
 
         {/* Services Section */}
-        <section style={{ maxWidth: 1160, margin: "0 auto", padding: "60px 24px 70px" }}>
-          <div style={{ marginBottom: 40 }}>
+        <section style={{ maxWidth: 1200, margin: "0 auto", padding: "60px 24px 70px" }}>
+          <div style={{ marginBottom: 44 }}>
             <SectionHeader label="SERVICES OFFERED" title="WHAT WE DO" />
           </div>
 
-          {/* Clean 8-Card Grid */}
+          {/* Spacious 2-Column Responsive Grid */}
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-              gap: 20,
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))",
+              gap: 28,
             }}
           >
             {servicesData.map((service) => (
@@ -232,21 +234,22 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          {/* Simple Contact & Quote Box */}
+          {/* Simple Messenger CTA Box */}
           <div
             style={{
-              marginTop: 50,
+              marginTop: 56,
               background: "#FFFFFF",
               border: "1px solid #E2E8F0",
-              borderRadius: 12,
-              padding: "36px 28px",
+              borderRadius: 16,
+              padding: "44px 32px",
               textAlign: "center",
+              boxShadow: "0 4px 20px rgba(0, 51, 102, 0.04)",
             }}
           >
             <h3
               style={{
                 fontFamily: "var(--font-figtree), sans-serif",
-                fontSize: 20,
+                fontSize: 22,
                 fontWeight: 800,
                 color: "#003366",
                 margin: "0 0 10px",
@@ -257,72 +260,50 @@ export default function ServicesPage() {
             <p
               style={{
                 fontFamily: "var(--font-figtree), sans-serif",
-                fontSize: 14,
+                fontSize: 15,
                 color: "#64748B",
-                maxWidth: 600,
-                margin: "0 auto 20px",
+                maxWidth: 620,
+                margin: "0 auto 26px",
                 lineHeight: 1.6,
               }}
             >
-              Contact our team directly for customized itineraries, group bookings, or assistance.
+              Chat directly with our travel specialists on Facebook Messenger for quick answers, customized tour itineraries, and group inquiries.
             </p>
 
-            {/* Direct Contact Links */}
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 24,
-                marginBottom: 24,
-                fontSize: 14,
-                fontFamily: "var(--font-figtree), sans-serif",
-              }}
-            >
+            {/* Direct Messenger Button */}
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <a
-                href={`tel:${servicesContactInfo.phoneTel}`}
+                href={SKWITCHI_MESSENGER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: 6,
-                  color: "#003366",
-                  fontWeight: 600,
+                  gap: 10,
+                  background: "#0084FF",
+                  color: "#FFFFFF",
+                  padding: "14px 32px",
+                  borderRadius: 10,
+                  fontFamily: "var(--font-figtree), sans-serif",
+                  fontSize: 15,
+                  fontWeight: 800,
+                  letterSpacing: 0.5,
                   textDecoration: "none",
+                  boxShadow: "0 4px 16px rgba(0, 132, 255, 0.3)",
+                  transition: "background 0.2s ease, transform 0.15s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#0073E6";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#0084FF";
+                  e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
-                <Phone size={15} color="#FF9900" />
-                <span>{servicesContactInfo.phone}</span>
+                <MessageCircle size={20} />
+                <span>Chat on Messenger</span>
               </a>
-
-              <a
-                href={`mailto:${servicesContactInfo.email}`}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  color: "#003366",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                }}
-              >
-                <Mail size={15} color="#FF9900" />
-                <span>{servicesContactInfo.email}</span>
-              </a>
-            </div>
-
-            {/* Action Buttons */}
-            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <Link href="/request-a-quote">
-                <button className="btn-primary" style={{ padding: "10px 22px", fontSize: 13 }}>
-                  Request A Quote
-                </button>
-              </Link>
-              <Link href="/contact">
-                <button className="btn-outline" style={{ padding: "10px 22px", fontSize: 13 }}>
-                  Contact Us
-                </button>
-              </Link>
             </div>
           </div>
         </section>
