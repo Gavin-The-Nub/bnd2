@@ -832,7 +832,7 @@ function HomeVideoReviews({
   return (
     <section id="reviews" style={{ background: "#FFFDF0", padding: "80px 24px" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <SectionHeader label="GUEST REVIEWS" title="AUTHENTIC VIDEO STORIES FROM OUR TRAVELERS" />
+        <SectionHeader label="GUEST REVIEWS" title="STORIES FROM OUR TRAVELERS" />
         <div
           style={{
             display: "grid",
