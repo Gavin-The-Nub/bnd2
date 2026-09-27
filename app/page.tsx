@@ -9,8 +9,11 @@ import { Navbar, Footer, WhatsApp } from "./components/shared";
 /* ─── Types ────────────────────────────────────────────────── */
 interface Package {
   id: number;
+  slug: string;
   image: string;
   title: string;
+  duration: string;
+  location: string;
   stars: number;
   desc: string;
   tag?: string;
@@ -20,72 +23,99 @@ interface Package {
 const featuredPackages: Package[] = [
   {
     id: 1,
-    image: "/pkg-honeymoon.jpg",
-    title: "Honeymoon Package",
+    slug: "buscalan",
+    image: "/pkg-village.jpg",
+    title: "Buscalan – Sagada Tour",
+    duration: "3D / 2N",
+    location: "Kalinga & Mt. Province",
     stars: 5,
-    desc: "A romantic escape with breathtaking sunsets, island-hopping, and luxury accommodation — perfect for couples.",
+    desc: "Explore Banaue Rice Terraces, visit legendary tattoo artist Apo Whang Od in Buscalan, and discover Sumaguing Cave and Marlboro Hills in Sagada.",
     tag: "MOST POPULAR",
   },
   {
     id: 2,
-    image: "/pkg-village.jpg",
-    title: "Cultural Heritage Tour",
+    slug: "ilocos",
+    image: "/pkg-lighthouse.jpg",
+    title: "Vigan – Paoay – Pagudpud",
+    duration: "3D / 2N",
+    location: "Ilocos Norte & Sur",
     stars: 5,
-    desc: "Immerse yourself in centuries-old traditions, stone houses, and local festivals with an expert local guide.",
+    desc: "Tour historic Calle Crisologo, UNESCO-listed Paoay Church, 4x4 sand dunes adventure, Kapurpurawan Rock Formation, and Bangui Windmills.",
     tag: "BEST VALUE",
   },
   {
     id: 3,
+    slug: "baguio",
     image: "/pkg-hotel.jpg",
-    title: "Hotel + Tour Package",
+    title: "Baguio City Tour",
+    duration: "3D / 2N",
+    location: "Baguio City, Benguet",
     stars: 5,
-    desc: "Enjoy comfortable hotel stays combined with guided tours covering all major scenic spots and landmarks.",
-    tag: "ALL INCLUSIVE",
+    desc: "Relax in the summer capital with roundtrip van transfer and guided tour to Burnham Park, Camp John Hay, Mines View, The Mansion, and Strawberry Farm.",
+    tag: "TOP RATED",
   },
 ];
 
 const morePackages: Package[] = [
   {
     id: 4,
+    slug: "hundred-islands",
     image: "/pkg-beach.jpg",
-    title: "Island Beach Tour",
+    title: "Hundred Islands",
+    duration: "3D / 2N",
+    location: "Alaminos, Pangasinan",
     stars: 5,
-    desc: "Explore pristine white-sand beaches with crystal-clear waters and stunning coastal landscapes.",
+    desc: "Boat tour across 14 islands, ziplines, cave cliff jumping at Marcos Island, and pilgrimage shrine with full accommodation for only ₱3,600/pax.",
   },
   {
     id: 5,
-    image: "/pkg-lighthouse.jpg",
-    title: "Lighthouse Trek",
+    slug: "kaparkan-abra",
+    image: "/pkg-village.jpg",
+    title: "Kaparkan Falls & Abra",
+    duration: "2D / 1N",
+    location: "Tineg & Bangued, Abra",
     stars: 5,
-    desc: "Hike to dramatic clifftop lighthouses overlooking the open Pacific Ocean — an iconic experience.",
+    desc: "Thrilling 6x6 monster truck ride to the terraced cascades of Kaparkan Falls, Lusuac Spring, and historical Abra landmarks.",
   },
   {
     id: 6,
+    slug: "bicol",
     image: "/pkg-village.jpg",
-    title: "Eco-Tour (Private)",
+    title: "Bicol Tricity & Sorsogon",
+    duration: "3D / 2N",
+    location: "Albay & Sorsogon",
     stars: 5,
-    desc: "A private eco-friendly tour through lush natural landscapes, local farms, and hidden waterfalls.",
+    desc: "Marvel at Mayon Volcano from Cagsawa Ruins, cruise Sumlang Lake, and go island hopping at Subic Pink Beach in Sorsogon.",
   },
   {
     id: 7,
-    image: "/pkg-hotel.jpg",
-    title: "Homestay + Tour",
+    slug: "mt-pinatubo",
+    image: "/pkg-village.jpg",
+    title: "Mt. Pinatubo 4x4 Adventure",
+    duration: "1D Tour",
+    location: "Capas, Tarlac & Zambales",
     stars: 5,
-    desc: "Experience authentic local life staying with welcoming host families while exploring the region.",
+    desc: "All-inclusive day trip with 4x4 off-road ride across Crow Valley lahar fields and guided trek to the turquoise crater lake.",
   },
   {
     id: 8,
+    slug: "palawan",
     image: "/pkg-beach.jpg",
-    title: "Daily Joiner Tour",
+    title: "El Nido & Puerto Princesa",
+    duration: "4D / 3N",
+    location: "Palawan",
     stars: 5,
-    desc: "Join a small group of fellow travelers for a fun, budget-friendly daily sightseeing adventure.",
+    desc: "UNESCO Subterranean River wonder, pristine island hopping in El Nido's Big Lagoon, Secret Beach, and vibrant marine sanctuaries.",
   },
   {
     id: 9,
-    image: "/pkg-honeymoon.jpg",
-    title: "Sunset Photography",
+    slug: "cebu",
+    image: "/pkg-beach.jpg",
+    title: "Cebu Cultural & Coastal",
+    duration: "4D / 3N",
+    location: "Cebu, Visayas",
     stars: 5,
-    desc: "Capture world-class sunsets at the most scenic viewpoints with a professional photography guide.",
+    desc: "Explore Cebu's historical landmarks, coastal wonders, and vibrant attractions with dedicated airport-to-hotel private van transfers.",
   },
 ];
 
@@ -186,58 +216,96 @@ function PackageCard({ pkg }: { pkg: Package }) {
       }}
     >
       {/* Image */}
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: 200,
-          borderRadius: 14,
-          overflow: "hidden",
-          marginBottom: 14,
-          flexShrink: 0,
-        }}
-      >
-        <Image
-          src={pkg.image}
-          alt={pkg.title}
-          fill
-          style={{ objectFit: "cover", transition: "transform 0.4s" }}
-          sizes="(max-width:768px) 100vw, 33vw"
-        />
-        {pkg.tag && (
+      <Link href={`/packages/local/${pkg.slug}`} style={{ textDecoration: "none" }}>
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            height: 200,
+            borderRadius: 14,
+            overflow: "hidden",
+            marginBottom: 14,
+            flexShrink: 0,
+            cursor: "pointer",
+          }}
+        >
+          <Image
+            src={pkg.image}
+            alt={pkg.title}
+            fill
+            style={{ objectFit: "cover", transition: "transform 0.4s" }}
+            sizes="(max-width:768px) 100vw, 33vw"
+          />
+          {pkg.tag && (
+            <span
+              style={{
+                position: "absolute",
+                top: 10,
+                left: 10,
+                background: "#FF9900",
+                color: "#fff",
+                fontSize: 11,
+                fontWeight: 700,
+                padding: "3px 10px",
+                borderRadius: 20,
+                letterSpacing: 0.5,
+              }}
+            >
+              {pkg.tag}
+            </span>
+          )}
           <span
             style={{
               position: "absolute",
-              top: 10,
-              left: 10,
-              background: "#FF9900",
+              bottom: 10,
+              right: 10,
+              background: "rgba(0,51,102,0.85)",
               color: "#fff",
               fontSize: 11,
               fontWeight: 700,
-              padding: "3px 10px",
-              borderRadius: 20,
+              padding: "3px 9px",
+              borderRadius: 6,
               letterSpacing: 0.5,
+              fontFamily: "var(--font-figtree), sans-serif",
             }}
           >
-            {pkg.tag}
+            {pkg.duration}
           </span>
-        )}
-      </div>
+        </div>
+      </Link>
 
-      {/* Title */}
-      <h3
+      {/* Location */}
+      <p
         style={{
           fontFamily: "var(--font-figtree), sans-serif",
-          fontSize: 17,
-          fontWeight: 800,
+          fontSize: 12,
+          fontWeight: 700,
+          color: "#0054A8",
           textTransform: "uppercase",
-          color: "#003366",
-          lineHeight: 1.2,
-          margin: 0,
+          letterSpacing: 0.8,
+          margin: "0 0 4px",
         }}
       >
-        {pkg.title}
-      </h3>
+        {pkg.location}
+      </p>
+
+      {/* Title */}
+      <Link href={`/packages/local/${pkg.slug}`} style={{ textDecoration: "none" }}>
+        <h3
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: 17,
+            fontWeight: 800,
+            textTransform: "uppercase",
+            color: "#003366",
+            lineHeight: 1.2,
+            margin: "0 0 6px",
+            cursor: "pointer",
+          }}
+        >
+          {pkg.title}
+        </h3>
+      </Link>
 
       {/* Stars */}
       <Stars count={pkg.stars} />
@@ -268,27 +336,61 @@ function PackageCard({ pkg }: { pkg: Package }) {
       </p>
 
       {/* CTA */}
-      <div>
-        <button
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <Link
+          href={`/packages/local/${pkg.slug}`}
           style={{
             background: "#FF9900",
             color: "#fff",
             border: "none",
             borderRadius: 4,
-            padding: "10px 22px",
-            fontSize: 13,
+            padding: "10px 18px",
+            fontSize: 12,
             fontWeight: 700,
             textTransform: "uppercase",
-            letterSpacing: 1,
+            letterSpacing: 0.8,
             cursor: "pointer",
             transition: "background 0.2s",
             fontFamily: "var(--font-figtree), sans-serif",
+            textDecoration: "none",
+            display: "inline-block",
+            textAlign: "center",
           }}
           onMouseEnter={(e) => (e.currentTarget.style.background = "#e68800")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "#FF9900")}
         >
+          VIEW TOUR
+        </Link>
+        <Link
+          href="/request-a-quote"
+          style={{
+            background: "transparent",
+            color: "#003366",
+            border: "1.5px solid #003366",
+            borderRadius: 4,
+            padding: "9px 16px",
+            fontSize: 12,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: 0.8,
+            cursor: "pointer",
+            transition: "all 0.2s",
+            fontFamily: "var(--font-figtree), sans-serif",
+            textDecoration: "none",
+            display: "inline-block",
+            textAlign: "center",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "#003366";
+            e.currentTarget.style.color = "#fff";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "transparent";
+            e.currentTarget.style.color = "#003366";
+          }}
+        >
           BOOK NOW
-        </button>
+        </Link>
       </div>
     </div>
   );
@@ -446,8 +548,10 @@ function AllPackages() {
           ))}
         </div>
         <div style={{ textAlign: "center", marginTop: 48 }}>
-          <button
+          <Link
+            href="/packages/local"
             style={{
+              display: "inline-block",
               background: "#FF9900",
               color: "#fff",
               border: "none",
@@ -459,13 +563,14 @@ function AllPackages() {
               letterSpacing: 1,
               cursor: "pointer",
               fontFamily: "var(--font-figtree), sans-serif",
+              textDecoration: "none",
               transition: "background 0.2s",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.background = "#e68800")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "#FF9900")}
           >
             VIEW ALL PACKAGES
-          </button>
+          </Link>
         </div>
       </div>
     </section>
