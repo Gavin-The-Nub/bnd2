@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Navbar, Footer, SectionHeader, WhatsApp } from "../components/shared";
+import { Navbar, Footer, WhatsApp } from "../components/shared";
 
 /* ─── Hero Section ────────────────────────────────────────── */
 function Hero() {
@@ -11,7 +11,7 @@ function Hero() {
       style={{
         position: "relative",
         height: "40vh",
-        minHeight: 300,
+        minHeight: 320,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -19,16 +19,29 @@ function Hero() {
     >
       <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
         <Image
-          src="/pkg-lighthouse.jpg"
-          alt="Batanes Lighthouse"
+          src="/hero.png"
+          alt="BND Travel and Tours"
           fill
           style={{ objectFit: "cover", objectPosition: "center 40%" }}
           priority
         />
-        <div style={{ position: "absolute", inset: 0, background: "rgba(0,18,25,0.6)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "rgba(0,18,25,0.65)" }} />
       </div>
 
       <div style={{ position: "relative", zIndex: 1, textAlign: "center", padding: "0 24px" }}>
+        <p
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: 13,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: 3,
+            color: "#BACCDF",
+            margin: "0 0 12px",
+          }}
+        >
+          BND Travel and Tours OPC
+        </p>
         <h1
           style={{
             fontFamily: "var(--font-figtree), sans-serif",
@@ -47,176 +60,335 @@ function Hero() {
   );
 }
 
-/* ─── Story & Advantage Section ───────────────────────────── */
-function StoryAndAdvantage() {
+/* ─── Wave Divider ────────────────────────────────────────── */
+function WaveDivider({ color = "#003366", width = 140 }: { color?: string; width?: number }) {
   return (
-    <section style={{ padding: "80px 24px", maxWidth: 1200, margin: "0 auto" }}>
-      <div style={{ marginBottom: 60, textAlign: "left" }}>
-         <p
-            style={{
-               fontFamily: "var(--font-figtree), sans-serif",
-               fontSize: 12,
-               fontWeight: 400,
-               textTransform: "uppercase",
-               letterSpacing: 3,
-               color: "#003366",
-               margin: "0 0 8px",
-            }}
-         >
-            DISCOVER BATANES WITH US
-         </p>
-         <div style={{ width: 150, marginBottom: 20 }}>
-            <svg viewBox="0 0 600 20" style={{ width: "100%", height: 20 }} preserveAspectRatio="none">
-               {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
-               <path
-                  key={i}
-                  d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`}
-                  stroke="#003366"
-                  strokeWidth="1.5"
-                  fill="none"
-                  opacity={0.4}
-               />
-               ))}
-            </svg>
-         </div>
-         <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, color: "#001219", lineHeight: 1.6, maxWidth: 900 }}>
-            Welcome to Batanes Travel and Tours, where your adventure to the stunning Batanes begins! Immerse yourself in breathtaking landscapes, rich culture, and unforgettable experiences. Let us guide you in exploring this beautiful destination with our tailored travel packages and insightful tips.
-         </p>
+    <div style={{ width, marginBottom: 20 }}>
+      <svg viewBox="0 0 600 20" style={{ width: "100%", height: 20 }} preserveAspectRatio="none">
+        {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
+          <path
+            key={i}
+            d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`}
+            stroke={color}
+            strokeWidth="1.5"
+            fill="none"
+            opacity={0.5}
+          />
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+/* ─── About the Company Section ───────────────────────────── */
+function AboutCompany() {
+  return (
+    <section style={{ padding: "80px 24px", maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ textAlign: "left", marginBottom: 32 }}>
+        <p
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: 13,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: 3,
+            color: "#003366",
+            margin: "0 0 8px",
+          }}
+        >
+          ABOUT THE COMPANY
+        </p>
+        <WaveDivider color="#003366" width={120} />
+        <h2
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: "clamp(24px, 3.5vw, 32px)",
+            fontWeight: 800,
+            color: "#001219",
+            margin: "0 0 24px",
+            lineHeight: 1.3,
+          }}
+        >
+          BND Travel and Tours OPC
+        </h2>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 64 }}>
-         {/* Story Column */}
-         <div>
-            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, fontWeight: 800, color: "#003366", textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>
-               BATANES TRAVEL AND TOURS STORY
-            </h3>
-            <div style={{ width: 100, marginBottom: 24 }}>
-               <svg viewBox="0 0 600 20" style={{ width: "100%", height: 20 }} preserveAspectRatio="none">
-                  {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
-                  <path
-                     key={i}
-                     d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`}
-                     stroke="#003366"
-                     strokeWidth="1.5"
-                     fill="none"
-                     opacity={0.4}
-                  />
-                  ))}
-               </svg>
-            </div>
-            
-            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#001219", lineHeight: 1.7, marginBottom: 20 }}>
-               Batanes Travel and Tours (BTT) is the pioneer and premier provider of Batanes Tours in Batanes. We hold the distinction of first operating south Batanes tours.
-            </p>
-            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#001219", lineHeight: 1.7 }}>
-               Its owners are proud Ivatans of the old school and young idealists. During those years, the natives did not call themselves such; they lived in Batanes—with no deep knowledge and personal allocation of what a traveler can have beyond a normal person. This forms the opportunity to share its Batanes from that tradition and culture made Batanes what it truly form its natural state and that began building his vision for Batanes Travel and Tours (BTT). Establishing events string the key difference between our programs and any post discovery. Why? It's exactly reason for you fully directly we coordinate in evaluating terms of unlived values or.
-            </p>
-         </div>
-
-         {/* Advantage Column */}
-         <div>
-            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, fontWeight: 800, color: "#003366", textTransform: "uppercase", letterSpacing: 1, marginBottom: 24 }}>
-               BATANES TRAVEL AND TOURS ADVANTAGE
-            </h3>
-            
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-               {[
-                  {
-                     title: "Private Guides and Customized Tours Put You in Control",
-                     desc: "Becoming a tourist may seem easy to be accommodated by a group of strangers to set itineraries. At Batanes Travel and Tours (BTT), every adventure is private, flexible and customized to your exact specs — draft and enjoy the vacation of a lifetime, your way. Ensure any itinerary changes your need."
-                  },
-                  {
-                     title: "Experienced, Local Guides and 24/7 Support",
-                     desc: "Experienced local guides, Tagalog/English-speaking guide. BTT assigns you the personal support and 24/7 call center to make your visit the truest adventure."
-                  },
-                  {
-                     title: "Peace of Mind",
-                     desc: "When you travel with Batanes Travel and Tours (BTT), you benefit from both the on the ground commonwealth service with fully guaranteed Batanes tour company and the 24/7 support and expertise of the local staff and guides."
-                  },
-                  {
-                     title: "Unmatched Value",
-                     desc: "With our comprehensive tour itineraries and tour inclusions, we can offer strong real value because our heritage lets the trade go in sizable numbers and long relations commends us and work more effectively towards the hotel venues or local transport restaurants. Batanes Travel and Tours (BTT) assumes you set the best price and as an authentic experience for your Batanes journey. Best managed Batanes you."
-                  }
-               ].map((item, i) => (
-                  <div key={i} style={{ background: "#fff", border: "1px solid #003366", borderRadius: 8, padding: 20 }}>
-                     <h4 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, fontWeight: 800, color: "#003366", margin: "0 0 10px" }}>
-                        {item.title}
-                     </h4>
-                     <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#001219", lineHeight: 1.6, margin: 0 }}>
-                        {item.desc}
-                     </p>
-                  </div>
-               ))}
-            </div>
-         </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 20,
+          fontFamily: "var(--font-figtree), sans-serif",
+          fontSize: 16,
+          color: "#001219",
+          lineHeight: 1.8,
+          maxWidth: 960,
+        }}
+      >
+        <p style={{ margin: 0 }}>
+          BND Travel and Tours OPC is a dynamic travel service provider based in Batangas, Philippines, committed to delivering exceptional travel experiences through carefully curated packages and reliable travel solutions.
+        </p>
+        <p style={{ margin: 0 }}>
+          Founded with a vision to make travel more accessible, convenient, and memorable, the company specializes in organizing both local and international trips for individuals, families, corporate clients, and groups.
+        </p>
+        <p style={{ margin: 0 }}>
+          We pride ourselves on professionalism, strong industry partnerships, and a customer-first approach in every transaction.
+        </p>
       </div>
     </section>
   );
 }
 
-/* ─── Vision & Mission ────────────────────────────────────── */
-function VisionMission() {
+/* ─── Mission & Vision Section ────────────────────────────── */
+function MissionVision() {
   return (
     <section style={{ background: "#BACCDF", padding: "80px 24px" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 48 }}>
-         
-         {/* Vision */}
-         <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ width: 64, height: 64, background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}>
-               <span style={{ fontSize: 32 }}>🚐</span>
-            </div>
-            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, fontWeight: 800, color: "#003366", textTransform: "uppercase", letterSpacing: 1, marginBottom: 16 }}>
-               OUR VISION
-            </h3>
-            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#001219", lineHeight: 1.6 }}>
-               Choosing us means opting for personalized travel experiences and dedicated support. We strive to provide travel packages that cater to your needs while sharing insights that help you explore Batanes like a local. Your satisfaction is our priority, and we aim to nurture loyalty through excellence in service and a vibrant community of fellow travelers.
-            </p>
-         </div>
+      <div
+        style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gap: 32,
+        }}
+      >
+        {/* Mission */}
+        <div
+          style={{
+            background: "#ffffff",
+            borderRadius: 12,
+            padding: "40px 32px",
+            boxShadow: "0 4px 20px rgba(0,18,25,0.06)",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div
+            style={{
+              width: 56,
+              height: 56,
+              background: "#F0F4F8",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: 20,
+              fontSize: 26,
+            }}
+          >
+            🎯
+          </div>
+          <h3
+            style={{
+              fontFamily: "var(--font-figtree), sans-serif",
+              fontSize: 20,
+              fontWeight: 800,
+              color: "#003366",
+              textTransform: "uppercase",
+              letterSpacing: 1,
+              margin: "0 0 16px",
+            }}
+          >
+            Mission
+          </h3>
+          <p
+            style={{
+              fontFamily: "var(--font-figtree), sans-serif",
+              fontSize: 15,
+              color: "#001219",
+              lineHeight: 1.7,
+              margin: 0,
+            }}
+          >
+            BND Travel and Tours is committed to providing comfortable, safe, and hassle-free travel experiences. We aim to deliver well-planned and detailed itineraries while ensuring every client enjoys a smooth and relaxing journey. Your comfort and satisfaction are our priority, and your smile is the energy that drives us to make every trip memorable.
+          </p>
+        </div>
 
-         {/* Mission */}
-         <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ width: 64, height: 64, background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}>
-               <span style={{ fontSize: 32 }}>🗼</span>
-            </div>
-            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, fontWeight: 800, color: "#003366", textTransform: "uppercase", letterSpacing: 1, marginBottom: 16 }}>
-               OUR MISSION
-            </h3>
-            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#001219", lineHeight: 1.6, marginBottom: 12 }}>
-               At our travel agency, we believe in creating unforgettable journeys that enrich your adventures. Our goal is to enhance awareness about the beauty of Batanes while building lasting connections with our customers. We're here to ensure your travel experiences are filled with joy and discovery, reflecting our commitment to excellent service and our core values of integrity and passion.
-            </p>
-            <ul style={{ paddingLeft: 20, fontFamily: "var(--font-figtree), sans-serif", fontSize: 12, color: "#001219", lineHeight: 1.6, margin: 0 }}>
-               <li>To maintain a good harmonious relationship with our local service providers—from the crew, owners and staff of local guides, drivers, caterers, boatmen.</li>
-               <li>To be attentive to details of how guest needs and wants to experience Batanes.</li>
-               <li>To provide our guests the best information and experience that Batanes can offer.</li>
-            </ul>
-         </div>
+        {/* Vision */}
+        <div
+          style={{
+            background: "#ffffff",
+            borderRadius: 12,
+            padding: "40px 32px",
+            boxShadow: "0 4px 20px rgba(0,18,25,0.06)",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div
+            style={{
+              width: 56,
+              height: 56,
+              background: "#F0F4F8",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: 20,
+              fontSize: 26,
+            }}
+          >
+            🔭
+          </div>
+          <h3
+            style={{
+              fontFamily: "var(--font-figtree), sans-serif",
+              fontSize: 20,
+              fontWeight: 800,
+              color: "#003366",
+              textTransform: "uppercase",
+              letterSpacing: 1,
+              margin: "0 0 16px",
+            }}
+          >
+            Vision
+          </h3>
+          <p
+            style={{
+              fontFamily: "var(--font-figtree), sans-serif",
+              fontSize: 15,
+              color: "#001219",
+              lineHeight: 1.7,
+              margin: 0,
+            }}
+          >
+            To become a reputable and trusted travel and tours company recognized for excellence in service, operational efficiency, and customer-focused travel solutions, while continuously enhancing comfort, safety, and overall travel experience.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
 
-         {/* Responsible Tourism */}
-         <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ width: 64, height: 64, background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}>
-               <span style={{ fontSize: 32 }}>🐙</span>
-            </div>
-            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, fontWeight: 800, color: "#003366", textTransform: "uppercase", letterSpacing: 1, marginBottom: 16 }}>
-               RESPONSIBLE TOURISM
-            </h3>
-            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#001219", lineHeight: 1.6 }}>
-               By employing locals as tour guides and buying other services from other municipalities for our tour needs. We help our fellow Ivatans for our daily living.
-            </p>
-         </div>
+/* ─── Core Services Section ───────────────────────────────── */
+function CoreServices() {
+  const services = [
+    {
+      title: "Local & International Tour Packages",
+      description: "Customized and carefully curated travel itineraries across top domestic and international destinations.",
+      icon: "✈️",
+      href: "/packages",
+      linkText: "View Packages",
+    },
+    {
+      title: "Hotel and Resort Reservations",
+      description: "Reliable accommodation bookings tailored to your preferences, comfort, and budget.",
+      icon: "🏨",
+      href: "/services",
+      linkText: "Learn More",
+    },
+    {
+      title: "Flight Booking Assistance",
+      description: "Convenient flight ticketing support to ensure seamless schedules for your entire journey.",
+      icon: "🎫",
+      href: "/services",
+      linkText: "Learn More",
+    },
+    {
+      title: "Visa Processing Assistance",
+      description: "Guided documentation and advisory services to simplify international visa applications.",
+      icon: "🛂",
+      href: "/services",
+      linkText: "Learn More",
+    },
+  ];
 
-         {/* Guiding Principle */}
-         <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ width: 64, height: 64, background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}>
-               <span style={{ fontSize: 32 }}>⭐</span>
-            </div>
-            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, fontWeight: 800, color: "#003366", textTransform: "uppercase", letterSpacing: 1, marginBottom: 16 }}>
-               GUIDING PRINCIPLE
-            </h3>
-            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, color: "#001219", lineHeight: 1.6 }}>
-               To provide best customer service for our guests to feel Batanes their home.
-            </p>
-         </div>
+  return (
+    <section style={{ padding: "80px 24px", maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ textAlign: "center", marginBottom: 48 }}>
+        <p
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: 13,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: 3,
+            color: "#003366",
+            margin: "0 0 8px",
+          }}
+        >
+          OUR EXPERTISE
+        </p>
+        <div style={{ margin: "0 auto 16px", width: 120 }}>
+          <WaveDivider color="#003366" width={120} />
+        </div>
+        <h2
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: "clamp(26px, 4vw, 36px)",
+            fontWeight: 800,
+            color: "#001219",
+            margin: 0,
+          }}
+        >
+          Core Services
+        </h2>
+      </div>
 
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gap: 24,
+        }}
+      >
+        {services.map((service, idx) => (
+          <div
+            key={idx}
+            style={{
+              background: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: 12,
+              padding: "32px 24px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.03)",
+            }}
+          >
+            <div>
+              <div style={{ fontSize: 32, marginBottom: 16 }}>{service.icon}</div>
+              <h3
+                style={{
+                  fontFamily: "var(--font-figtree), sans-serif",
+                  fontSize: 18,
+                  fontWeight: 800,
+                  color: "#003366",
+                  margin: "0 0 12px",
+                  lineHeight: 1.4,
+                }}
+              >
+                {service.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: "var(--font-figtree), sans-serif",
+                  fontSize: 14,
+                  color: "#555",
+                  lineHeight: 1.6,
+                  margin: "0 0 20px",
+                }}
+              >
+                {service.description}
+              </p>
+            </div>
+            <Link
+              href={service.href}
+              style={{
+                fontFamily: "var(--font-figtree), sans-serif",
+                fontSize: 13,
+                fontWeight: 700,
+                color: "#003366",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              {service.linkText} →
+            </Link>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -237,11 +409,11 @@ function BottomBanner() {
       <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
         <Image
           src="/hero.png"
-          alt="Batanes Adventure"
+          alt="BND Travel and Tours"
           fill
           style={{ objectFit: "cover", objectPosition: "center 60%" }}
         />
-        <div style={{ position: "absolute", inset: 0, background: "rgba(0,18,25,0.7)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "rgba(0,18,25,0.72)" }} />
       </div>
 
       <div style={{ position: "relative", zIndex: 1, textAlign: "center", maxWidth: 800 }}>
@@ -256,24 +428,13 @@ function BottomBanner() {
             margin: "0 0 16px",
           }}
         >
-          DISCOVER YOUR BATANES ADVENTURE
+          Plan Your Journey With BND Travel & Tours
         </h2>
-        <div style={{ margin: "0 auto 24px", width: 100 }}>
-           <svg viewBox="0 0 600 20" style={{ width: "100%", height: 20 }} preserveAspectRatio="none">
-             {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x, i) => (
-               <path
-                 key={i}
-                 d={`M${x},10 C${x + 15},2 ${x + 30},18 ${x + 45},10 S${x + 60},2 ${x + 60},10`}
-                 stroke="#fff"
-                 strokeWidth="1.5"
-                 fill="none"
-                 opacity="0.5"
-               />
-             ))}
-           </svg>
+        <div style={{ margin: "0 auto 20px", width: 120 }}>
+          <WaveDivider color="#ffffff" width={120} />
         </div>
-        <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, color: "#fff", margin: "0 0 32px" }}>
-          Explore stunning landscapes and vibrant cultures. Our travel packages to Batanes offer unforgettable experiences just waiting for you.
+        <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, color: "#fff", margin: "0 0 32px", opacity: 0.9 }}>
+          From curated local getaways to international adventures, we make every trip smooth, comfortable, and memorable.
         </p>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
           <Link href="/packages">
@@ -282,46 +443,13 @@ function BottomBanner() {
             </button>
           </Link>
           <Link href="/contact">
-            <button className="btn-primary">Request A Quote</button>
+            <button className="btn-primary">Contact Us</button>
           </Link>
         </div>
       </div>
     </section>
   );
 }
-
-/* ─── Accreditations ──────────────────────────────────────── */
-function Accreditations() {
-   return (
-      <section style={{ padding: "60px 24px", background: "#FFFDF0", borderBottom: "1px solid #e0e0e0" }}>
-         <div style={{ maxWidth: 1000, margin: "0 auto", display: "flex", flexWrap: "wrap", justifyContent: "space-around", alignItems: "center", gap: 40 }}>
-            {/* DOT */}
-            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-               <div style={{ width: 60, height: 60, background: "#ccc", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "#555" }}>DOT</span>
-               </div>
-               <div style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 12, color: "#003366", fontWeight: 600 }}>
-                  Accredited by: Department of Tourism (DOT)<br/>
-                  Accreditation ID: TOP-R02-00003024-1701-2018<br/>
-                  Valid until: 30 June 2026
-               </div>
-            </div>
-
-            {/* PHILTOA */}
-            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-               <div style={{ width: 120, height: 60, background: "#ccc", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "#555" }}>PHILTOA</span>
-               </div>
-               <div style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 12, color: "#003366", fontWeight: 600 }}>
-                  Member, Philippine Tour Operators Association<br/>
-                  (PHILTOA)
-               </div>
-            </div>
-         </div>
-      </section>
-   );
-}
-
 
 /* ─── Page ────────────────────────────────────────────────── */
 export default function AboutPage() {
@@ -330,10 +458,10 @@ export default function AboutPage() {
       <Navbar />
       <main>
         <Hero />
-        <StoryAndAdvantage />
-        <VisionMission />
+        <AboutCompany />
+        <MissionVision />
+        <CoreServices />
         <BottomBanner />
-        <Accreditations />
       </main>
       <Footer />
       <WhatsApp />
