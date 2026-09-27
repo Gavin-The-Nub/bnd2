@@ -30,11 +30,8 @@ export const navLinks = [
     label: "Travel Guides",
     href: "#",
     children: [
-      { label: "Flights", href: "/flights" },
-      { label: "Reminders Before Arrival", href: "/reminders-before-arrival" },
       { label: "Calendar of Events", href: "/calendar-of-events" },
-      { label: "Payment Option", href: "/payment-option" },
-      { label: "FAQs", href: "/faqs" },
+      { label: "Do's and Don'ts", href: "/dos-and-donts" },
     ],
   },
   { label: "Gallery", href: "/gallery", children: null },
