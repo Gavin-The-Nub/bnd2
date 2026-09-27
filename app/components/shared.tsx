@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 /* ─── Types ────────────────────────────────────────────────── */
 export interface Package {
@@ -382,6 +383,7 @@ export function CTABanner() {
 
 /* ─── Navbar ──────────────────────────────────────────────── */
 export function Navbar() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
@@ -392,6 +394,29 @@ export function Navbar() {
     window.addEventListener("scroll", handle);
     return () => window.removeEventListener("scroll", handle);
   }, []);
+
+  // Lock body scroll when off-canvas drawer is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  // Close drawer on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
 
   return (
     <>
@@ -405,16 +430,19 @@ export function Navbar() {
           borderBottom: "1px solid rgba(0, 51, 102, 0.08)",
           boxShadow: scrolled ? "0 4px 20px rgba(0,0,0,0.06)" : "none",
           transition: "box-shadow 0.3s, background 0.3s",
+          width: "100%",
         }}
       >
         <div
+          className="header-nav-container"
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "16px 32px",
+            width: "100%",
             maxWidth: 1360,
             margin: "0 auto",
+            padding: "14px 32px",
           }}
         >
           {/* LEFT — Logo */}
@@ -456,155 +484,214 @@ export function Navbar() {
           {/* CENTER — Navigation Links (Desktop) */}
           <nav
             aria-label="Main Navigation"
+            className="desktop-nav"
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 28,
+              gap: 22,
             }}
-            className="desktop-nav"
           >
-            {navLinks.map((link) => (
-              <div
-                key={link.label}
-                style={{ position: "relative" }}
-                onMouseEnter={() => link.children && setHoveredDropdown(link.label)}
-                onMouseLeave={() => link.children && setHoveredDropdown(null)}
-              >
-                <Link
-                  href={link.href}
-                  style={{
-                    fontFamily: "var(--font-figtree), sans-serif",
-                    fontSize: 12,
-                    fontWeight: 800,
-                    textTransform: "uppercase",
-                    letterSpacing: 1.5,
-                    color: "#003366",
-                    textDecoration: "none",
-                    padding: "8px 0",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 5,
-                    transition: "color 0.2s",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#FF9900")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "#003366")}
-                >
-                  {link.label}
-                  {link.children && (
-                    <svg
-                      width="10"
-                      height="10"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      style={{
-                        transform: hoveredDropdown === link.label ? "rotate(180deg)" : "rotate(0deg)",
-                        transition: "transform 0.2s",
-                      }}
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  )}
-                </Link>
+            {navLinks.map((link) => {
+              const isLinkActive = link.href === "/"
+                ? pathname === "/"
+                : pathname === link.href || (link.children && link.children.some(c => c.href === pathname));
 
-                {/* Dropdown Menu */}
-                {link.children && hoveredDropdown === link.label && (
-                  <div
+              return (
+                <div
+                  key={link.label}
+                  style={{ position: "relative" }}
+                  onMouseEnter={() => link.children && setHoveredDropdown(link.label)}
+                  onMouseLeave={() => link.children && setHoveredDropdown(null)}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={(e) => {
+                      if (link.href === "#") {
+                        e.preventDefault();
+                        setHoveredDropdown(hoveredDropdown === link.label ? null : link.label);
+                      }
+                    }}
                     style={{
-                      position: "absolute",
-                      top: "100%",
-                      left: 0,
-                      minWidth: 210,
-                      background: "#FFFFFF",
-                      borderRadius: 12,
-                      boxShadow: "0 12px 32px rgba(0, 51, 102, 0.12)",
-                      border: "1px solid rgba(0, 51, 102, 0.08)",
-                      padding: "8px 0",
-                      zIndex: 110,
+                      fontFamily: "var(--font-figtree), sans-serif",
+                      fontSize: 12.5,
+                      fontWeight: isLinkActive ? 800 : 700,
+                      textTransform: "uppercase",
+                      letterSpacing: 1.2,
+                      color: isLinkActive ? "#FF9900" : "#003366",
+                      textDecoration: "none",
+                      padding: "8px 2px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
+                      transition: "color 0.2s",
+                      position: "relative",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isLinkActive) e.currentTarget.style.color = "#FF9900";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isLinkActive) e.currentTarget.style.color = "#003366";
                     }}
                   >
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.label}
-                        href={child.href}
+                    <span>{link.label}</span>
+                    {link.children && (
+                      <svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
                         style={{
-                          display: "block",
-                          padding: "10px 18px",
-                          fontFamily: "var(--font-figtree), sans-serif",
-                          fontSize: 13,
-                          fontWeight: 600,
-                          color: "#003366",
-                          textDecoration: "none",
-                          transition: "background 0.2s, color 0.2s",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = "#FFFDF0";
-                          e.currentTarget.style.color = "#FF9900";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = "transparent";
-                          e.currentTarget.style.color = "#003366";
+                          transform: hoveredDropdown === link.label ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.2s",
+                          color: isLinkActive ? "#FF9900" : "#003366",
                         }}
                       >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    )}
+                    {isLinkActive && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          height: 2.5,
+                          background: "#FF9900",
+                          borderRadius: 2,
+                        }}
+                      />
+                    )}
+                  </Link>
+
+                  {/* Dropdown Menu */}
+                  {link.children && hoveredDropdown === link.label && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: 0,
+                        minWidth: 220,
+                        background: "#FFFFFF",
+                        borderRadius: 12,
+                        boxShadow: "0 12px 32px rgba(0, 51, 102, 0.12)",
+                        border: "1px solid rgba(0, 51, 102, 0.08)",
+                        padding: "8px 0",
+                        zIndex: 110,
+                      }}
+                    >
+                      {link.children.map((child) => {
+                        const isChildActive = pathname === child.href;
+                        return (
+                          <Link
+                            key={child.label}
+                            href={child.href}
+                            onClick={() => setHoveredDropdown(null)}
+                            style={{
+                              display: "block",
+                              padding: "10px 18px",
+                              fontFamily: "var(--font-figtree), sans-serif",
+                              fontSize: 13,
+                              fontWeight: isChildActive ? 700 : 600,
+                              color: isChildActive ? "#FF9900" : "#003366",
+                              background: isChildActive ? "#FFFDF0" : "transparent",
+                              textDecoration: "none",
+                              transition: "background 0.2s, color 0.2s",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = "#FFFDF0";
+                              e.currentTarget.style.color = "#FF9900";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = isChildActive ? "#FFFDF0" : "transparent";
+                              e.currentTarget.style.color = isChildActive ? "#FF9900" : "#003366";
+                            }}
+                          >
+                            {child.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </nav>
 
-          {/* RIGHT — Minimalist Hamburger Menu (No cart icon) */}
-          <button
-            id="hamburger-btn"
-            aria-label="Open menu"
-            onClick={() => setMenuOpen(true)}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              justifyContent: "center",
-              gap: 6,
-              padding: 8,
-            }}
-          >
-            <span
+          {/* RIGHT — Action Controls (Book Now CTA & Hamburger) */}
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <Link
+              href="/request-a-quote"
+              className="desktop-quote-btn"
               style={{
-                display: "block",
-                width: 26,
-                height: 2,
-                background: "#003366",
-                borderRadius: 1,
-                transition: "transform 0.2s",
+                background: "#FF9900",
+                color: "#FFFFFF",
+                fontSize: 12,
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+                padding: "9px 18px",
+                borderRadius: 6,
+                textDecoration: "none",
+                fontFamily: "var(--font-figtree), sans-serif",
+                transition: "background 0.2s, transform 0.15s",
+                alignItems: "center",
+                whiteSpace: "nowrap",
               }}
-            />
-            <span
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#E68800";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#FF9900";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              Request Quote
+            </Link>
+
+            <button
+              id="hamburger-btn"
+              aria-label="Open menu"
+              onClick={() => setMenuOpen(true)}
               style={{
-                display: "block",
-                width: 18,
-                height: 2,
-                background: "#003366",
-                borderRadius: 1,
-                transition: "transform 0.2s",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+                justifyContent: "center",
+                gap: 6,
+                padding: 8,
               }}
-            />
-          </button>
+            >
+              <span
+                style={{
+                  display: "block",
+                  width: 26,
+                  height: 2.2,
+                  background: "#003366",
+                  borderRadius: 1,
+                  transition: "transform 0.2s",
+                }}
+              />
+              <span
+                style={{
+                  display: "block",
+                  width: 18,
+                  height: 2.2,
+                  background: "#003366",
+                  borderRadius: 1,
+                  transition: "transform 0.2s",
+                }}
+              />
+            </button>
+          </div>
         </div>
       </header>
-
-      {/* Responsive Inline CSS to handle desktop vs mobile navigation visibility */}
-      <style jsx global>{`
-        @media (max-width: 991px) {
-          .desktop-nav {
-            display: none !important;
-          }
-        }
-      `}</style>
 
       {/* ── Off-Canvas Right Side Drawer Menu ── */}
       <div
@@ -715,7 +802,7 @@ export function Navbar() {
                 margin: 0,
               }}
             >
-              Discover the breathtaking beauty of Batanes with BND Travel &amp; Tours. We create unforgettable adventures and personalized local experiences.
+              Discover unforgettable journeys with BND Travel &amp; Tours. Your trusted local guide for curated travel experiences across the Philippines and Asia.
             </p>
           </div>
 
@@ -879,9 +966,11 @@ export function Navbar() {
                 lineHeight: 1.5,
               }}
             >
-              <div>(+632) 8633 0859</div>
-              <div>info@bndtravelandtours.com</div>
-              <div>Amboy Street, Kayhuvokan Basco, Batanes, 3900</div>
+              <a href="tel:09702065826" style={{ color: "#003366", textDecoration: "none", fontWeight: 700 }}>0970 206 5826</a>
+              <a href="tel:0437028516" style={{ color: "#003366", textDecoration: "none", fontWeight: 700 }}>043 702 8516</a>
+              <a href="mailto:Bndtravelsales@gmail.com" style={{ color: "#4A5568", textDecoration: "none" }}>Bndtravelsales@gmail.com</a>
+              <a href="mailto:Bndtravels01@gmail.com" style={{ color: "#4A5568", textDecoration: "none" }}>Bndtravels01@gmail.com</a>
+              <div style={{ fontSize: 11.5, color: "#FF9900", fontWeight: 700, marginTop: 4 }}>DOT Accreditation: DOT- R4A- TTA- 03110-2026</div>
             </div>
           </div>
 
@@ -902,13 +991,15 @@ export function Navbar() {
             </h3>
             <div style={{ display: "flex", gap: 12 }}>
               {[
-                { label: "Facebook", href: "#", bg: "#1877F2" },
-                { label: "Instagram", href: "#", bg: "#E1306C" },
-                { label: "YouTube", href: "#", bg: "#FF0000" },
+                { label: "Facebook", href: "https://www.facebook.com/SkwitchiTravels", bg: "#1877F2" },
+                { label: "Instagram", href: "https://www.instagram.com/byahe_ni_drew_travel_and_tours", bg: "#E1306C" },
+                { label: "TikTok", href: "https://www.tiktok.com/@byahe_ni_drew_travel_and_tours", bg: "#000000" },
               ].map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.label}
                   style={{
                     width: 36,
@@ -943,9 +1034,9 @@ export function Navbar() {
 export function Footer() {
   const year = new Date().getFullYear();
   const socialLinks = [
-    { label: "Facebook", href: "#", bg: "#1877F2" },
-    { label: "Instagram", href: "#", bg: "#E1306C" },
-    { label: "YouTube", href: "#", bg: "#FF0000" },
+    { label: "Facebook", href: "https://www.facebook.com/SkwitchiTravels", bg: "#1877F2" },
+    { label: "Instagram", href: "https://www.instagram.com/byahe_ni_drew_travel_and_tours", bg: "#E1306C" },
+    { label: "TikTok", href: "https://www.tiktok.com/@byahe_ni_drew_travel_and_tours", bg: "#000000" },
   ];
 
   return (
@@ -1009,15 +1100,21 @@ export function Footer() {
           {/* Contact + Social */}
           <div>
             <h4 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, fontWeight: 700, textTransform: "uppercase", color: "#fff", margin: "0 0 16px" }}>Contact Info</h4>
-            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 20px", display: "flex", flexDirection: "column", gap: 10 }}>
-              <li style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#BACCDF" }}>
-                Amboy Street, Kayhuvokan Basco, Batanes, 3900
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 20px", display: "flex", flexDirection: "column", gap: 8 }}>
+              <li style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 12.5, color: "#FF9900", fontWeight: 700 }}>
+                BND TRAVEL AND TOURS OPC
               </li>
               <li>
-                <a href="mailto:info@bndtravelandtours.com" style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#BACCDF", textDecoration: "none" }}>info@bndtravelandtours.com</a>
+                <a href="tel:09702065826" style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#BACCDF", textDecoration: "none" }}>0970 206 5826</a>
               </li>
               <li>
-                <a href="tel:+63286330859" style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#BACCDF", textDecoration: "none" }}>(+632) 8633 0859</a>
+                <a href="tel:0437028516" style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#BACCDF", textDecoration: "none" }}>043 702 8516</a>
+              </li>
+              <li>
+                <a href="mailto:Bndtravelsales@gmail.com" style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 12.5, color: "#BACCDF", textDecoration: "none" }}>Bndtravelsales@gmail.com</a>
+              </li>
+              <li>
+                <a href="mailto:Bndtravels01@gmail.com" style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 12.5, color: "#BACCDF", textDecoration: "none" }}>Bndtravels01@gmail.com</a>
               </li>
             </ul>
             <div style={{ display: "flex", gap: 10 }}>
@@ -1025,6 +1122,8 @@ export function Footer() {
                 <a
                   key={s.label}
                   href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={s.label}
                   style={{
                     width: 34,
@@ -1085,7 +1184,7 @@ export function WhatsApp() {
         position: "fixed",
         bottom: 24,
         right: 24,
-        zIndex: 300,
+        zIndex: 90,
         width: 56,
         height: 56,
         borderRadius: "50%",

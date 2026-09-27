@@ -167,3 +167,39 @@ body {
   transform: scale(1.1);
   box-shadow: 0 6px 20px rgba(0,0,0,0.3);
 }
+
+/* Navigation Bar Responsive Layout */
+.header-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 14px 32px;
+}
+
+@media (max-width: 768px) {
+  .header-nav-container {
+    padding: 12px 20px;
+  }
+}
+
+.desktop-nav {
+  display: flex !important;
+  align-items: center;
+  gap: clamp(14px, 1.5vw, 24px);
+}
+
+.desktop-quote-btn {
+  display: inline-flex !important;
+}
+
+@media (max-width: 1023px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .desktop-quote-btn {
+    display: none !important;
+  }
+}

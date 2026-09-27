@@ -707,127 +707,98 @@ function GallerySection() {
           </button>
         </div>
       ) : (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: 20,
-          }}
-        >
+        <div className="gallery-main-grid">
           {filteredItems.map((item, idx) => (
             <div
               key={item.id}
               onClick={() => setLightboxIndex(idx)}
-              style={{
-                position: "relative",
-                width: "100%",
-                paddingBottom: "100%", // 1:1 Aspect Ratio
-                borderRadius: 12,
-                overflow: "hidden",
-                cursor: "pointer",
-                backgroundColor: "#001219",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
-                transition: "all 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-4px)";
-                e.currentTarget.style.boxShadow = "0 12px 24px rgba(0, 51, 102, 0.16)";
-                const imgEl = e.currentTarget.querySelector("img");
-                if (imgEl) imgEl.style.transform = "scale(1.06)";
-                const overlay = e.currentTarget.querySelector(".gallery-overlay") as HTMLElement;
-                if (overlay) overlay.style.opacity = "1";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 4px 14px rgba(0,0,0,0.08)";
-                const imgEl = e.currentTarget.querySelector("img");
-                if (imgEl) imgEl.style.transform = "scale(1)";
-                const overlay = e.currentTarget.querySelector(".gallery-overlay") as HTMLElement;
-                if (overlay) overlay.style.opacity = "0.9";
-              }}
+              className="gallery-card"
             >
               <Image
                 src={`/gallery/${item.file}`}
                 alt={`${item.title} - ${item.destination}`}
                 fill
+                className="gallery-card-img"
                 style={{
                   objectFit: "cover",
-                  transition: "transform 0.4s ease",
                 }}
-                sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
 
-              {/* Destination Pill Badge on top-right */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: 12,
-                  right: 12,
-                  zIndex: 2,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 4,
-                  padding: "4px 10px",
-                  borderRadius: 20,
-                  backgroundColor: "rgba(0, 24, 48, 0.8)",
-                  backdropFilter: "blur(6px)",
-                  color: "#FFD166",
-                  fontSize: 11,
-                  fontWeight: 700,
-                  letterSpacing: 0.5,
-                  textTransform: "uppercase",
-                }}
-              >
+              {/* Destination Pill Badge on top-right (reveals on hover) */}
+              <div className="gallery-card-badge">
                 <MapPin size={11} /> {item.destination}
               </div>
 
-              {/* Bottom Gradient Overlay & Title Info */}
-              <div
-                className="gallery-overlay"
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background:
-                    "linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,18,25,0.85) 85%, rgba(0,18,25,0.95) 100%)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "flex-end",
-                  padding: "16px 18px",
-                  zIndex: 1,
-                  opacity: 0.9,
-                  transition: "opacity 0.3s ease",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-figtree), sans-serif",
-                      fontSize: 16,
-                      fontWeight: 700,
-                      color: "#FFFFFF",
-                      margin: 0,
-                      textShadow: "0 2px 4px rgba(0,0,0,0.6)",
-                      lineHeight: 1.25,
-                    }}
-                  >
-                    {item.title}
-                  </h3>
+              {/* Bottom Gradient Overlay & Details (reveals on hover) */}
+              <div className="gallery-card-overlay">
+                <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 12 }}>
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 4,
+                        color: "#FFD166",
+                        fontSize: 11,
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        letterSpacing: 0.5,
+                        marginBottom: 4,
+                      }}
+                    >
+                      <MapPin size={11} /> {item.destination}
+                    </div>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-figtree), sans-serif",
+                        fontSize: 20,
+                        fontWeight: 700,
+                        color: "#FFFFFF",
+                        margin: "0 0 4px",
+                        textShadow: "0 2px 6px rgba(0,0,0,0.6)",
+                        lineHeight: 1.25,
+                      }}
+                    >
+                      {item.title}
+                    </h3>
+                    {item.tagline && (
+                      <p
+                        style={{
+                          fontFamily: "var(--font-figtree), sans-serif",
+                          fontSize: 13,
+                          color: "rgba(255,255,255,0.88)",
+                          margin: 0,
+                          lineHeight: 1.35,
+                          textShadow: "0 1px 3px rgba(0,0,0,0.7)",
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {item.tagline}
+                      </p>
+                    )}
+                  </div>
                   <div
                     style={{
-                      width: 32,
-                      height: 32,
+                      width: 36,
+                      height: 36,
                       borderRadius: "50%",
                       backgroundColor: "rgba(255,255,255,0.2)",
-                      backdropFilter: "blur(4px)",
+                      backdropFilter: "blur(6px)",
+                      border: "1px solid rgba(255,255,255,0.3)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       color: "#FFFFFF",
                       flexShrink: 0,
-                      marginLeft: 8,
+                      marginBottom: 2,
                     }}
+                    title="Click to expand"
                   >
-                    <ZoomIn size={16} />
+                    <ZoomIn size={18} />
                   </div>
                 </div>
               </div>
@@ -835,6 +806,113 @@ function GallerySection() {
           ))}
         </div>
       )}
+
+      <style>{`
+        .gallery-main-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 24px;
+        }
+        @media (max-width: 1024px) {
+          .gallery-main-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+          }
+        }
+        @media (max-width: 640px) {
+          .gallery-main-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+        }
+
+        .gallery-card {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          border-radius: 14px;
+          overflow: hidden;
+          cursor: pointer;
+          background-color: #001219;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+          transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        .gallery-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 32px rgba(0, 51, 102, 0.2);
+        }
+
+        .gallery-card-img {
+          transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+        }
+        .gallery-card:hover .gallery-card-img {
+          transform: scale(1.06) !important;
+        }
+
+        .gallery-card-badge {
+          position: absolute;
+          top: 14px;
+          right: 14px;
+          z-index: 2;
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          padding: 5px 12px;
+          border-radius: 20px;
+          background-color: rgba(0, 24, 48, 0.85);
+          backdrop-filter: blur(8px);
+          color: #FFD166;
+          font-size: 11px;
+          fontWeight: 700;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          opacity: 0;
+          transform: translateY(-6px);
+          transition: opacity 0.3s ease, transform 0.3s ease;
+          pointer-events: none;
+        }
+        .gallery-card:hover .gallery-card-badge {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .gallery-card-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            180deg,
+            rgba(0, 18, 25, 0) 35%,
+            rgba(0, 18, 25, 0.72) 70%,
+            rgba(0, 18, 25, 0.95) 100%
+          );
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding: 22px 20px;
+          z-index: 1;
+          opacity: 0;
+          transform: translateY(8px);
+          transition: opacity 0.35s ease, transform 0.35s ease;
+          pointer-events: none;
+        }
+        .gallery-card:hover .gallery-card-overlay {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+
+        @media (hover: none) {
+          .gallery-card-badge {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          .gallery-card-overlay {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+          }
+        }
+      `}</style>
 
       {/* ─── Lightbox Modal ─────────────────────────────────── */}
       {currentItem && lightboxIndex !== null && (
