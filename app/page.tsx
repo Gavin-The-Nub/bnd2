@@ -7,6 +7,7 @@ import { Play } from "lucide-react";
 import { Navbar, Footer, WhatsApp } from "./components/shared";
 import { videoReviews, VideoReviewItem } from "./reviews/data";
 import VideoReelModal from "./reviews/VideoReelModal";
+import { SKWITCHI_FACEBOOK_URL, SKWITCHI_MESSENGER_URL } from "./lib/messenger";
 
 
 /* ─── Types ────────────────────────────────────────────────── */
@@ -883,7 +884,7 @@ function StayInTheLoop() {
   const socials = [
     {
       label: "Facebook",
-      href: "https://www.facebook.com/",
+      href: SKWITCHI_FACEBOOK_URL,
       bg: "#1877F2",
       icon: (
         <svg width="20" height="20" viewBox="0 0 320 512" fill="white">
@@ -893,7 +894,7 @@ function StayInTheLoop() {
     },
     {
       label: "Instagram",
-      href: "https://www.instagram.com/",
+      href: "https://www.instagram.com/byahe_ni_drew_travel_and_tours",
       bg: "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",
       icon: (
         <svg width="20" height="20" viewBox="0 0 448 512" fill="white">
@@ -902,12 +903,12 @@ function StayInTheLoop() {
       ),
     },
     {
-      label: "YouTube",
-      href: "https://www.youtube.com/",
-      bg: "#FF0000",
+      label: "TikTok",
+      href: "https://www.tiktok.com/@byahe_ni_drew_travel_and_tours",
+      bg: "#000000",
       icon: (
-        <svg width="20" height="20" viewBox="0 0 576 512" fill="white">
-          <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z" />
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-.88-.06A6.34 6.34 0 0 0 3.14 15.7 6.34 6.34 0 0 0 9.48 22a6.33 6.33 0 0 0 6.34-6.33V9.22a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.65z" />
         </svg>
       ),
     },
@@ -952,7 +953,7 @@ function StayInTheLoop() {
           STAY IN THE LOOP!
         </h2>
         <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 16, color: "#BACCDF", margin: 0 }}>
-          Join our community for travel tips, updates, and special offers!
+          Join our community for travel tips, updates, and special offers across our official social profiles!
         </p>
         <div style={{ display: "flex", gap: 18, marginTop: 8 }}>
           {socials.map((s) => (
@@ -989,118 +990,196 @@ function StayInTheLoop() {
 function Contact() {
   return (
     <section id="contact" style={{ background: "#FFFDF0", padding: "80px 24px" }}>
-      <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+      <div style={{ maxWidth: 1050, margin: "0 auto" }}>
         <SectionHeader label="REACH OUT" title="HOW TO CONTACT US" />
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: 40,
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: 36,
             alignItems: "start",
           }}
         >
           {/* Get in Touch */}
-          <div>
+          <div
+            style={{
+              background: "#fff",
+              border: "1.5px solid #BACCDF",
+              borderRadius: 16,
+              padding: "32px 24px",
+              boxShadow: "0 4px 16px rgba(0,51,102,0.06)",
+            }}
+          >
             <div
               style={{
                 width: 44,
                 height: 44,
                 borderRadius: "50%",
-                background: "#BACCDF",
+                background: "#EEF4F9",
+                border: "1px solid #D1DFEC",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginBottom: 14,
+                marginBottom: 16,
               }}
             >
               <svg width="20" height="20" viewBox="0 0 512 512" fill="#003366">
                 <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z" />
               </svg>
             </div>
-            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 17, fontWeight: 700, color: "#003366", margin: "0 0 8px" }}>
-              Get in Touch
+            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 18, fontWeight: 800, color: "#003366", margin: "0 0 6px" }}>
+              Direct Inquiries
             </h3>
-            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#001219", margin: "0 0 14px", lineHeight: 1.6 }}>
-              We&apos;re here to answer your questions and help with your travel needs.
+            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#555", margin: "0 0 18px", lineHeight: 1.6 }}>
+              Connect directly with our travel coordinators for questions, bookings, and custom quotes.
             </p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
-              {[
-                { icon: "📧", text: "info@bndtravelandtours.com" },
-                { icon: "📞", text: "(+632) 8633 0859" },
-                { icon: "📱", text: "Smart: 0969 446 8109" },
-                { icon: "📱", text: "Globe: 0977 806 3040" },
-              ].map((item, i) => (
-                <li key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#001219", fontFamily: "var(--font-figtree), sans-serif" }}>
-                  <span>{item.icon}</span>
-                  {item.text}
-                </li>
-              ))}
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13.5, color: "#001219", fontFamily: "var(--font-figtree), sans-serif" }}>
+                <span>📱</span>
+                <a href="tel:09702065826" style={{ color: "#003366", textDecoration: "none", fontWeight: 700 }}>
+                  Smart: 0970 206 5826
+                </a>
+              </li>
+              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13.5, color: "#001219", fontFamily: "var(--font-figtree), sans-serif" }}>
+                <span>📞</span>
+                <a href="tel:0437028516" style={{ color: "#003366", textDecoration: "none", fontWeight: 700 }}>
+                  Landline: 043 702 8516
+                </a>
+              </li>
+              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "#001219", fontFamily: "var(--font-figtree), sans-serif" }}>
+                <span>📧</span>
+                <a href="mailto:Bndtravelsales@gmail.com" style={{ color: "#0054A8", textDecoration: "none" }}>
+                  Bndtravelsales@gmail.com
+                </a>
+              </li>
+              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "#001219", fontFamily: "var(--font-figtree), sans-serif" }}>
+                <span>📧</span>
+                <a href="mailto:Bndtravels01@gmail.com" style={{ color: "#0054A8", textDecoration: "none" }}>
+                  Bndtravels01@gmail.com
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Team photo */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          {/* Team photo & Enterprise Branding */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
             <div
               style={{
                 position: "relative",
                 width: "100%",
-                maxWidth: 300,
-                height: 260,
+                maxWidth: 320,
+                height: 240,
                 borderRadius: 16,
                 overflow: "hidden",
                 boxShadow: "0 8px 32px rgba(0,51,102,0.18)",
               }}
             >
-              <Image src="/team.jpg" alt="BND Travel & Tours team" fill style={{ objectFit: "cover" }} sizes="300px" />
+              <Image src="/team.jpg" alt="BND Travel & Tours team" fill style={{ objectFit: "cover" }} sizes="320px" />
             </div>
+            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, fontWeight: 700, color: "#003366", margin: 0 }}>
+              BND Travel &amp; Tours Dedicated Team
+            </p>
           </div>
 
-          {/* Visit Us */}
-          <div>
+          {/* Business Accreditation & Location */}
+          <div
+            style={{
+              background: "#fff",
+              border: "1.5px solid #BACCDF",
+              borderRadius: 16,
+              padding: "32px 24px",
+              boxShadow: "0 4px 16px rgba(0,51,102,0.06)",
+            }}
+          >
             <div
               style={{
                 width: 44,
                 height: 44,
                 borderRadius: "50%",
-                background: "#BACCDF",
+                background: "rgba(255, 153, 0, 0.12)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginBottom: 14,
+                marginBottom: 16,
               }}
             >
-              <svg width="20" height="20" viewBox="0 0 384 512" fill="#003366">
-                <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF9900" strokeWidth="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
             </div>
-            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 17, fontWeight: 700, color: "#003366", margin: "0 0 8px" }}>
-              Visit Us
+            <h3 style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 18, fontWeight: 800, color: "#003366", margin: "0 0 6px" }}>
+              Official Accreditation
             </h3>
-            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#001219", margin: "0 0 18px", lineHeight: 1.8 }}>
-              Amboy Street, Kayhuvokan,<br />
-              Basco Batanes, 3900
+            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13.5, fontWeight: 800, color: "#003366", margin: "0 0 4px" }}>
+              BND TRAVEL AND TOURS OPC
             </p>
-            <a
-              href="https://maps.app.goo.gl/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-block",
-                background: "#FF9900",
-                color: "#fff",
-                padding: "10px 22px",
-                borderRadius: 4,
-                fontSize: 13,
-                fontWeight: 700,
-                textTransform: "uppercase",
-                textDecoration: "none",
-                letterSpacing: 0.8,
-                fontFamily: "var(--font-figtree), sans-serif",
-              }}
-            >
-              Google Map
-            </a>
+            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#334155", margin: "0 0 4px", lineHeight: 1.6 }}>
+              DOT Accreditation: <strong style={{ color: "#003366" }}>DOT- R4A- TTA- 03110-2026</strong>
+            </p>
+            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, color: "#64748B", margin: "0 0 20px", lineHeight: 1.6 }}>
+              Region 4A (CALABARZON) • Batangas, Philippines
+            </p>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <a
+                href={SKWITCHI_MESSENGER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  background: "#0084FF",
+                  color: "#fff",
+                  padding: "11px 18px",
+                  borderRadius: 6,
+                  fontSize: 13,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  letterSpacing: 0.5,
+                  fontFamily: "var(--font-figtree), sans-serif",
+                  transition: "background 0.2s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#0073E6")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#0084FF")}
+              >
+                Chat on Messenger
+              </a>
+              <Link
+                href="/contact"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  background: "transparent",
+                  color: "#003366",
+                  border: "1.5px solid #003366",
+                  padding: "10px 18px",
+                  borderRadius: 6,
+                  fontSize: 13,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  letterSpacing: 0.5,
+                  fontFamily: "var(--font-figtree), sans-serif",
+                  transition: "all 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#003366";
+                  e.currentTarget.style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "#003366";
+                }}
+              >
+                More Contact Details
+              </Link>
+            </div>
           </div>
         </div>
       </div>
