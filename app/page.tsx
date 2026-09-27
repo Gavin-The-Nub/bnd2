@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Play } from "lucide-react";
 import { Navbar, Footer, WhatsApp } from "./components/shared";
+import { videoReviews, VideoReviewItem } from "./reviews/data";
+import VideoReelModal from "./reviews/VideoReelModal";
 
 
 /* ─── Types ────────────────────────────────────────────────── */
@@ -134,30 +137,6 @@ const highlights = [
     image: "/pkg-lighthouse.jpg",
     title: "Custom Curated Itineraries",
     desc: "Over 24+ comprehensive tour packages across the Cordilleras, Luzon, Visayas, Mindanao, and Asia tailored for joiners, barkadas, and corporate outings.",
-  },
-];
-
-const testimonials = [
-  {
-    name: "Maria Santos",
-    location: "Manila, Philippines",
-    stars: 5,
-    review:
-      "Absolutely the best travel experience of my life! The team at BND was so professional and attentive. Every detail was perfect. I can't wait to go back!",
-  },
-  {
-    name: "James Chen",
-    location: "Singapore",
-    stars: 5,
-    review:
-      "BND Travel & Tours exceeded all our expectations. The guides were knowledgeable, friendly, and passionate about sharing the beauty of the island. Highly recommended!",
-  },
-  {
-    name: "Ana Reyes",
-    location: "Cebu, Philippines",
-    stars: 5,
-    review:
-      "We booked the honeymoon package and it was magical. Everything was arranged so thoughtfully. The sunset views were breathtaking. Thank you BND!",
   },
 ];
 
@@ -637,65 +616,262 @@ function Highlights() {
   );
 }
 
-/* ─── Testimonials ────────────────────────────────────────── */
-function Testimonials() {
+/* ─── Video Reviews ───────────────────────────────────────── */
+function HomeVideoCard({
+  review,
+  index,
+  onOpenModal,
+}: {
+  review: VideoReviewItem;
+  index: number;
+  onOpenModal: (index: number) => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    const video = videoRef.current;
+    if (video) {
+      if (video.currentTime < 1.0) {
+        video.currentTime = 1.0;
+      }
+      video.play().catch(() => {});
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    const video = videoRef.current;
+    if (video) {
+      video.pause();
+    }
+  };
+
+  return (
+    <div
+      onClick={() => onOpenModal(index)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        position: "relative",
+        width: "100%",
+        maxWidth: 320,
+        aspectRatio: "9 / 16",
+        borderRadius: 20,
+        overflow: "hidden",
+        cursor: "pointer",
+        backgroundColor: "#001219",
+        boxShadow: isHovered
+          ? "0 20px 38px -5px rgba(0, 51, 102, 0.25), 0 10px 16px -5px rgba(0, 0, 0, 0.15)"
+          : "0 8px 24px -3px rgba(0, 0, 0, 0.12)",
+        transform: isHovered ? "translateY(-6px)" : "translateY(0)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        margin: "0 auto",
+        border: "2.5px solid #BACCDF",
+      }}
+    >
+      <video
+        ref={videoRef}
+        src={review.videoSrc}
+        poster={review.poster}
+        preload="metadata"
+        muted
+        playsInline
+        loop
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          transform: isHovered ? "scale(1.04)" : "scale(1)",
+          transition: "transform 0.4s ease",
+        }}
+      />
+      <Image
+        src={review.poster}
+        alt={`Traveler video review ${index + 1}`}
+        fill
+        sizes="(max-width: 768px) 100vw, 320px"
+        style={{
+          objectFit: "cover",
+          transform: isHovered ? "scale(1.04)" : "scale(1)",
+          transition: "transform 0.4s ease, opacity 0.3s ease",
+          opacity: isHovered ? 0 : 1,
+          pointerEvents: "none",
+        }}
+        priority={index === 0}
+      />
+
+      {/* Top Badges */}
+      <div
+        style={{
+          position: "absolute",
+          top: 14,
+          left: 14,
+          right: 14,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+      >
+        <span
+          style={{
+            background: "rgba(0, 51, 102, 0.88)",
+            backdropFilter: "blur(4px)",
+            color: "#fff",
+            fontSize: 11,
+            fontWeight: 700,
+            padding: "4px 10px",
+            borderRadius: 20,
+            letterSpacing: 0.5,
+            fontFamily: "var(--font-figtree), sans-serif",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 4,
+          }}
+        >
+          ✓ Verified Guest
+        </span>
+        <div style={{ display: "flex", gap: 2 }}>
+          {Array.from({ length: 5 }).map((_, si) => (
+            <svg key={si} width="12" height="12" viewBox="0 0 24 24" fill="#FF9900">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          ))}
+        </div>
+      </div>
+
+      {/* Center Play Button Overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          pointerEvents: "none",
+          zIndex: 2,
+        }}
+      >
+        <div
+          style={{
+            width: 60,
+            height: 60,
+            borderRadius: "50%",
+            backgroundColor: isHovered ? "#FF9900" : "rgba(0, 0, 0, 0.6)",
+            border: "2px solid rgba(255, 255, 255, 0.85)",
+            backdropFilter: "blur(6px)",
+            WebkitBackdropFilter: "blur(6px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#fff",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
+            transform: isHovered ? "scale(1.12)" : "scale(1)",
+            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
+          <Play size={26} style={{ transform: "translateX(2px)" }} fill="#fff" />
+        </div>
+      </div>
+
+      {/* Bottom overlay with prompt */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          padding: "24px 16px 14px",
+          background: "linear-gradient(to top, rgba(0, 18, 25, 0.9) 0%, rgba(0, 18, 25, 0) 100%)",
+          zIndex: 2,
+          pointerEvents: "none",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-figtree), sans-serif",
+            fontSize: 12,
+            fontWeight: 700,
+            color: "#fff",
+            letterSpacing: 0.5,
+            textTransform: "uppercase",
+          }}
+        >
+          Watch Video Story
+        </span>
+        <span
+          style={{
+            fontSize: 12,
+            color: "#FF9900",
+            fontWeight: 800,
+          }}
+        >
+          ▶
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function HomeVideoReviews({
+  onOpenModal,
+}: {
+  onOpenModal: (index: number) => void;
+}) {
+  const featuredReviews = videoReviews.slice(0, 3);
+
   return (
     <section id="reviews" style={{ background: "#FFFDF0", padding: "80px 24px" }}>
-      <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-        <SectionHeader label="GUEST REVIEWS" title="FEEDBACK FROM OUR GUESTS" />
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <SectionHeader label="GUEST REVIEWS" title="AUTHENTIC VIDEO STORIES FROM OUR TRAVELERS" />
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: 24,
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: 28,
+            justifyContent: "center",
           }}
         >
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              style={{
-                background: "#fff",
-                border: "2px solid #BACCDF",
-                borderRadius: 16,
-                padding: "24px",
-                display: "flex",
-                flexDirection: "column",
-                gap: 12,
-                boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
-              }}
-            >
-              <Stars count={t.stars} />
-              <p
-                style={{
-                  fontFamily: "var(--font-figtree), sans-serif",
-                  fontSize: 14,
-                  lineHeight: 1.7,
-                  color: "#001219",
-                  fontStyle: "italic",
-                  flex: 1,
-                  margin: 0,
-                }}
-              >
-                &ldquo;{t.review}&rdquo;
-              </p>
-              <div style={{ borderTop: "1px solid #BACCDF", paddingTop: 12, marginTop: 4 }}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-figtree), sans-serif",
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "#003366",
-                    margin: "0 0 2px",
-                  }}
-                >
-                  {t.name}
-                </p>
-                <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 12, color: "#0054A8", margin: 0 }}>
-                  {t.location}
-                </p>
-              </div>
-            </div>
+          {featuredReviews.map((review, i) => (
+            <HomeVideoCard
+              key={review.id}
+              review={review}
+              index={i}
+              onOpenModal={onOpenModal}
+            />
           ))}
+        </div>
+        <div style={{ textAlign: "center", marginTop: 44 }}>
+          <Link
+            href="/reviews"
+            style={{
+              display: "inline-block",
+              background: "#003366",
+              color: "#fff",
+              border: "none",
+              borderRadius: 6,
+              padding: "14px 40px",
+              fontSize: 14,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+              textDecoration: "none",
+              fontFamily: "var(--font-figtree), sans-serif",
+              transition: "background 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#00478F")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "#003366")}
+          >
+            VIEW ALL GUEST STORIES
+          </Link>
         </div>
       </div>
     </section>
@@ -934,6 +1110,8 @@ function Contact() {
 
 /* ─── Page ────────────────────────────────────────────────── */
 export default function Home() {
+  const [activeModalIndex, setActiveModalIndex] = useState<number | null>(null);
+
   return (
     <>
       <Navbar />
@@ -942,12 +1120,20 @@ export default function Home() {
         <FeaturedPackages />
         <AllPackages />
         <Highlights />
-        <Testimonials />
+        <HomeVideoReviews onOpenModal={(idx) => setActiveModalIndex(idx)} />
         <StayInTheLoop />
         <Contact />
       </main>
       <Footer />
       <WhatsApp />
+
+      {/* Reel Modal Player */}
+      <VideoReelModal
+        reviews={videoReviews}
+        currentIndex={activeModalIndex}
+        onClose={() => setActiveModalIndex(null)}
+        onSelectIndex={(idx) => setActiveModalIndex(idx)}
+      />
     </>
   );
 }
