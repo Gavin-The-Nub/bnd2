@@ -122,18 +122,18 @@ const morePackages: Package[] = [
 const highlights = [
   {
     image: "/pkg-beach.jpg",
-    title: "Unspoiled Nature",
-    desc: "Experience some of the Philippines' most pristine landscapes, untouched beaches, and rolling green hills far from the tourist crowds.",
+    title: "DOT Accredited Agency",
+    desc: "Officially accredited by the Department of Tourism (DOT-R4A-TTA-03110-2026) based in Batangas, operating with the highest standards of safety and hospitality.",
   },
   {
-    image: "/pkg-village.jpg",
-    title: "Rich Local Culture",
-    desc: "Discover unique local heritage — from traditional stone houses and handwoven hats to centuries-old churches and festivals.",
+    image: "/team.jpg",
+    title: "Hassle-Free Ground Tours",
+    desc: "Travel comfortably in fully air-conditioned high-roof vans with professional drivers, fuel & toll coverage, and dedicated tour coordinators on every trip.",
   },
   {
     image: "/pkg-lighthouse.jpg",
-    title: "Scenic Viewpoints",
-    desc: "Stand atop dramatic cliffs, historic lighthouses, and grassy hilltops for panoramic views of the Pacific Ocean.",
+    title: "Custom Curated Itineraries",
+    desc: "Over 24+ comprehensive tour packages across the Cordilleras, Luzon, Visayas, Mindanao, and Asia tailored for joiners, barkadas, and corporate outings.",
   },
 ];
 
@@ -584,7 +584,7 @@ function Highlights() {
       <div style={{ maxWidth: 1000, margin: "0 auto" }}>
         <SectionHeader
           label="WHY CHOOSE US"
-          title="WHAT MAKES BND THE PHILIPPINES' BEST-KEPT SECRET?"
+          title="WHAT MAKES BND YOUR TRUSTED TRAVEL PARTNER?"
           dark
         />
         <div
