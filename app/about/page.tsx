@@ -4,6 +4,64 @@ import Image from "next/image";
 import Link from "next/link";
 import { Navbar, Footer, WhatsApp } from "../components/shared";
 
+/* ─── Modern Vector Icons ─────────────────────────────────── */
+function CompassIcon({ size = 26, color = "#003366" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill={color} fillOpacity="0.15" />
+    </svg>
+  );
+}
+
+function GlobeIcon({ size = 26, color = "#003366" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill={color} fillOpacity="0.15" />
+    </svg>
+  );
+}
+
+function TourPackageIcon({ size = 24, color = "#003366" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z" fill={color} fillOpacity="0.12" />
+    </svg>
+  );
+}
+
+function HotelIcon({ size = 24, color = "#003366" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1" />
+      <path d="M10 21v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3" fill={color} fillOpacity="0.15" />
+    </svg>
+  );
+}
+
+function FlightIcon({ size = 24, color = "#003366" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="5" width="20" height="14" rx="2" />
+      <line x1="2" y1="10" x2="22" y2="10" />
+      <circle cx="7" cy="15" r="1.5" fill={color} />
+      <line x1="12" y1="15" x2="17" y2="15" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function VisaIcon({ size = 24, color = "#003366" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="2" />
+      <circle cx="12" cy="10" r="3" fill={color} fillOpacity="0.15" />
+      <path d="M8 18h8M8 15h4" />
+    </svg>
+  );
+}
+
 /* ─── Hero Section ────────────────────────────────────────── */
 function Hero() {
   return (
@@ -40,7 +98,7 @@ function Hero() {
             margin: "0 0 12px",
           }}
         >
-          BND Travel and Tours OPC
+          BND Travel and Tours
         </p>
         <h1
           style={{
@@ -109,7 +167,7 @@ function AboutCompany() {
             lineHeight: 1.3,
           }}
         >
-          BND Travel and Tours OPC
+          BND Travel and Tours
         </h2>
       </div>
 
@@ -126,7 +184,7 @@ function AboutCompany() {
         }}
       >
         <p style={{ margin: 0 }}>
-          BND Travel and Tours OPC is a dynamic travel service provider based in Batangas, Philippines, committed to delivering exceptional travel experiences through carefully curated packages and reliable travel solutions.
+          BND Travel and Tours is a dynamic travel service provider based in Batangas, Philippines, committed to delivering exceptional travel experiences through carefully curated packages and reliable travel solutions.
         </p>
         <p style={{ margin: 0 }}>
           Founded with a vision to make travel more accessible, convenient, and memorable, the company specializes in organizing both local and international trips for individuals, families, corporate clients, and groups.
@@ -167,16 +225,16 @@ function MissionVision() {
             style={{
               width: 56,
               height: 56,
-              background: "#F0F4F8",
+              background: "#EEF4F9",
+              border: "1px solid #D1DFEC",
               borderRadius: "50%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               marginBottom: 20,
-              fontSize: 26,
             }}
           >
-            🎯
+            <CompassIcon size={26} color="#003366" />
           </div>
           <h3
             style={{
@@ -219,16 +277,16 @@ function MissionVision() {
             style={{
               width: 56,
               height: 56,
-              background: "#F0F4F8",
+              background: "#EEF4F9",
+              border: "1px solid #D1DFEC",
               borderRadius: "50%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               marginBottom: 20,
-              fontSize: 26,
             }}
           >
-            🔭
+            <GlobeIcon size={26} color="#003366" />
           </div>
           <h3
             style={{
@@ -266,28 +324,28 @@ function CoreServices() {
     {
       title: "Local & International Tour Packages",
       description: "Customized and carefully curated travel itineraries across top domestic and international destinations.",
-      icon: "✈️",
+      icon: <TourPackageIcon size={24} color="#003366" />,
       href: "/packages",
       linkText: "View Packages",
     },
     {
       title: "Hotel and Resort Reservations",
       description: "Reliable accommodation bookings tailored to your preferences, comfort, and budget.",
-      icon: "🏨",
+      icon: <HotelIcon size={24} color="#003366" />,
       href: "/services",
       linkText: "Learn More",
     },
     {
       title: "Flight Booking Assistance",
       description: "Convenient flight ticketing support to ensure seamless schedules for your entire journey.",
-      icon: "🎫",
+      icon: <FlightIcon size={24} color="#003366" />,
       href: "/services",
       linkText: "Learn More",
     },
     {
       title: "Visa Processing Assistance",
       description: "Guided documentation and advisory services to simplify international visa applications.",
-      icon: "🛂",
+      icon: <VisaIcon size={24} color="#003366" />,
       href: "/services",
       linkText: "Learn More",
     },
@@ -347,7 +405,21 @@ function CoreServices() {
             }}
           >
             <div>
-              <div style={{ fontSize: 32, marginBottom: 16 }}>{service.icon}</div>
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  background: "#EEF4F9",
+                  border: "1px solid #D1DFEC",
+                  borderRadius: 10,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 20,
+                }}
+              >
+                {service.icon}
+              </div>
               <h3
                 style={{
                   fontFamily: "var(--font-figtree), sans-serif",
