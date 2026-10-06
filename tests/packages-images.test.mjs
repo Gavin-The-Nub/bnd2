@@ -14,6 +14,7 @@ const EXPECTED_IMAGES = [
   "mayon-bicol.jpg",
   "mt-pinatubo.jpg",
   "el-nido-palawan.jpg",
+  "cebu.jpg",
 ];
 
 test("package images directory exists", () => {

@@ -28,7 +28,7 @@ const featuredPackages: Package[] = [
   {
     id: 1,
     slug: "buscalan",
-    image: "/pkg-village.jpg",
+    image: "/packages/buscalan-sagada.jpg",
     title: "Buscalan – Sagada Tour",
     duration: "3D / 2N",
     location: "Kalinga & Mt. Province",
@@ -39,7 +39,7 @@ const featuredPackages: Package[] = [
   {
     id: 2,
     slug: "ilocos",
-    image: "/pkg-lighthouse.jpg",
+    image: "/packages/vigan-ilocos.jpg",
     title: "Vigan – Paoay – Pagudpud",
     duration: "3D / 2N",
     location: "Ilocos Norte & Sur",
@@ -50,7 +50,7 @@ const featuredPackages: Package[] = [
   {
     id: 3,
     slug: "baguio",
-    image: "/pkg-hotel.jpg",
+    image: "/packages/baguio-city.jpg",
     title: "Baguio City Tour",
     duration: "3D / 2N",
     location: "Baguio City, Benguet",
@@ -64,7 +64,7 @@ const morePackages: Package[] = [
   {
     id: 4,
     slug: "hundred-islands",
-    image: "/pkg-beach.jpg",
+    image: "/packages/hundred-islands.jpg",
     title: "Hundred Islands",
     duration: "3D / 2N",
     location: "Alaminos, Pangasinan",
@@ -74,7 +74,7 @@ const morePackages: Package[] = [
   {
     id: 5,
     slug: "kaparkan-abra",
-    image: "/pkg-village.jpg",
+    image: "/packages/kaparkan-abra.jpg",
     title: "Kaparkan Falls & Abra",
     duration: "2D / 1N",
     location: "Tineg & Bangued, Abra",
@@ -84,7 +84,7 @@ const morePackages: Package[] = [
   {
     id: 6,
     slug: "bicol",
-    image: "/pkg-village.jpg",
+    image: "/packages/mayon-bicol.jpg",
     title: "Bicol Tricity & Sorsogon",
     duration: "3D / 2N",
     location: "Albay & Sorsogon",
@@ -94,7 +94,7 @@ const morePackages: Package[] = [
   {
     id: 7,
     slug: "mt-pinatubo",
-    image: "/pkg-village.jpg",
+    image: "/packages/mt-pinatubo.jpg",
     title: "Mt. Pinatubo 4x4 Adventure",
     duration: "1D Tour",
     location: "Capas, Tarlac & Zambales",
@@ -104,7 +104,7 @@ const morePackages: Package[] = [
   {
     id: 8,
     slug: "palawan",
-    image: "/pkg-beach.jpg",
+    image: "/packages/el-nido-palawan.jpg",
     title: "El Nido & Puerto Princesa",
     duration: "4D / 3N",
     location: "Palawan",
@@ -114,7 +114,7 @@ const morePackages: Package[] = [
   {
     id: 9,
     slug: "cebu",
-    image: "/pkg-beach.jpg",
+    image: "/packages/cebu.jpg",
     title: "Cebu Cultural & Coastal",
     duration: "4D / 3N",
     location: "Cebu, Visayas",
