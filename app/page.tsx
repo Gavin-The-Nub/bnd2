@@ -125,17 +125,17 @@ const morePackages: Package[] = [
 
 const highlights = [
   {
-    image: "/pkg-beach.jpg",
+    image: "/packages/mayon-bicol.jpg",
     title: "DOT Accredited Agency",
     desc: "Officially accredited by the Department of Tourism (DOT-R4A-TTA-03110-2026) based in Batangas, operating with the highest standards of safety and hospitality.",
   },
   {
-    image: "/team.jpg",
+    image: "/packages/vigan-ilocos.jpg",
     title: "Hassle-Free Ground Tours",
     desc: "Travel comfortably in fully air-conditioned high-roof vans with professional drivers, fuel & toll coverage, and dedicated tour coordinators on every trip.",
   },
   {
-    image: "/pkg-lighthouse.jpg",
+    image: "/packages/buscalan-sagada.jpg",
     title: "Custom Curated Itineraries",
     desc: "Over 24+ comprehensive tour packages across the Cordilleras, Luzon, Visayas, Mindanao, and Asia tailored for joiners, barkadas, and corporate outings.",
   },
@@ -388,7 +388,7 @@ function Hero() {
         width: "100%",
         height: "calc(100vh - 66px)",
         minHeight: 480,
-        backgroundImage: "url('/hero.png')",
+        backgroundImage: "url('/hero-coron.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",
@@ -919,7 +919,7 @@ function StayInTheLoop() {
       style={{
         position: "relative",
         padding: "80px 24px",
-        backgroundImage: "url('/hero.png')",
+        backgroundImage: "url('/hero-coron.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         overflow: "hidden",
@@ -990,15 +990,15 @@ function StayInTheLoop() {
 function Contact() {
   return (
     <section id="contact" style={{ background: "#FFFDF0", padding: "80px 24px" }}>
-      <div style={{ maxWidth: 1050, margin: "0 auto" }}>
+      <div style={{ maxWidth: 860, margin: "0 auto" }}>
         <SectionHeader label="REACH OUT" title="HOW TO CONTACT US" />
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: 36,
-            alignItems: "start",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: 32,
+            alignItems: "stretch",
           }}
         >
           {/* Get in Touch */}
@@ -1009,6 +1009,8 @@ function Contact() {
               borderRadius: 16,
               padding: "32px 24px",
               boxShadow: "0 4px 16px rgba(0,51,102,0.06)",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <div
@@ -1060,26 +1062,6 @@ function Contact() {
                 </a>
               </li>
             </ul>
-          </div>
-
-          {/* Team photo & Enterprise Branding */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
-            <div
-              style={{
-                position: "relative",
-                width: "100%",
-                maxWidth: 320,
-                height: 240,
-                borderRadius: 16,
-                overflow: "hidden",
-                boxShadow: "0 8px 32px rgba(0,51,102,0.18)",
-              }}
-            >
-              <Image src="/team.jpg" alt="BND Travel & Tours team" fill style={{ objectFit: "cover" }} sizes="320px" />
-            </div>
-            <p style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 13, fontWeight: 700, color: "#003366", margin: 0 }}>
-              BND Travel &amp; Tours Dedicated Team
-            </p>
           </div>
 
           {/* Business Accreditation & Location */}

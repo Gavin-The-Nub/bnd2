@@ -39,3 +39,27 @@ for (const imgName of EXPECTED_IMAGES) {
     assert.equal(buffer[2], 0xff, `${imgName} should start with JPEG header 0xFF`);
   });
 }
+
+test("hero-coron.jpg exists, is non-empty, and is a valid JPEG", () => {
+  const heroPath = path.resolve("public/hero-coron.jpg");
+  assert.ok(fs.existsSync(heroPath), "Expected public/hero-coron.jpg to exist");
+
+  const stats = fs.statSync(heroPath);
+  assert.ok(stats.size > 50000, `Expected hero-coron.jpg size > 50KB, got ${stats.size}`);
+
+  const buffer = Buffer.alloc(3);
+  const fd = fs.openSync(heroPath, "r");
+  fs.readSync(fd, buffer, 0, 3, 0);
+  fs.closeSync(fd);
+
+  assert.equal(buffer[0], 0xff, "hero-coron.jpg should start with JPEG header 0xFF");
+  assert.equal(buffer[1], 0xd8, "hero-coron.jpg should start with JPEG header 0xD8");
+  assert.equal(buffer[2], 0xff, "hero-coron.jpg should start with JPEG header 0xFF");
+});
+
+test("app/page.tsx does not reference /team.jpg or Dedicated Team", () => {
+  const pageContent = fs.readFileSync(path.resolve("app/page.tsx"), "utf-8");
+  assert.ok(!pageContent.includes("/team.jpg"), "app/page.tsx should not reference /team.jpg");
+  assert.ok(!pageContent.includes("Dedicated Team"), "app/page.tsx should not contain 'Dedicated Team'");
+  assert.ok(pageContent.includes("/hero-coron.jpg"), "app/page.tsx should reference /hero-coron.jpg");
+});
