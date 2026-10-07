@@ -10,7 +10,7 @@ const tour = {
   tagline: "Island Paradise, Coastal Landscapes & Guided Tour",
   duration: "4D / 3N",
   location: "Palawan, MIMAROPA",
-  image: "/pkg-beach.jpg",
+  image: "/packages/el-nido-palawan.jpg",
   intro:
     "Discover the wonders of Palawan with BND Travel and Tours. Based directly on our official local tour package, this getaway includes comfortable accommodation, van transfer, and guided visits to top tourist spots. Experience world-renowned limestone cliffs, turquoise lagoons, and seamless local ground arrangements.",
   highlights: [

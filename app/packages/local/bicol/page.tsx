@@ -10,7 +10,7 @@ const tour = {
   tagline: "Mayon Volcano, Subic Pink Beach & Sorsogon Hot Springs",
   duration: "3D / 2N",
   location: "Albay & Sorsogon, Bicol Region",
-  image: "/pkg-village.jpg",
+  image: "/packages/mayon-bicol.jpg",
   intro:
     "Experience the wonders of the Bicol Region with BND Travel and Tours. Based directly on our official packages (Bicol Tricity, Albay – Sorsogon, and Bicol – Irosin – Sorsogon), our tours feature dedicated high-roof van service, 2 nights accommodation, and visits to Mayon volcano viewpoints, heritage churches, hot springs, and Subic Pink Beach.",
   placesToVisit: [

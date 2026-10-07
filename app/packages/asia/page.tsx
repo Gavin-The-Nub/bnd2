@@ -28,7 +28,7 @@ const asiaTours: AsiaTourItem[] = [
     category: "destination",
     name: "Japan",
     desc: "Experience ancient traditions and futuristic innovation — from Tokyo's neon streets and Mount Fuji to Kyoto's serene shrines, bullet trains, and world-class culinary art.",
-    image: "/pkg-lighthouse.jpg",
+    image: "/packages/asia-japan.jpg",
     duration: "5D / 4N",
     location: "Tokyo, Kyoto & Mt. Fuji, Japan",
     inclusions: [
@@ -49,7 +49,7 @@ const asiaTours: AsiaTourItem[] = [
     category: "destination",
     name: "Thailand",
     desc: "Golden temples, floating canal markets, and 5 exclusive private VIP van day tours across Bangkok, Pattaya, Khao Yai, Ayutthaya, and Kanchanaburi starting at ₱14,499.",
-    image: "/pkg-beach.jpg",
+    image: "/packages/asia-thailand.jpg",
     duration: "Day Tours & 4D / 3N",
     location: "Bangkok, Pattaya & Khao Yai, Thailand",
     inclusions: [
@@ -70,7 +70,7 @@ const asiaTours: AsiaTourItem[] = [
     category: "destination",
     name: "Taiwan",
     desc: "Legendary night markets, lantern-filled Jiufen cobblestone lanes, iconic Taipei 101 observatory, and breathtaking alpine mountain scenery at Sun Moon Lake.",
-    image: "/pkg-village.jpg",
+    image: "/packages/asia-taiwan.jpg",
     duration: "4D / 3N",
     location: "Taipei, Jiufen & Sun Moon Lake, Taiwan",
     inclusions: [
@@ -91,7 +91,7 @@ const asiaTours: AsiaTourItem[] = [
     category: "destination",
     name: "Vietnam",
     desc: "Cruise through emerald limestone karsts of UNESCO-listed Ha Long Bay, stroll romantic silk lantern-lit streets in Hoi An Ancient Town, and savor authentic world-famous pho.",
-    image: "/pkg-honeymoon.jpg",
+    image: "/packages/asia-vietnam.jpg",
     duration: "5D / 4N",
     location: "Hanoi, Ha Long Bay & Hoi An, Vietnam",
     inclusions: [
@@ -112,7 +112,7 @@ const asiaTours: AsiaTourItem[] = [
     category: "day-tour",
     name: "Thailand – Khao Yai Tour",
     desc: "Picturesque European escape into Thailand's premier highland destination: Italian-style piazzas, rolling vineyards, Hokkaido flower fields, and scenic designer mountain cafes. Flat rate ₱14,499.",
-    image: "/pkg-village.jpg",
+    image: "/packages/asia-khao-yai.jpg",
     duration: "12 - 15 Hours",
     location: "Khao Yai, Thailand",
     inclusions: [
@@ -132,7 +132,7 @@ const asiaTours: AsiaTourItem[] = [
     category: "day-tour",
     name: "Thailand – Pattaya City Tour",
     desc: "Complete Pattaya adventure featuring the majestic hand-carved wooden Sanctuary of Truth, tropical botanical gardens, Buddha Mountain, and fairytale cafe estates. Flat rate ₱14,499.",
-    image: "/pkg-beach.jpg",
+    image: "/packages/asia-pattaya.jpg",
     duration: "12 - 15 Hours",
     location: "Pattaya, Chonburi, Thailand",
     inclusions: [
@@ -152,7 +152,7 @@ const asiaTours: AsiaTourItem[] = [
     category: "day-tour",
     name: "Thailand – Bangkok & Ratchaburi",
     desc: "Quintessential Thai culture tour combining the thrilling Maeklong Railway train pass, Damnoen Saduak floating market canal boats, Grand Palace, sacred wats, and riverside dinner cruise. Flat rate ₱14,499.",
-    image: "/pkg-hotel.jpg",
+    image: "/packages/asia-bangkok.jpg",
     duration: "12 - 15 Hours",
     location: "Bangkok & Ratchaburi, Thailand",
     inclusions: [
@@ -172,7 +172,7 @@ const asiaTours: AsiaTourItem[] = [
     category: "day-tour",
     name: "Thailand – Ayutthaya Tour",
     desc: "Step back in time to the ancient UNESCO-listed Siamese capital. Marvel at monumental temple ruins, sacred Buddha head in banyan roots, floating markets, and Bang Pa-In summer palace. Flat rate ₱14,499.",
-    image: "/pkg-lighthouse.jpg",
+    image: "/packages/asia-ayutthaya.jpg",
     duration: "12 - 15 Hours",
     location: "Ayutthaya, Central Thailand",
     inclusions: [
@@ -192,7 +192,7 @@ const asiaTours: AsiaTourItem[] = [
     category: "day-tour",
     name: "Thailand – Kanchanaburi Tour",
     desc: "Historic and nature immersion featuring the famous River Kwai Bridge, WWII Death Railway train ride, safari open zoo, elephant encounters, and iconic floating rainforest cafes. Flat rate ₱14,499.",
-    image: "/pkg-village.jpg",
+    image: "/packages/asia-kanchanaburi.jpg",
     duration: "12 - 15 Hours",
     location: "Kanchanaburi, Western Thailand",
     inclusions: [
@@ -211,7 +211,7 @@ function Hero() {
   return (
     <section style={{ position: "relative", height: "38vh", minHeight: 240, display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
-        <Image src="/pkg-honeymoon.jpg" alt="Asia Tour Packages" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} priority />
+        <Image src="/packages/asia-hero.jpg" alt="Asia Tour Packages - Mount Fuji" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} priority />
         <div style={{ position: "absolute", inset: 0, background: "rgba(0,10,30,0.65)" }} />
       </div>
       <div style={{ position: "relative", zIndex: 1, textAlign: "center", padding: "0 24px" }}>

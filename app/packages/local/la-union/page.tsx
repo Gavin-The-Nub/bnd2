@@ -10,7 +10,7 @@ const tour = {
   tagline: "Surf, Coastal Land Tour & Beachside Relaxation",
   duration: "3D / 2N",
   location: "San Juan & San Fernando, La Union",
-  image: "/pkg-beach.jpg",
+  image: "/packages/la-union.jpg",
   intro:
     "Head north to the surfing capital of Northern Luzon with BND Travel and Tours. Based directly on our official La Union tour package, enjoy 2 nights accommodation, land tour, and high-roof van transfer. Whether you're catching waves in San Juan, visiting grapes farms, or unwinding by the coast, this tour makes traveling up north seamless.",
   highlights: [

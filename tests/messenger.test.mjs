@@ -12,7 +12,7 @@ test("buildQuoteMessage formats message for a specific tour", () => {
   assert.match(message, /Baguio/);
   assert.match(message, /3D \/ 2N/);
   assert.match(message, /http:\/\/localhost:3000\/packages\/local\/baguio/);
-  assert.match(message, /Skwitchi Travels/);
+  assert.match(message, /BND Travel and Tours/);
 });
 
 test("buildQuoteMessage includes optional guests and dates", () => {
@@ -31,7 +31,7 @@ test("buildQuoteMessage includes optional guests and dates", () => {
 
 test("buildQuoteMessage falls back cleanly for general inquiry", () => {
   const message = buildQuoteMessage({});
-  assert.match(message, /Skwitchi Travels/);
+  assert.match(message, /BND Travel and Tours/);
   assert.match(message, /quote/i);
 });
 
@@ -41,7 +41,7 @@ test("getMessengerQuoteUrl generates valid m.me deep link with ref and encoded t
     duration: "3D / 2N",
   });
 
-  assert.ok(url.startsWith("https://m.me/SkwitchiTravels?text="));
+  assert.ok(url.startsWith("https://m.me/drewAdventures?text="));
   const parsed = new URL(url);
   assert.equal(parsed.searchParams.get("ref"), "baguio_quote");
   const textParam = parsed.searchParams.get("text");

@@ -31,5 +31,5 @@ test('servicesContactInfo matches official contact details', () => {
   assert.equal(servicesContactInfo.phone, '043 702 8516');
   assert.equal(servicesContactInfo.email, 'Bndtravels01@gmail.com');
   assert.equal(servicesContactInfo.facebook, 'BND Travel and Tours');
-  assert.equal(servicesContactInfo.instagram, 'byahe_ni_drew_travel_and_tours');
+  assert.equal(servicesContactInfo.instagram, 'bndtravelandtours');
 });

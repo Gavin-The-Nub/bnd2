@@ -10,7 +10,7 @@ const tour = {
   tagline: "Vigan – Paoay – Pagudpud Grand Tour",
   duration: "3D / 2N",
   location: "Ilocos Norte & Ilocos Sur, Northern Luzon",
-  image: "/pkg-lighthouse.jpg",
+  image: "/packages/vigan-ilocos.jpg",
   intro:
     "Discover the beauty, colonial heritage, and coastal wonders of Northern Luzon with BND Travel and Tours. Based on our official Ilocos packages (including the Vigan – Paoay – Pagudpud Grand Tour and 3D/2N itineraries), this trip includes high-roof roundtrip van transfers, air-conditioned beach & city accommodations, complimentary breakfasts, and a fully guided itinerary.",
   placesToVisit: [

@@ -66,7 +66,7 @@ function HomestaysGrid() {
        name: "Savatan Homestay",
        price: "₱9,900 - ₱19,800",
        desc: "Experience the heart of Batanes with the Delfin family, providing authentic Ivatan hospitality since 2015.",
-       image: "/team.jpg"
+       image: "/packages/batanes-homestay-ivatan.jpg"
     }
   ];
 

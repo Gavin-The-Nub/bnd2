@@ -10,7 +10,7 @@ const tour = {
   tagline: "4x4 Off-Road Crater Lake Adventure",
   duration: "1D (Day Trip)",
   location: "Capas, Tarlac & Zambales",
-  image: "/pkg-village.jpg",
+  image: "/packages/mt-pinatubo.jpg",
   intro:
     "Embark on an exhilarating day-trip adventure to the world-renowned crater lake of Mount Pinatubo with BND Travel and Tours. Based directly on our official Mt. Pinatubo package, this tour is one of our most comprehensive all-inclusive day trips: roundtrip van transfer, registration fees, toll fees, expert local guide, thrilling 4x4 off-road ride across the lahar fields, vehicle gas, and meals are all covered.",
   highlights: [

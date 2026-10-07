@@ -517,7 +517,7 @@ function ContactSection() {
 
               {/* Instagram */}
               <a
-                href="https://www.instagram.com/byahe_ni_drew_travel_and_tours"
+                href="https://www.instagram.com/bndtravelandtours/?utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredLink("ig")}
@@ -559,7 +559,7 @@ function ContactSection() {
 
               {/* TikTok */}
               <a
-                href="https://www.tiktok.com/@byahe_ni_drew_travel_and_tours"
+                href="https://www.tiktok.com/@byahe_ni_drew"
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredLink("tiktok")}

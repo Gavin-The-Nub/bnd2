@@ -10,7 +10,7 @@ const tour = {
   tagline: "Island Hopping, Cliff Jumping & 14 Iconic Islets",
   duration: "3D / 2N",
   location: "Alaminos, Pangasinan",
-  image: "/pkg-beach.jpg",
+  image: "/packages/hundred-islands.jpg",
   intro:
     "Explore the legendary Hundred Islands National Park with BND Travel and Tours. Based directly on our official itinerary from our company tour packages, enjoy roundtrip high-roof van transfers, air-conditioned accommodations, complimentary breakfasts, and comprehensive boat touring across 14 renowned islands.",
   placesToVisit: [

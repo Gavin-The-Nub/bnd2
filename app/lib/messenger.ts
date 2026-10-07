@@ -1,5 +1,8 @@
-export const SKWITCHI_FACEBOOK_URL = "https://www.facebook.com/SkwitchiTravels";
-export const SKWITCHI_MESSENGER_URL = "https://m.me/SkwitchiTravels";
+export const BND_FACEBOOK_URL = "https://www.facebook.com/drewAdventures";
+export const BND_MESSENGER_URL = "https://m.me/drewAdventures";
+
+export const SKWITCHI_FACEBOOK_URL = BND_FACEBOOK_URL;
+export const SKWITCHI_MESSENGER_URL = BND_MESSENGER_URL;
 
 export interface QuoteRequestParams {
   tourName?: string;
@@ -15,13 +18,13 @@ export interface QuoteRequestParams {
  */
 export function buildQuoteMessage(params?: QuoteRequestParams): string {
   if (!params || (!params.tourName && !params.customNotes && !params.dates && !params.guests)) {
-    return "Hi Skwitchi Travels! I would like to inquire about your travel packages and request a personalized quote for an upcoming trip.";
+    return "Hi BND Travel and Tours! I would like to inquire about your travel packages and request a personalized quote for an upcoming trip.";
   }
 
   const lines: string[] = [];
   const destination = params.tourName ? `${params.tourName} Tour Package` : "a travel package";
 
-  lines.push(`Hi Skwitchi Travels! I'd like to request a quote for the ${destination}.`);
+  lines.push(`Hi BND Travel and Tours! I'd like to request a quote for the ${destination}.`);
   lines.push("");
 
   if (params.tourName || params.duration) {

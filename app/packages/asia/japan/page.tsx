@@ -11,7 +11,7 @@ const tour = {
   tagline: "Cherry Blossoms, Temples & Modern Wonders",
   duration: "5D / 4N",
   location: "Tokyo, Kyoto & Mt. Fuji",
-  image: "/pkg-lighthouse.jpg",
+  image: "/packages/asia-japan.jpg",
   intro: "Japan is a land of captivating contrasts where millennium-old shrines sit alongside towering skyscrapers, and tranquil zen gardens meet bustling neon districts. From witnessing Mount Fuji's snow-capped peak to experiencing Shinkansen bullet trains and exquisite culinary art, Japan promises a journey of wonder and refinement.",
   highlights: [
     { icon: "Landmark", title: "Historic Shrines of Kyoto", desc: "Stroll through the iconic red torii gates of Fushimi Inari and admire the golden pavilion of Kinkaku-ji." },

@@ -19,8 +19,8 @@ function Hero() {
     >
       <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
         <Image
-          src="/pkg-hotel.jpg"
-          alt="Batanes stone house"
+          src="/packages/batanes-vayang-hills.jpg"
+          alt="Vayang Rolling Hills, Batanes"
           fill
           style={{ objectFit: "cover", objectPosition: "center 30%" }}
           priority
@@ -150,7 +150,7 @@ function PremiumFeature() {
         {/* Right Image */}
         <div style={{ flex: "1 1 400px", minHeight: 400, position: "relative", padding: 32 }}>
            <div style={{ position: "relative", width: "100%", height: "100%", minHeight: 300, borderRadius: 12, overflow: "hidden" }}>
-              <Image src="/pkg-honeymoon.jpg" alt="Premium Package" fill style={{ objectFit: "cover" }} />
+              <Image src="/packages/batanes-sabtang-island.jpg" alt="Sabtang Island traditional stone houses" fill style={{ objectFit: "cover" }} />
            </div>
         </div>
       </div>
@@ -163,25 +163,25 @@ function ServicesGrid() {
   const services = [
     {
        title: "HOTEL + TOUR PACKAGE",
-       image: "/team.jpg",
+       image: "/packages/batanes-fundacion-pacita.jpg",
        href: "/packages/hotel",
        desc: "Experience comfort and adventure combined. Our Hotel + Tour package includes premium accommodations and guided tours to iconic spots, ensuring a seamless and memorable Batanes getaway. Enjoy hassle-free travel with daily breakfasts and expert local guides."
     },
     {
        title: "HOMESTAY + TOUR PACKAGE",
-       image: "/pkg-village.jpg",
+       image: "/packages/batanes-homestay-ivatan.jpg",
        href: "/packages/homestay",
        desc: "Immerse yourself in authentic Ivatan culture. Stay with welcoming local families and experience the warmth of Batanes hospitality. This package combines cozy homestay lodging with engaging guided tours to historical landmarks and natural wonders."
     },
     {
        title: "ECO-TOURS (PRIVATE) — CAR/VAN",
-       image: "/pkg-beach.jpg",
+       image: "/packages/batanes-car-van-tour.jpg",
        href: "/packages/tour",
        desc: "Explore Batanes in comfort and style with our private car/van eco-tours. Ideal for families and groups, this package offers flexible itineraries, air-conditioned transport, and personalized attention from our experienced local guides."
     },
     {
        title: "ECO-TOURS (PRIVATE) — TRICYCLE",
-       image: "/pkg-lighthouse.jpg",
+       image: "/packages/batanes-tricycle-tour.jpg",
        href: "/packages/tour",
        desc: "For a more adventurous and intimate experience, hop on our private tricycle eco-tours. Perfect for couples or solo travelers, feel the fresh island breeze as you navigate through scenic coastal roads and rolling hills with a dedicated driver-guide."
     }
@@ -245,8 +245,8 @@ function BottomBanner() {
     >
       <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
         <Image
-          src="/pkg-village.jpg"
-          alt="Batanes Adventure"
+          src="/packages/batanes-tayid-lighthouse.jpg"
+          alt="Tayid Lighthouse in Mahatao, Batanes"
           fill
           style={{ objectFit: "cover", objectPosition: "center 60%" }}
         />

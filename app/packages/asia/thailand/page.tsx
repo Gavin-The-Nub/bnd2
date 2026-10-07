@@ -27,7 +27,7 @@ const tour = {
   tag: "TROPICAL ESCAPE & DAY TOURS",
   duration: "Day Tours & 4D/3N",
   location: "Bangkok, Pattaya, Khao Yai & more",
-  image: "/pkg-beach.jpg",
+  image: "/packages/asia-thailand.jpg",
   intro:
     "Thailand enchants every visitor with its shimmering golden spires, vibrant floating markets, warm hospitality, and world-renowned street food scene. In addition to custom multi-day holidays, BND Travel and Tours offers 5 exclusive Private VIP Van Day Tours (₱14,499 each for 3–10 persons) taking you across Khao Yai, Pattaya, Bangkok, Ayutthaya, and Kanchanaburi with dedicated comfort and convenience.",
   highlights: [

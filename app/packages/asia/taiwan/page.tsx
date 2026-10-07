@@ -11,7 +11,7 @@ const tour = {
   tagline: "Night Markets, Lantern Villages & Mountain Tea",
   duration: "4D / 3N",
   location: "Taipei, Jiufen & Sun Moon Lake",
-  image: "/pkg-village.jpg",
+  image: "/packages/asia-taiwan.jpg",
   intro: "Taiwan is an island of vibrant night markets, mist-shrouded mountain villages, and rich cultural traditions. Stroll down lantern-lit cobblestone streets in Jiufen, release a sky lantern with your wishes in Shifen, marvel at Taipei 101, and cruise the tranquil alpine waters of Sun Moon Lake.",
   highlights: [
     { icon: "Building2", title: "Taipei 101 Observatory", desc: "Ascend one of the world's tallest skyscrapers for 360-degree panoramic views of Taipei city." },

@@ -10,7 +10,7 @@ const tour = {
   tagline: "Highland Terraces via 6x6 Monster Truck",
   duration: "2D / 1N",
   location: "Tineg & Bangued, Abra Province",
-  image: "/pkg-village.jpg",
+  image: "/packages/kaparkan-abra.jpg",
   intro:
     "Experience the thrilling highland terraces of Kaparkan Falls and Abra's scenic natural wonders with BND Travel and Tours. Travel via dedicated roundtrip air-conditioned van from Manila to Abra, ride a rugged 6x6 monster truck up the Cordillera mountain trails to Kaparkan Falls, and explore historic bridges and natural springs.",
   placesToVisit: [

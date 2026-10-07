@@ -428,7 +428,7 @@ function MessengerHubContent() {
               </div>
               <div>
                 <div style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 14, fontWeight: 800, color: "#003366" }}>
-                  Skwitchi Travels Messenger
+                  BND Travel and Tours Messenger
                 </div>
                 <div style={{ fontFamily: "var(--font-figtree), sans-serif", fontSize: 11, color: "#16a34a", display: "flex", alignItems: "center", gap: 4 }}>
                   <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#16a34a", display: "inline-block" }} />
@@ -540,7 +540,7 @@ function MessengerHubContent() {
                 fontFamily: "var(--font-figtree), sans-serif",
               }}
             >
-              facebook.com/SkwitchiTravels <ExternalLink size={12} />
+              facebook.com/drewAdventures <ExternalLink size={12} />
             </a>
           </div>
         </div>

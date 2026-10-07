@@ -10,7 +10,7 @@ const tour = {
   tagline: "Island Escapes, Coastal Sights & Guided Tour",
   duration: "4D / 3N",
   location: "Surigao del Norte, Mindanao",
-  image: "/pkg-honeymoon.jpg",
+  image: "/packages/siargao.jpg",
   intro:
     "Experience the stunning island of Siargao with BND Travel and Tours. Based directly on our official local tour package, this getaway includes comfortable accommodation, van transfer, and guided visits to top tourist spots. Enjoy pristine beaches, tropical landscapes, and hassle-free local ground arrangements.",
   highlights: [

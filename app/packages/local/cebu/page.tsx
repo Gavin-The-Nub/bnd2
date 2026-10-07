@@ -10,7 +10,7 @@ const tour = {
   tagline: "Visayas Island Highlights & Guided Tour",
   duration: "4D / 3N",
   location: "Cebu, Visayas",
-  image: "/pkg-beach.jpg",
+  image: "/packages/cebu.jpg",
   intro:
     "Discover the best of Cebu with BND Travel and Tours. Based directly on our official local tour package, this getaway includes comfortable accommodation, van transfer, and guided visits to top tourist spots. Let our team handle your ground travel arrangements for a smooth and memorable Cebu adventure.",
   highlights: [

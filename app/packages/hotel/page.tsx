@@ -84,7 +84,7 @@ function HotelsGrid() {
        name: "Fundacion Pacita",
        price: "₱24,800 - ₱54,000",
        desc: "Nestled atop rolling hills, Fundacion Pacita invites you to bask in the exalting beauty of Basco, Batanes.",
-       image: "/team.jpg"
+       image: "/packages/batanes-fundacion-pacita.jpg"
     },
     {
        name: "Midtown Inn",

@@ -988,9 +988,38 @@ export function Navbar() {
             </h3>
             <div style={{ display: "flex", gap: 12 }}>
               {[
-                { label: "Facebook", href: "https://www.facebook.com/SkwitchiTravels", bg: "#1877F2" },
-                { label: "Instagram", href: "https://www.instagram.com/byahe_ni_drew_travel_and_tours", bg: "#E1306C" },
-                { label: "TikTok", href: "https://www.tiktok.com/@byahe_ni_drew_travel_and_tours", bg: "#000000" },
+                {
+                  label: "Facebook",
+                  href: "https://www.facebook.com/drewAdventures",
+                  bg: "#1877F2",
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                  ),
+                },
+                {
+                  label: "Instagram",
+                  href: "https://www.instagram.com/bndtravelandtours/?utm_source=qr",
+                  bg: "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none" />
+                    </svg>
+                  ),
+                },
+                {
+                  label: "TikTok",
+                  href: "https://www.tiktok.com/@byahe_ni_drew",
+                  bg: "#000000",
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-.88-.06A6.34 6.34 0 0 0 3.14 15.7 6.34 6.34 0 0 0 9.48 22a6.33 6.33 0 0 0 6.34-6.33V9.22a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.65z" />
+                    </svg>
+                  ),
+                },
               ].map((social) => (
                 <a
                   key={social.label}
@@ -1008,15 +1037,12 @@ export function Navbar() {
                     justifyContent: "center",
                     textDecoration: "none",
                     color: "#FFFFFF",
-                    fontSize: 12,
-                    fontWeight: 800,
-                    fontFamily: "var(--font-figtree), sans-serif",
                     transition: "transform 0.2s",
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
                   onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
                 >
-                  {social.label[0]}
+                  {social.icon}
                 </a>
               ))}
             </div>
@@ -1031,9 +1057,38 @@ export function Navbar() {
 export function Footer() {
   const year = new Date().getFullYear();
   const socialLinks = [
-    { label: "Facebook", href: "https://www.facebook.com/SkwitchiTravels", bg: "#1877F2" },
-    { label: "Instagram", href: "https://www.instagram.com/byahe_ni_drew_travel_and_tours", bg: "#E1306C" },
-    { label: "TikTok", href: "https://www.tiktok.com/@byahe_ni_drew_travel_and_tours", bg: "#000000" },
+    {
+      label: "Facebook",
+      href: "https://www.facebook.com/drewAdventures",
+      bg: "#1877F2",
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg>
+      ),
+    },
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/bndtravelandtours/?utm_source=qr",
+      bg: "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none" />
+        </svg>
+      ),
+    },
+    {
+      label: "TikTok",
+      href: "https://www.tiktok.com/@byahe_ni_drew",
+      bg: "#000000",
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-.88-.06A6.34 6.34 0 0 0 3.14 15.7 6.34 6.34 0 0 0 9.48 22a6.33 6.33 0 0 0 6.34-6.33V9.22a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.65z" />
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -1131,11 +1186,13 @@ export function Footer() {
                     alignItems: "center",
                     justifyContent: "center",
                     textDecoration: "none",
+                    color: "#FFFFFF",
+                    transition: "transform 0.2s",
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
                 >
-                  <span style={{ color: "#fff", fontSize: 12, fontWeight: 700, fontFamily: "var(--font-figtree), sans-serif" }}>
-                    {s.label[0]}
-                  </span>
+                  {s.icon}
                 </a>
               ))}
             </div>

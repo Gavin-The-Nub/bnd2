@@ -10,7 +10,7 @@ const tour = {
   tagline: "City of Pines & Highland City Tour",
   duration: "2D/1N & 3D/2N",
   location: "Baguio City, Benguet",
-  image: "/pkg-hotel.jpg",
+  image: "/packages/baguio-city.jpg",
   intro:
     "Escape to the Summer Capital of the Philippines with BND Travel and Tours. Based on our official Baguio tour packages, enjoy roundtrip van transfer, comfortable accommodation, and a complete city tour covering Baguio's iconic parks, gardens, shrines, and strawberry farms.",
   placesToVisit: [

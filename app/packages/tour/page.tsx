@@ -54,25 +54,25 @@ function ToursGrid() {
        name: "Batanes Daily Joiner Tours — Car/Van",
        price: "₱3,900.00 - ₱17,600.00",
        desc: "Discover Batanes' most spectacular sights alongside like-minded adventurers with our popular daily joiner tours featuring comfortable car or van transport.",
-       image: "/team.jpg"
+       image: "/packages/batanes-car-van-tour.jpg"
     },
     {
        name: "Batanes Daily Joiner Tours — Cogon Tour Tricycle",
        price: "₱5,100.00 - ₱13,250.00",
        desc: "Discover Batanes' pristine natural beauty at your own pace with our budget-friendly private eco-tours featuring authentic tricycle transport.",
-       image: "/pkg-village.jpg"
+       image: "/packages/batanes-tricycle-tour.jpg"
     },
     {
        name: "Private Eco-Tours — Car/Van",
        price: "₱5,250.00 - ₱23,500.00",
        desc: "Discover Batanes' pristine natural beauty at your own pace with our private eco-tours featuring comfortable car or van transport.",
-       image: "/pkg-hotel.jpg"
+       image: "/packages/batanes-car-van-tour.jpg"
     },
     {
        name: "Private Eco-Tours — Tricycle",
        price: "₱7,500.00 - ₱15,500.00",
        desc: "Discover Batanes' pristine natural beauty at your own pace with our budget-friendly private eco-tours featuring authentic tricycle transport.",
-       image: "/pkg-lighthouse.jpg"
+       image: "/packages/batanes-tricycle-tour.jpg"
     }
   ];
 

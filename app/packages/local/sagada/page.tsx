@@ -10,7 +10,7 @@ const tour = {
   tagline: "Highland Caves, Pine Trails & Cultural Heritage",
   duration: "3D / 2N",
   location: "Mountain Province, Cordillera",
-  image: "/pkg-lighthouse.jpg",
+  image: "/packages/sagada.jpg",
   intro:
     "Experience the peaceful Cordillera highlands with BND Travel and Tours. Based directly on our official Sagada tour package, this getaway includes 2 nights accommodation with free use of utensils and kitchen, plus roundtrip van transfer. Perfect for families, barkadas, and adventurers seeking cool mountain breezes and legendary highland landscapes.",
   placesToVisit: [

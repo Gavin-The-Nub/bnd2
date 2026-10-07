@@ -2,11 +2,11 @@ Contact Us
 
 Get To Know Us!
 
-Facebook: BND Travel and Tours
+Facebook: https://www.facebook.com/drewAdventures (BND Travel and Tours)
 
-Instagram: BND Travel and Tours
+Instagram: https://www.instagram.com/bndtravelandtours/?utm_source=qr (BND Travel and Tours)
 
-TikTok: Byahe_ni_Drew Travel and Tours
+TikTok: https://www.tiktok.com/@byahe_ni_drew (Byahe_ni_Drew Travel and Tours)
 
 Email: Bndtravelsales@gmail.com | Bndtravels01@gmail.com
 

@@ -10,7 +10,7 @@ const tour = {
   tagline: "City of Smiles, Heritage & Guided Tour",
   duration: "3D / 2N",
   location: "Negros Occidental, Visayas",
-  image: "/pkg-beach.jpg",
+  image: "/packages/bacolod.jpg",
   intro:
     "Discover Bacolod with BND Travel and Tours. Based directly on our official local tour package, your trip includes comfortable accommodation, van transfer, and guided visits to top tourist spots across the city. Enjoy hassle-free travel while you savor the culture and sights of Negros Occidental.",
   highlights: [

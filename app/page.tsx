@@ -125,17 +125,17 @@ const morePackages: Package[] = [
 
 const highlights = [
   {
-    image: "/packages/mayon-bicol.jpg",
+    image: "/1.jpg",
     title: "DOT Accredited Agency",
     desc: "Officially accredited by the Department of Tourism (DOT-R4A-TTA-03110-2026) based in Batangas, operating with the highest standards of safety and hospitality.",
   },
   {
-    image: "/packages/vigan-ilocos.jpg",
+    image: "/2.jpg",
     title: "Hassle-Free Ground Tours",
     desc: "Travel comfortably in fully air-conditioned high-roof vans with professional drivers, fuel & toll coverage, and dedicated tour coordinators on every trip.",
   },
   {
-    image: "/packages/buscalan-sagada.jpg",
+    image: "/3.jpg",
     title: "Custom Curated Itineraries",
     desc: "Over 24+ comprehensive tour packages across the Cordilleras, Luzon, Visayas, Mindanao, and Asia tailored for joiners, barkadas, and corporate outings.",
   },
@@ -894,17 +894,19 @@ function StayInTheLoop() {
     },
     {
       label: "Instagram",
-      href: "https://www.instagram.com/byahe_ni_drew_travel_and_tours",
+      href: "https://www.instagram.com/bndtravelandtours/?utm_source=qr",
       bg: "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",
       icon: (
-        <svg width="20" height="20" viewBox="0 0 448 512" fill="white">
-          <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z" />
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none" />
         </svg>
       ),
     },
     {
       label: "TikTok",
-      href: "https://www.tiktok.com/@byahe_ni_drew_travel_and_tours",
+      href: "https://www.tiktok.com/@byahe_ni_drew",
       bg: "#000000",
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="white">

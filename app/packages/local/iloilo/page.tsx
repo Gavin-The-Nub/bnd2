@@ -10,7 +10,7 @@ const tour = {
   tagline: "Heart of the Philippines, Heritage & Guided Tour",
   duration: "3D / 2N",
   location: "Iloilo City & Province, Panay Island, Visayas",
-  image: "/pkg-hotel.jpg",
+  image: "/packages/iloilo.jpg",
   intro:
     "Explore the historic and cultural heart of Western Visayas with BND Travel and Tours. Based directly on our official Iloilo tour package, enjoy comfortable hotel accommodation, van transfer, and guided visits to Iloilo's famous heritage spots, century-old churches, and attractions.",
   highlights: [

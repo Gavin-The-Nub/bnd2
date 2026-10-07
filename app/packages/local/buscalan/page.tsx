@@ -10,7 +10,7 @@ const tour = {
   tagline: "Cordillera Highland Journey & Village Trek",
   duration: "3D / 2N",
   location: "Kalinga & Mountain Province, Cordillera",
-  image: "/pkg-village.jpg",
+  image: "/packages/buscalan-sagada.jpg",
   intro:
     "Explore the breathtaking Cordillera mountain region with BND Travel and Tours. Based on our official 3-day, 2-night packages (Buscalan – Sagada and Banaue – Buscalan – Sagada), this tour includes roundtrip van transfer with driver, gas, toll, parking fees, 1 night room sharing at Buscalan with a local village guide, and 1 night accommodation in Sagada.",
   placesToVisit: [

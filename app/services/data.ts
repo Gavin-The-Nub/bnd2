@@ -22,9 +22,9 @@ export const servicesContactInfo: ContactInfo = {
   phoneTel: "0437028516",
   email: "Bndtravels01@gmail.com",
   facebook: "BND Travel and Tours",
-  facebookUrl: "https://www.facebook.com/SkwitchiTravels",
-  instagram: "byahe_ni_drew_travel_and_tours",
-  instagramUrl: "https://www.instagram.com/byahe_ni_drew_travel_and_tours",
+  facebookUrl: "https://www.facebook.com/drewAdventures",
+  instagram: "bndtravelandtours",
+  instagramUrl: "https://www.instagram.com/bndtravelandtours/?utm_source=qr",
 };
 
 export const servicesData: ServiceItem[] = [
