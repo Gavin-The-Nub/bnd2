@@ -35,4 +35,25 @@ export const videoReviews: VideoReviewItem[] = [
     videoSrc: "/reviews/AQPiLzwcPKb38Nzy77pGZhXq1htQ3hwgjri5KeLJZxIBVuj2siMxsQtm1eSSJ5EJYvtec8zVSQjFY16SXGhrLQiRKPv54EcFa4DH0WTJhQ.mp4",
     poster: "/reviews/thumbnails/rev-6.jpg",
   },
+  {
+    id: "rev-7",
+    videoSrc: "/reviews/rev-7.mp4",
+    poster: "/reviews/thumbnails/rev-7.jpg",
+  },
+  {
+    id: "rev-8",
+    videoSrc: "/reviews/rev-8.mp4",
+    poster: "/reviews/thumbnails/rev-8.jpg",
+  },
+  {
+    id: "rev-9",
+    videoSrc: "/reviews/rev-9.mp4",
+    poster: "/reviews/thumbnails/rev-9.jpg",
+  },
+  {
+    id: "rev-10",
+    videoSrc: "/reviews/rev-10.mp4",
+    poster: "/reviews/thumbnails/rev-10.jpg",
+  },
 ];
+
